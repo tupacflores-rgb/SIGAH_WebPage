@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIGAH - Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .dash-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    @media(max-width:600px){ .dash-grid { grid-template-columns: 1fr 1fr; } }
+    .dash-btn { background: white; border-radius: var(--radius); padding: 28px 16px; text-align: center; cursor: pointer; box-shadow: var(--shadow); text-decoration: none; color: var(--dark); display: flex; flex-direction: column; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; transition: box-shadow 0.2s, transform 0.15s; border-top: 4px solid var(--border); }
+    .dash-btn:hover { box-shadow: 0 6px 18px rgba(0,0,0,0.14); transform: translateY(-2px); }
+    .dash-btn .icon { font-size: 36px; }
+    .dash-btn.c1 { border-color: var(--primary); }
+    .dash-btn.c2 { border-color: var(--success); }
+    .dash-btn.c3 { border-color: var(--warning); }
+    .dash-btn.c4 { border-color: #9C27B0; }
+    .dash-btn.c5 { border-color: #F44336; }
+    .dash-btn.c6 { border-color: #607D8B; }
+
+    .welcome-box {
+      background: linear-gradient(135deg, var(--dark), #0d3d54);
+      border-radius: var(--radius);
+      padding: 0;
+      color: white;
+      margin-bottom: 20px;
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+      min-height: 110px;
+    }
+    .welcome-img {
+      width: 180px;
+      flex-shrink: 0;
+      object-fit: cover;
+      opacity: 0.55;
+    }
+    .welcome-text { padding: 22px 24px; }
+    .welcome-box h2 { font-size: 18px; color: white; }
+    .welcome-box p { color: #a0c4d5; font-size: 13px; margin-top: 6px; }
+
+    .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 20px; }
+    @media(max-width:600px){ .stats-row { grid-template-columns: 1fr 1fr; } }
+    .stat { background: white; border-radius: var(--radius); padding: 14px 12px; text-align: center; box-shadow: var(--shadow); }
+    .stat .n { font-size: 22px; font-weight: 700; }
+    .stat .l { font-size: 11px; color: var(--light-gray); margin-top: 3px; }
+
+    /* Imagen del aviso */
+    .aviso-img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      margin-bottom: 14px;
+      opacity: 0.85;
+    }
+
+    @media(max-width:600px){ .welcome-img { display: none; } }
+  </style>
+</head>
+<body>
+  <div id="site-header-slot"></div>
+
+  <div class="page-header">
+    <div class="breadcrumb"><a href="index.html">SIGAH</a> <span>›</span> Dashboard</div>
+    <h1><span class="icon">🏠</span> Panel Principal</h1>
+    <p>Resumen del sistema y accesos rápidos a todas las secciones.</p>
+  </div>
+
+  <main>
+    <!-- Bienvenida con imagen de fondo lateral -->
+    <div class="welcome-box">
+      <img class="welcome-img"
+           src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&q=80"
+           alt="Aula escolar">
+      <div class="welcome-text">
+        <h2>👋 Bienvenido/a, Administrador</h2>
+        <p>Hoy es <strong id="fecha"></strong>. Tenés <strong>3 notificaciones</strong> sin leer y <strong>1 reporte</strong> pendiente.</p>
+      </div>
+    </div>
+
+    <!-- Estadísticas rápidas -->
+    <h2 style="font-size:15px;color:var(--gray);margin-bottom:12px;">📊 Estadísticas del día</h2>
+    <div class="stats-row">
+      <div class="stat"><div class="n" style="color:var(--primary)">156</div><div class="l">Alumnos</div></div>
+      <div class="stat"><div class="n" style="color:var(--success)">87%</div><div class="l">Asistencia</div></div>
+      <div class="stat"><div class="n" style="color:var(--warning)">8</div><div class="l">En riesgo</div></div>
+      <div class="stat"><div class="n" style="color:#9C27B0">6</div><div class="l">Cursos</div></div>
+    </div>
+
+    <!-- Accesos rápidos -->
+    <h2 style="font-size:15px;color:var(--gray);margin-bottom:12px;">⚡ Accesos rápidos</h2>
+    <div class="dash-grid">
+      <a class="dash-btn c1" href="asist.html"><div class="icon">📋</div>Asistencia</a>
+      <a class="dash-btn c2" href="registry-al.html"><div class="icon">📝</div>Registro Alumnos</a>
+      <a class="dash-btn c3" href="notif.html"><div class="icon">🔔</div>Notificaciones</a>
+      <a class="dash-btn c4" href="report.html"><div class="icon">📊</div>Reportes</a>
+      <a class="dash-btn c5" href="clock.html"><div class="icon">🕐</div>Horario</a>
+      <a class="dash-btn c6" href="config.html"><div class="icon">⚙️</div>Configuración</a>
+    </div>
+
+    <!-- Aviso del sistema -->
+    <div class="card mt-24">
+      <h2>📢 Aviso del sistema</h2>
+      <!-- Imagen representativa de tecnología educativa -->
+      <img class="aviso-img"
+           src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=900&q=75"
+           alt="Desarrollo de sistemas — SIGAH">
+      <p>El sistema SIGAH fue desarrollado como proyecto final de la materia <strong>Diseño UI/UX</strong> en la <strong>EET N°3100 Rep. de la India</strong>.</p>
+      <br>
+      <p>Utiliza <strong>Python</strong> como base de backend, junto con <strong>MariaDB</strong> para la gestión de datos y una interfaz web construida con <strong>HTML, CSS y JavaScript</strong>.</p>
+      <br>
+      <p>Para soporte técnico contactar a <strong>Pixel Fix</strong> — más de 100 reparaciones y miles de sistemas optimizados.</p>
+    </div>
+  </main>
+
+  <div id="site-footer-slot"></div>
+  <script src="components.js"></script>
+  <script>
+    const d = new Date();
+    document.getElementById('fecha').textContent = d.toLocaleDateString('es-AR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  </script>
+</body>
+</html>

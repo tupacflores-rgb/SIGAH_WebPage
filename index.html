@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIGAH - Inicio de Sesión</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { flex-direction: column; }
+
+    /* Hero de fondo */
+    .login-hero {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1400&q=80') center/cover no-repeat;
+      filter: brightness(0.22) saturate(0.7);
+    }
+
+    .login-wrap {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 32px 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      width: 370px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+      text-align: center;
+    }
+
+    /* Logo / avatar con imagen real */
+    .avatar {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      margin: 0 auto 14px;
+      border: 3px solid var(--primary);
+      overflow: hidden;
+      background: #e8f6fa;
+    }
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Banner institucional */
+    .school-banner {
+      width: 100%;
+      height: 90px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      margin-bottom: 18px;
+      position: relative;
+    }
+    .school-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.55) saturate(0.8);
+    }
+    .school-banner-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    .school-banner-text span { font-size: 11px; color: #cde; }
+
+    .login-card h1 { color: var(--primary); font-size: 26px; margin-bottom: 2px; }
+    .login-card h2 { color: var(--light-gray); font-size: 13px; font-weight: 400; margin-bottom: 20px; line-height: 1.5; }
+    .login-card .form-group { text-align: left; }
+    .forgot { font-size: 12px; color: var(--light-gray); margin-top: 14px; }
+    .forgot a { color: var(--primary); text-decoration: none; }
+    .info-sys { background: #f0fbff; border-left: 3px solid var(--primary); border-radius: 6px; padding: 12px 14px; margin-top: 20px; text-align: left; }
+    .info-sys p { font-size: 12px; font-weight: 600; color: var(--dark); margin-bottom: 6px; }
+    .info-sys pre { font-size: 11px; color: #555; font-family: 'Courier New', monospace; white-space: pre-wrap; line-height: 1.7; }
+    
+    .error-message { background: #ffebee; border-left: 3px solid var(--danger); color: var(--danger); padding: 10px 12px; border-radius: 4px; margin-bottom: 14px; font-size: 12px; display: none; }
+    .error-message.show { display: block; }
+    .success-message { background: #e8f5e9; border-left: 3px solid var(--success); color: var(--success); padding: 10px 12px; border-radius: 4px; margin-bottom: 14px; font-size: 12px; display: none; }
+    .success-message.show { display: block; }
+    
+    .signup-link { margin-top: 16px; font-size: 13px; color: var(--gray); }
+    .signup-link a { color: var(--primary); font-weight: 600; text-decoration: none; }
+    .signup-link a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <!-- Fondo con foto de escuela/aula -->
+  <div class="login-hero"></div>
+
+  <div id="site-header-slot"></div>
+
+  <div class="login-wrap">
+    <div class="login-card">
+
+      <!-- Banner con imagen de la institución -->
+      <div class="school-banner">
+        <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=800&q=80"
+             alt="EET N°3100 — Institución educativa">
+        <div class="school-banner-text">
+          <strong style="font-size:13px">EET N°3100</strong>
+          <span>Rep. de la India — Salta</span>
+        </div>
+      </div>
+
+      <!-- Avatar / logo SIGAH -->
+      <div class="avatar">
+        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=200&q=80"
+             alt="Logo SIGAH">
+      </div>
+
+      <h1>SIGAH</h1>
+      <h2>Sistema Integral de Gestión<br>de Asistencias y Horarios</h2>
+
+      <div id="errorMessage" class="error-message"></div>
+      <div id="successMessage" class="success-message"></div>
+
+      <div class="form-group">
+        <label>Correo electrónico o Usuario</label>
+        <input type="text" id="emailInput" placeholder="usuario@sigah.edu.ar o usuario_nombre">
+      </div>
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" id="passwordInput" placeholder="••••••••">
+      </div>
+      <button class="btn btn-primary btn-block" onclick="iniciarSesion()">
+        Ingresar al sistema
+      </button>
+      <p class="forgot"><a href="#">¿Olvidaste tu contraseña?</a></p>
+      <div class="signup-link">
+        <span>¿No tienes cuenta?</span> <a href="add-user.html">Crear usuario</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="site-footer-slot"></div>
+  <script src="components.js"></script>
+  
+  <script>
+    // Cargar credenciales desde credentials.json
+    let credenciales = [];
+    let validacionReqs = {};
+
+    async function cargarCredenciales() {
+      try {
+        const response = await fetch('credentials.json');
+        const data = await response.json();
+        credenciales = data.usuarios;
+        validacionReqs = data.validacion.contrasena;
+      } catch (error) {
+        console.error('Error al cargar credenciales:', error);
+        // Si falla, usar credenciales locales de prueba
+        credenciales = [
+          {
+            id: 1,
+            nombre: "Rolando Flores",
+            email: "rolando@sigah.edu.ar",
+            usuario: "rolando_flores",
+            contrasena: "Sigah123@",
+            rol: "admin"
+          },
+          {
+            id: 2,
+            nombre: "Prof. López",
+            email: "lopez@sigah.edu.ar",
+            usuario: "prof_lopez",
+            contrasena: "Docente456@",
+            rol: "docente"
+          }
+        ];
+        validacionReqs = {
+          minCaracteres: 8,
+          requiereNumero: true,
+          requireMayuscula: true,
+          requireMinuscula: true,
+          requireEspecial: true
+        };
+      }
+    }
+
+    function mostrarError(mensaje) {
+      const errorDiv = document.getElementById('errorMessage');
+      errorDiv.textContent = mensaje;
+      errorDiv.classList.add('show');
+      setTimeout(() => errorDiv.classList.remove('show'), 5000);
+    }
+
+    function mostrarExito(mensaje) {
+      const successDiv = document.getElementById('successMessage');
+      successDiv.textContent = mensaje;
+      successDiv.classList.add('show');
+      setTimeout(() => successDiv.classList.remove('show'), 3000);
+    }
+
+    function validarFormatoEmail(email) {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return regex.test(email);
+    }
+
+    function validarContrasena(contrasena) {
+      const errores = [];
+      
+      if (contrasena.length < validacionReqs.minCaracteres) {
+        errores.push(`Mínimo ${validacionReqs.minCaracteres} caracteres`);
+      }
+      if (validacionReqs.requiereNumero && !/\d/.test(contrasena)) {
+        errores.push("Debe contener al menos un número");
+      }
+      if (validacionReqs.requireMayuscula && !/[A-Z]/.test(contrasena)) {
+        errores.push("Debe contener al menos una mayúscula");
+      }
+      if (validacionReqs.requireMinuscula && !/[a-z]/.test(contrasena)) {
+        errores.push("Debe contener al menos una minúscula");
+      }
+      if (validacionReqs.requireEspecial && !/[@$!%*?&]/.test(contrasena)) {
+        errores.push("Debe contener un carácter especial (@$!%*?&)");
+      }
+      
+      return errores;
+    }
+
+    function iniciarSesion() {
+      const email = document.getElementById('emailInput').value.trim();
+      const password = document.getElementById('passwordInput').value;
+
+      // Validaciones
+      if (!email) {
+        mostrarError("Por favor ingresa tu correo o usuario");
+        return;
+      }
+
+      if (!password) {
+        mostrarError("Por favor ingresa tu contraseña");
+        return;
+      }
+
+      // Buscar usuario
+      const usuario = credenciales.find(u => 
+        u.email === email || u.usuario === email
+      );
+
+      if (!usuario) {
+        mostrarError("Usuario o correo no encontrado");
+        return;
+      }
+
+      // Verificar contraseña
+      if (usuario.contrasena !== password) {
+        mostrarError("Contraseña incorrecta");
+        return;
+      }
+
+      // Login exitoso
+      mostrarExito("¡Bienvenido " + usuario.nombre + "!");
+      
+      // Guardar sesión en localStorage
+      localStorage.setItem('usuarioActual', JSON.stringify({
+        id: usuario.id,
+        nombre: usuario.nombre,
+        email: usuario.email,
+        usuario: usuario.usuario,
+        rol: usuario.rol
+      }));
+
+      // Redirigir después de 1.5 segundos
+      setTimeout(() => {
+        location.href = 'home.html';
+      }, 1500);
+    }
+
+    // Permitir Enter para enviar formulario
+    document.addEventListener('DOMContentLoaded', function() {
+      cargarCredenciales();
+      
+      document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          iniciarSesion();
+        }
+      });
+
+      document.getElementById('emailInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          iniciarSesion();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

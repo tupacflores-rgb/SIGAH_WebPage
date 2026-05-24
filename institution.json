@@ -1,0 +1,80 @@
+{
+  "institucion": {
+    "nombre": "EET N°3100 Rep. de la India",
+    "cue": "3100000",
+    "provincia": "Salta",
+    "localidad": "Salta",
+    "direccion": "República de la India S/N",
+    "codigoPostal": "4400",
+    "telefono": "+54 387 000-0000",
+    "email": "info@eet3100.edu.ar",
+    "director": "Prof. Javier García",
+    "vicedirector": "Prof. Marta López"
+  },
+  "cicloLectivo": {
+    "anio": 2026,
+    "fechaInicio": "2026-03-01",
+    "fechaFin": "2026-12-20",
+    "estado": "activo",
+    "turnosMañana": true,
+    "turnosTarde": true,
+    "turnosNoche": false
+  },
+  "cursos": [
+    {
+      "id": 1,
+      "nombre": "1° A",
+      "turno": "Mañana",
+      "capacidad": 30,
+      "cantidad": 18,
+      "preceptor": "Prof. Carmen Ruiz"
+    },
+    {
+      "id": 2,
+      "nombre": "1° B",
+      "turno": "Mañana",
+      "capacidad": 30,
+      "cantidad": 22,
+      "preceptor": "Prof. Daniel Flores"
+    },
+    {
+      "id": 3,
+      "nombre": "2° A",
+      "turno": "Mañana",
+      "capacidad": 30,
+      "cantidad": 20,
+      "preceptor": "Prof. Ricardo Santos"
+    },
+    {
+      "id": 4,
+      "nombre": "2° B",
+      "turno": "Mañana",
+      "capacidad": 30,
+      "cantidad": 19,
+      "preceptor": "Prof. Susana Gutiérrez"
+    },
+    {
+      "id": 5,
+      "nombre": "3° A",
+      "turno": "Mañana",
+      "capacidad": 30,
+      "cantidad": 17,
+      "preceptor": "Prof. Héctor Mendoza"
+    },
+    {
+      "id": 6,
+      "nombre": "3° B",
+      "turno": "Mañana",
+      "capacidad": 30,
+      "cantidad": 18,
+      "preceptor": "Prof. Lorena Castillo"
+    }
+  ],
+  "servicios": {
+    "comedor": true,
+    "biblioteca": true,
+    "laboratorio": true,
+    "gimnasio": true,
+    "auditorio": false
+  }
+}

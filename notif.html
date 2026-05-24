@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIGAH - Notificaciones</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .notif { background: white; border-radius: var(--radius); padding: 14px 16px; margin-bottom: 10px; box-shadow: var(--shadow); display: flex; align-items: flex-start; gap: 12px; cursor: pointer; transition: box-shadow 0.15s; }
+    .notif:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
+    .notif.unread { border-left: 3px solid var(--primary); }
+
+    /* Icono con imagen de usuario */
+    .notif-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; overflow: hidden; }
+    .notif-icon img { width: 100%; height: 100%; object-fit: cover; }
+    .ni-asist  { background: #e0f7fa; }
+    .ni-alert  { background: #fff3e0; }
+    .ni-info   { background: #f3e5f5; }
+    .ni-ok     { background: #e8f5e9; }
+
+    .notif-body { flex: 1; }
+    .notif-body .title { font-size: 14px; font-weight: 700; color: var(--dark); }
+    .notif-body .desc  { font-size: 13px; color: var(--gray); margin-top: 3px; }
+    .notif-body .time  { font-size: 11px; color: #bbb; margin-top: 5px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); flex-shrink: 0; margin-top: 6px; }
+
+    /* Banner de notificaciones -->
+    .notif-banner { width: 100%; height: 100px; object-fit: cover; border-radius: var(--radius); margin-bottom: 20px; opacity: 0.78; display: block; }
+  </style>
+</head>
+<body>
+  <div id="site-header-slot"></div>
+
+  <div class="page-header">
+    <div class="breadcrumb"><a href="index.html">SIGAH</a> <span>›</span> <a href="home.html">Dashboard</a> <span>›</span> Notificaciones</div>
+    <h1><span class="icon">🔔</span> Notificaciones <span class="badge badge-danger" style="font-size:13px;vertical-align:middle">5</span></h1>
+    <p>Alertas, avisos y novedades del sistema en tiempo real.</p>
+  </div>
+
+  <main>
+    <!-- Banner -->
+    <img class="notif-banner"
+         src="https://images.unsplash.com/photo-1484807352052-23338990c6c6?w=1000&q=75"
+         alt="Notificaciones del sistema — SIGAH">
+
+    <!-- Nuevas notificaciones -->
+    <div class="card">
+      <h2>🆕 Nuevas notificaciones</h2>
+      <p>Tenés <strong>4 notificaciones</strong> sin leer.</p>
+      <div class="flex-between mt-16 mb-8">
+        <span></span>
+        <button class="btn btn-outline" style="font-size:12px;padding:6px 14px">Marcar todo como leído</button>
+      </div>
+
+      <div class="notif unread">
+        <div class="notif-icon ni-asist">📋</div>
+        <div class="notif-body">
+          <div class="title">Asistencia registrada</div>
+          <div class="desc">Se registró asistencia para 1° A – Matemáticas (23/23 alumnos)</div>
+          <div class="time">Hace 10 minutos</div>
+        </div>
+        <div class="dot"></div>
+      </div>
+
+      <div class="notif unread">
+        <div class="notif-icon ni-alert">
+          <!-- Avatar del alumno con alto ausentismo -->
+          <img src="https://i.pravatar.cc/40?img=15" alt="Carrizo, Tomás">
+        </div>
+        <div class="notif-body">
+          <div class="title">Alto ausentismo detectado</div>
+          <div class="desc">Carrizo, Tomás acumula 5 ausencias este mes en 2° B</div>
+          <div class="time">Hace 1 hora</div>
+        </div>
+        <div class="dot"></div>
+      </div>
+
+      <div class="notif unread">
+        <div class="notif-icon ni-info">
+          <!-- Avatar del nuevo alumno -->
+          <img src="https://i.pravatar.cc/40?img=32" alt="González, Lara">
+        </div>
+        <div class="notif-body">
+          <div class="title">Nuevo alumno registrado</div>
+          <div class="desc">González, Lara fue agregada al curso 1° A correctamente</div>
+          <div class="time">Hace 2 horas</div>
+        </div>
+        <div class="dot"></div>
+      </div>
+
+      <div class="notif unread">
+        <div class="notif-icon ni-alert">🔔</div>
+        <div class="notif-body">
+          <div class="title">Reporte mensual pendiente</div>
+          <div class="desc">El reporte de mayo aún no fue generado ni descargado</div>
+          <div class="time">Hoy, 08:00 hs</div>
+        </div>
+        <div class="dot"></div>
+      </div>
+    </div>
+
+    <!-- Notificaciones anteriores -->
+    <div class="card">
+      <h2>🗂️ Notificaciones anteriores</h2>
+      <p>Historial de alertas y avisos de los últimos 7 días.</p><br>
+
+      <div class="notif">
+        <div class="notif-icon ni-ok">✅</div>
+        <div class="notif-body">
+          <div class="title">Reporte de abril generado</div>
+          <div class="desc">El reporte mensual fue descargado en formato PDF</div>
+          <div class="time">Ayer, 15:30 hs</div>
+        </div>
+      </div>
+
+      <div class="notif">
+        <div class="notif-icon ni-asist">📋</div>
+        <div class="notif-body">
+          <div class="title">Horario actualizado</div>
+          <div class="desc">El horario de 3° A fue modificado: se agregó Tutoría los miércoles</div>
+          <div class="time">Hace 2 días</div>
+        </div>
+      </div>
+
+      <div class="notif">
+        <div class="notif-icon ni-info">
+          <img src="https://i.pravatar.cc/40?img=47" alt="Administradora">
+        </div>
+        <div class="notif-body">
+          <div class="title">Contraseña actualizada</div>
+          <div class="desc">La contraseña de tu cuenta fue cambiada exitosamente</div>
+          <div class="time">Hace 3 días</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer-slot"></div>
+  <script src="components.js"></script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIGAH - Reportes</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 150px; border-bottom: 2px solid var(--border); padding-bottom: 0; margin-bottom: 10px; }
+    .bar-wrap { display: flex; flex-direction: column; align-items: center; flex: 1; gap: 4px; }
+    .bar { width: 100%; border-radius: 4px 4px 0 0; }
+    .bar.ok { background: var(--primary); }
+    .bar.risk { background: var(--danger); }
+    .bar-val { font-size: 11px; font-weight: 700; color: var(--gray); }
+    .bar-label { font-size: 11px; color: var(--light-gray); margin-top: 6px; }
+    .pct.high { color: var(--success); font-weight: 700; }
+    .pct.mid  { color: var(--warning); font-weight: 700; }
+    .pct.low  { color: var(--danger);  font-weight: 700; }
+    .legend { display: flex; gap: 16px; font-size: 12px; margin-top: 6px; }
+    .legend div { display: flex; align-items: center; gap: 6px; }
+    .leg-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+    /* Banner de reportes -->
+    .report-banner { width: 100%; height: 100px; object-fit: cover; border-radius: var(--radius); margin-bottom: 20px; opacity: 0.78; display: block; }
+
+    /* Imagen decorativa en resumen -->
+    .summary-img { width: 100%; height: 90px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 16px; opacity: 0.75; }
+  </style>
+</head>
+<body>
+  <div id="site-header-slot"></div>
+
+  <div class="page-header">
+    <div class="breadcrumb"><a href="index.html">SIGAH</a> <span>›</span> <a href="home.html">Dashboard</a> <span>›</span> Reportes</div>
+    <h1><span class="icon">📊</span> Reportes de Asistencia</h1>
+    <p>Analizá la asistencia por curso, mes y estadísticas generales.</p>
+  </div>
+
+  <main class="wide">
+    <!-- Banner de reportes -->
+    <img class="report-banner"
+         src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1000&q=75"
+         alt="Reportes y análisis de datos — SIGAH">
+
+    <!-- Filtros -->
+    <div class="card">
+      <h2>🎛️ Filtros del reporte</h2>
+      <p>Seleccioná el período y el curso para generar el reporte.</p><br>
+      <div class="row2">
+        <div class="form-group">
+          <label>Período</label>
+          <select><option>Mayo 2026</option><option>Abril 2026</option><option>Marzo 2026</option></select>
+        </div>
+        <div class="form-group">
+          <label>Curso</label>
+          <select><option>Todos los cursos</option><option>1° A</option><option>1° B</option><option>2° A</option></select>
+        </div>
+      </div>
+      <div class="flex-between">
+        <button class="btn btn-primary">Generar reporte</button>
+        <button class="btn btn-dark">⬇ Exportar PDF</button>
+      </div>
+    </div>
+
+    <!-- Resumen general -->
+    <div class="card">
+      <h2>📈 Resumen general — Mayo 2026</h2>
+      <img class="summary-img"
+           src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=75"
+           alt="Estadísticas generales de asistencia">
+      <div class="grid-3">
+        <div style="background:#e0f7fa;border-radius:8px;padding:16px;text-align:center">
+          <div style="font-size:26px;font-weight:700;color:var(--primary)">87%</div>
+          <div style="font-size:12px;color:#666">Asistencia promedio</div>
+        </div>
+        <div style="background:#ffebee;border-radius:8px;padding:16px;text-align:center">
+          <div style="font-size:26px;font-weight:700;color:var(--danger)">8</div>
+          <div style="font-size:12px;color:#666">Alumnos en riesgo</div>
+        </div>
+        <div style="background:#e8f5e9;border-radius:8px;padding:16px;text-align:center">
+          <div style="font-size:26px;font-weight:700;color:var(--success)">156</div>
+          <div style="font-size:12px;color:#666">Alumnos totales</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gráfico por curso -->
+    <div class="card">
+      <h2>📊 Asistencia por curso</h2>
+      <p>Porcentaje de asistencia mensual para cada curso.</p><br>
+      <div class="bar-chart">
+        <div class="bar-wrap"><div class="bar-val">92%</div><div class="bar ok" style="height:138px"></div><div class="bar-label">1°A</div></div>
+        <div class="bar-wrap"><div class="bar-val">85%</div><div class="bar ok" style="height:128px"></div><div class="bar-label">1°B</div></div>
+        <div class="bar-wrap"><div class="bar-val">78%</div><div class="bar risk" style="height:117px"></div><div class="bar-label">2°A</div></div>
+        <div class="bar-wrap"><div class="bar-val">90%</div><div class="bar ok" style="height:135px"></div><div class="bar-label">2°B</div></div>
+        <div class="bar-wrap"><div class="bar-val">88%</div><div class="bar ok" style="height:132px"></div><div class="bar-label">3°A</div></div>
+        <div class="bar-wrap"><div class="bar-val">72%</div><div class="bar risk" style="height:108px"></div><div class="bar-label">3°B</div></div>
+      </div>
+      <div class="legend">
+        <div><div class="leg-dot" style="background:var(--primary)"></div>≥ 80% (normal)</div>
+        <div><div class="leg-dot" style="background:var(--danger)"></div>&lt; 80% (riesgo)</div>
+      </div>
+    </div>
+
+    <!-- Tabla detallada -->
+    <div class="card">
+      <h2>📋 Detalle por curso</h2>
+      <p>Tabla comparativa de asistencia, ausencias y porcentajes.</p><br>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Curso</th><th>Alumnos</th><th>Presentes</th><th>Ausentes</th><th>Tardanzas</th><th>% Asistencia</th></tr></thead>
+          <tbody>
+            <tr><td>1° A</td><td>30</td><td>28</td><td>2</td><td>0</td><td class="pct high">92%</td></tr>
+            <tr><td>1° B</td><td>28</td><td>24</td><td>4</td><td>1</td><td class="pct mid">85%</td></tr>
+            <tr><td>2° A</td><td>25</td><td>20</td><td>5</td><td>2</td><td class="pct low">78%</td></tr>
+            <tr><td>2° B</td><td>27</td><td>24</td><td>3</td><td>0</td><td class="pct high">90%</td></tr>
+            <tr><td>3° A</td><td>24</td><td>21</td><td>3</td><td>1</td><td class="pct mid">88%</td></tr>
+            <tr><td>3° B</td><td>22</td><td>16</td><td>6</td><td>3</td><td class="pct low">72%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer-slot"></div>
+  <script src="components.js"></script>
+
+  <script>
+    let estudiantes = [];
+    let reportData = {};
+
+    async function cargarDatos() {
+      try {
+        const response = await fetch('students.json');
+        const data = await response.json();
+        estudiantes = data.estudiantes;
+        generarReporte();
+      } catch (error) {
+        console.error('Error al cargar datos:', error);
+        const stored = localStorage.getItem('estudiantes');
+        if (stored) {
+          estudiantes = JSON.parse(stored);
+          generarReporte();
+        }
+      }
+    }
+
+    function generarReporte() {
+      // Calcular estadísticas generales
+      const totalAlumnos = estudiantes.length;
+      const asistenciaPromedio = Math.round(
+        estudiantes.reduce((sum, e) => sum + e.asistencia, 0) / totalAlumnos
+      );
+      const alumnosEnRiesgo = estudiantes.filter(e => e.asistencia < 80).length;
+
+      // Actualizar resumen general
+      document.querySelectorAll('.grid-3 div')[0].innerHTML = 
+        `<div style="font-size:26px;font-weight:700;color:var(--primary)">${asistenciaPromedio}%</div><div style="font-size:12px;color:#666">Asistencia promedio</div>`;
+      document.querySelectorAll('.grid-3 div')[1].innerHTML = 
+        `<div style="font-size:26px;font-weight:700;color:var(--danger)">${alumnosEnRiesgo}</div><div style="font-size:12px;color:#666">Alumnos en riesgo</div>`;
+      document.querySelectorAll('.grid-3 div')[2].innerHTML = 
+        `<div style="font-size:26px;font-weight:700;color:var(--success)">${totalAlumnos}</div><div style="font-size:12px;color:#666">Alumnos totales</div>`;
+
+      // Agrupar por curso
+      const cursos = {};
+      estudiantes.forEach(e => {
+        if (!cursos[e.curso]) {
+          cursos[e.curso] = [];
+        }
+        cursos[e.curso].push(e);
+      });
+
+      // Generar gráfico de barras por curso
+      const chartHtml = Object.entries(cursos).map(([curso, alumnos]) => {
+        const asistencia = Math.round(
+          alumnos.reduce((sum, a) => sum + a.asistencia, 0) / alumnos.length
+        );
+        const barHeight = asistencia * 1.5;
+        const barClass = asistencia >= 80 ? 'ok' : 'risk';
+        return `
+          <div class="bar-wrap">
+            <div class="bar-val">${asistencia}%</div>
+            <div class="bar ${barClass}" style="height:${barHeight}px"></div>
+            <div class="bar-label">${curso}</div>
+          </div>
+        `;
+      }).join('');
+      document.querySelector('.bar-chart').innerHTML = chartHtml;
+
+      // Generar tabla de cursos
+      const tableBodyHtml = Object.entries(cursos).map(([curso, alumnos]) => {
+        const totalAlum = alumnos.length;
+        const asistencia = Math.round(alumnos.reduce((sum, a) => sum + a.asistencia, 0) / totalAlum);
+        const ausencias = alumnos.reduce((sum, a) => sum + a.ausencias, 0);
+        const tardanzas = alumnos.reduce((sum, a) => sum + a.tardanzas, 0);
+        
+        let pctClass = 'pct high';
+        if (asistencia < 80) pctClass = 'pct low';
+        else if (asistencia < 90) pctClass = 'pct mid';
+
+        return `
+          <tr>
+            <td>${curso}</td>
+            <td>${totalAlum}</td>
+            <td>${totalAlum - ausencias - tardanzas}</td>
+            <td>${ausencias}</td>
+            <td>${tardanzas}</td>
+            <td class="${pctClass}">${asistencia}%</td>
+          </tr>
+        `;
+      }).join('');
+      document.querySelector('table tbody').innerHTML = tableBodyHtml;
+    }
+
+    // Botones de filtro
+    document.addEventListener('DOMContentLoaded', function() {
+      cargarDatos();
+      
+      document.querySelector('.flex-between .btn-primary').addEventListener('click', function() {
+        generarReporte();
+        alert('Reporte generado correctamente');
+      });
+    });
+  </script>
+</body>
+</html>

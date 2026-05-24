@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIGAH - Crear Nuevo Usuario</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { flex-direction: column; }
+
+    /* Hero de fondo */
+    .login-hero {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1400&q=80') center/cover no-repeat;
+      filter: brightness(0.22) saturate(0.7);
+    }
+
+    .login-wrap {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 32px 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      width: 420px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+      text-align: center;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .login-card h1 { color: var(--primary); font-size: 24px; margin-bottom: 6px; }
+    .login-card h2 { color: var(--light-gray); font-size: 13px; font-weight: 400; margin-bottom: 20px; line-height: 1.5; }
+    .login-card .form-group { text-align: left; }
+    
+    .error-message { background: #ffebee; border-left: 3px solid var(--danger); color: var(--danger); padding: 10px 12px; border-radius: 4px; margin-bottom: 14px; font-size: 12px; display: none; }
+    .error-message.show { display: block; }
+    .success-message { background: #e8f5e9; border-left: 3px solid var(--success); color: var(--success); padding: 10px 12px; border-radius: 4px; margin-bottom: 14px; font-size: 12px; display: none; }
+    .success-message.show { display: block; }
+
+    .password-requirements {
+      background: #f5f5f5;
+      border-radius: 6px;
+      padding: 12px;
+      margin-top: 12px;
+      font-size: 11px;
+      text-align: left;
+      display: none;
+    }
+    .password-requirements.show { display: block; }
+    .req-item { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+    .req-item:last-child { margin-bottom: 0; }
+    .req-icon { width: 14px; text-align: center; }
+    .req-check { color: var(--success); }
+    .req-pending { color: #ccc; }
+
+    .form-group select {
+      width: 100%;
+    }
+
+    .button-group { display: flex; gap: 10px; margin-top: 20px; }
+    .button-group button { flex: 1; }
+    
+    .back-link { margin-top: 16px; font-size: 13px; text-align: center; }
+    .back-link a { color: var(--primary); text-decoration: none; }
+    .back-link a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .login-card { width: 90%; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Fondo con foto de escuela/aula -->
+  <div class="login-hero"></div>
+
+  <div id="site-header-slot"></div>
+
+  <div class="login-wrap">
+    <div class="login-card">
+      <h1>✨ Crear Usuario</h1>
+      <h2>Completa el formulario para registrarte<br>en SIGAH</h2>
+
+      <div id="errorMessage" class="error-message"></div>
+      <div id="successMessage" class="success-message"></div>
+
+      <!-- Datos personales -->
+      <div class="form-group">
+        <label>Nombre completo</label>
+        <input type="text" id="nombreInput" placeholder="Ej: Juan Pérez García">
+      </div>
+
+      <div class="form-group">
+        <label>Correo electrónico</label>
+        <input type="email" id="emailInput" placeholder="correo@sigah.edu.ar">
+      </div>
+
+      <div class="form-group">
+        <label>Nombre de usuario</label>
+        <input type="text" id="usuarioInput" placeholder="nombre_usuario (sin espacios)">
+      </div>
+
+      <div class="form-group">
+        <label>Rol</label>
+        <select id="rolSelect">
+          <option value="">-- Selecciona tu rol --</option>
+          <option value="admin">Administrador</option>
+          <option value="docente">Docente</option>
+          <option value="alumno">Alumno</option>
+        </select>
+      </div>
+
+      <!-- Contraseña -->
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" id="passwordInput" placeholder="••••••••" onkeyup="actualizarRequisitos()">
+      </div>
+
+      <!-- Requisitos de contraseña -->
+      <div id="passwordReqs" class="password-requirements">
+        <div class="req-item">
+          <span class="req-icon req-pending" id="reqLength">✓</span>
+          <span>Mínimo 8 caracteres</span>
+        </div>
+        <div class="req-item">
+          <span class="req-icon req-pending" id="reqNumber">✓</span>
+          <span>Al menos un número (0-9)</span>
+        </div>
+        <div class="req-item">
+          <span class="req-icon req-pending" id="reqUpper">✓</span>
+          <span>Al menos una mayúscula (A-Z)</span>
+        </div>
+        <div class="req-item">
+          <span class="req-icon req-pending" id="reqLower">✓</span>
+          <span>Al menos una minúscula (a-z)</span>
+        </div>
+        <div class="req-item">
+          <span class="req-icon req-pending" id="reqSpecial">✓</span>
+          <span>Carácter especial (@$!%*?&)</span>
+        </div>
+      </div>
+
+      <!-- Confirmación de contraseña -->
+      <div class="form-group">
+        <label>Confirmar contraseña</label>
+        <input type="password" id="passwordConfirmInput" placeholder="••••••••">
+      </div>
+
+      <!-- Botones -->
+      <div class="button-group">
+        <button class="btn btn-outline" onclick="location.href='index.html'">Cancelar</button>
+        <button class="btn btn-success" onclick="crearUsuario()">Registrarse</button>
+      </div>
+
+      <div class="back-link">
+        ¿Ya tienes cuenta? <a href="index.html">Inicia sesión aquí</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="site-footer-slot"></div>
+  <script src="components.js"></script>
+
+  <script>
+    let credenciales = [];
+    let validacionReqs = {};
+
+    async function cargarCredenciales() {
+      try {
+        const response = await fetch('credentials.json');
+        const data = await response.json();
+        credenciales = data.usuarios;
+        validacionReqs = data.validacion.contrasena;
+      } catch (error) {
+        console.error('Error al cargar credenciales:', error);
+        validacionReqs = {
+          minCaracteres: 8,
+          requiereNumero: true,
+          requireMayuscula: true,
+          requireMinuscula: true,
+          requireEspecial: true
+        };
+      }
+    }
+
+    function mostrarError(mensaje) {
+      const errorDiv = document.getElementById('errorMessage');
+      errorDiv.textContent = mensaje;
+      errorDiv.classList.add('show');
+      setTimeout(() => errorDiv.classList.remove('show'), 5000);
+    }
+
+    function mostrarExito(mensaje) {
+      const successDiv = document.getElementById('successMessage');
+      successDiv.textContent = mensaje;
+      successDiv.classList.add('show');
+    }
+
+    function validarFormatoEmail(email) {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return regex.test(email);
+    }
+
+    function actualizarRequisitos() {
+      const password = document.getElementById('passwordInput').value;
+      const reqsDiv = document.getElementById('passwordReqs');
+      
+      if (password.length > 0) {
+        reqsDiv.classList.add('show');
+      } else {
+        reqsDiv.classList.remove('show');
+      }
+
+      // Validar longitud
+      const lengthCheck = document.getElementById('reqLength');
+      if (password.length >= validacionReqs.minCaracteres) {
+        lengthCheck.textContent = '✓';
+        lengthCheck.className = 'req-icon req-check';
+      } else {
+        lengthCheck.textContent = '✗';
+        lengthCheck.className = 'req-icon req-pending';
+      }
+
+      // Validar número
+      const numberCheck = document.getElementById('reqNumber');
+      if (/\d/.test(password)) {
+        numberCheck.textContent = '✓';
+        numberCheck.className = 'req-icon req-check';
+      } else {
+        numberCheck.textContent = '✗';
+        numberCheck.className = 'req-icon req-pending';
+      }
+
+      // Validar mayúscula
+      const upperCheck = document.getElementById('reqUpper');
+      if (/[A-Z]/.test(password)) {
+        upperCheck.textContent = '✓';
+        upperCheck.className = 'req-icon req-check';
+      } else {
+        upperCheck.textContent = '✗';
+        upperCheck.className = 'req-icon req-pending';
+      }
+
+      // Validar minúscula
+      const lowerCheck = document.getElementById('reqLower');
+      if (/[a-z]/.test(password)) {
+        lowerCheck.textContent = '✓';
+        lowerCheck.className = 'req-icon req-check';
+      } else {
+        lowerCheck.textContent = '✗';
+        lowerCheck.className = 'req-icon req-pending';
+      }
+
+      // Validar carácter especial
+      const specialCheck = document.getElementById('reqSpecial');
+      if (/@[$!%*?&]/.test(password)) {
+        specialCheck.textContent = '✓';
+        specialCheck.className = 'req-icon req-check';
+      } else {
+        specialCheck.textContent = '✗';
+        specialCheck.className = 'req-icon req-pending';
+      }
+    }
+
+    function validarContrasena(contrasena) {
+      const errores = [];
+      
+      if (contrasena.length < validacionReqs.minCaracteres) {
+        errores.push(`Mínimo ${validacionReqs.minCaracteres} caracteres`);
+      }
+      if (validacionReqs.requiereNumero && !/\d/.test(contrasena)) {
+        errores.push("Debe contener al menos un número");
+      }
+      if (validacionReqs.requireMayuscula && !/[A-Z]/.test(contrasena)) {
+        errores.push("Debe contener al menos una mayúscula");
+      }
+      if (validacionReqs.requireMinuscula && !/[a-z]/.test(contrasena)) {
+        errores.push("Debe contener al menos una minúscula");
+      }
+      if (validacionReqs.requireEspecial && !/@[$!%*?&]/.test(contrasena)) {
+        errores.push("Debe contener un carácter especial (@$!%*?&)");
+      }
+      
+      return errores;
+    }
+
+    function crearUsuario() {
+      const nombre = document.getElementById('nombreInput').value.trim();
+      const email = document.getElementById('emailInput').value.trim();
+      const usuario = document.getElementById('usuarioInput').value.trim();
+      const rol = document.getElementById('rolSelect').value;
+      const password = document.getElementById('passwordInput').value;
+      const passwordConfirm = document.getElementById('passwordConfirmInput').value;
+
+      // Validaciones
+      if (!nombre) {
+        mostrarError("Por favor ingresa tu nombre completo");
+        return;
+      }
+
+      if (nombre.length < 3) {
+        mostrarError("El nombre debe tener al menos 3 caracteres");
+        return;
+      }
+
+      if (!email) {
+        mostrarError("Por favor ingresa tu correo electrónico");
+        return;
+      }
+
+      if (!validarFormatoEmail(email)) {
+        mostrarError("Por favor ingresa un correo válido (ej: usuario@sigah.edu.ar)");
+        return;
+      }
+
+      // Verificar si el email ya existe
+      if (credenciales.some(u => u.email === email)) {
+        mostrarError("Este correo ya está registrado");
+        return;
+      }
+
+      if (!usuario) {
+        mostrarError("Por favor ingresa un nombre de usuario");
+        return;
+      }
+
+      if (usuario.length < 3) {
+        mostrarError("El nombre de usuario debe tener al menos 3 caracteres");
+        return;
+      }
+
+      if (/\s/.test(usuario)) {
+        mostrarError("El nombre de usuario no puede contener espacios");
+        return;
+      }
+
+      // Verificar si el usuario ya existe
+      if (credenciales.some(u => u.usuario === usuario)) {
+        mostrarError("Este nombre de usuario ya está en uso");
+        return;
+      }
+
+      if (!rol) {
+        mostrarError("Por favor selecciona un rol");
+        return;
+      }
+
+      if (!password) {
+        mostrarError("Por favor ingresa una contraseña");
+        return;
+      }
+
+      const erroresPassword = validarContrasena(password);
+      if (erroresPassword.length > 0) {
+        mostrarError("Contraseña no cumple los requisitos:\n• " + erroresPassword.join("\n• "));
+        return;
+      }
+
+      if (!passwordConfirm) {
+        mostrarError("Por favor confirma tu contraseña");
+        return;
+      }
+
+      if (password !== passwordConfirm) {
+        mostrarError("Las contraseñas no coinciden");
+        return;
+      }
+
+      // Si todo es válido, crear el nuevo usuario
+      const nuevoUsuario = {
+        id: Math.max(...credenciales.map(u => u.id), 0) + 1,
+        nombre: nombre,
+        email: email,
+        usuario: usuario,
+        contrasena: password,
+        rol: rol,
+        estado: "activo",
+        fechaCreacion: new Date().toISOString().split('T')[0]
+      };
+
+      // Guardar en localStorage (simulando guardado)
+      let usuariosGuardados = JSON.parse(localStorage.getItem('usuariosRegistrados') || '[]');
+      usuariosGuardados.push(nuevoUsuario);
+      localStorage.setItem('usuariosRegistrados', JSON.stringify(usuariosGuardados));
+
+      // También agregar a las credenciales actuales
+      credenciales.push(nuevoUsuario);
+
+      mostrarExito("✓ Usuario registrado exitosamente. Redirigiendo al login...");
+
+      setTimeout(() => {
+        location.href = 'index.html';
+      }, 2000);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      cargarCredenciales();
+
+      document.getElementById('passwordConfirmInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          crearUsuario();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

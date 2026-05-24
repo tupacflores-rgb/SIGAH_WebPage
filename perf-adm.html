@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIGAH - Perfil Administrador</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .profile-top { text-align: center; padding-bottom: 20px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+
+    /* Foto de perfil real */
+    .photo {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      border: 4px solid var(--primary);
+      overflow: hidden;
+      background: #e0f7fa;
+    }
+    .photo img { width: 100%; height: 100%; object-fit: cover; }
+
+    .info-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f5f5f5; font-size: 14px; }
+    .info-row:last-child { border-bottom: none; }
+    .info-row .lbl { color: var(--light-gray); }
+    .info-row .val { font-weight: 600; }
+
+    /* Imagen de actividad / log -->
+    .activity-img { width: 100%; height: 100px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 14px; opacity: 0.75; }
+  </style>
+</head>
+<body>
+  <div id="site-header-slot"></div>
+
+  <div class="page-header">
+    <div class="breadcrumb"><a href="index.html">SIGAH</a> <span>›</span> <a href="home.html">Dashboard</a> <span>›</span> Perfil</div>
+    <h1><span class="icon">👤</span> Perfil del Administrador</h1>
+    <p>Información de tu cuenta y datos personales.</p>
+  </div>
+
+  <main>
+    <!-- Datos del usuario con foto real -->
+    <div class="card">
+      <h2>🪪 Datos del usuario</h2>
+      <div class="profile-top">
+        <div class="photo">
+          <img src="https://i.pravatar.cc/110?img=47"
+               alt="Foto de perfil — María González">
+        </div>
+        <h3 style="font-size:18px;color:var(--dark)">María González</h3>
+        <span class="badge badge-primary">Administradora</span>
+      </div>
+      <div class="info-row"><span class="lbl">DNI</span><span class="val">30 456 789</span></div>
+      <div class="info-row"><span class="lbl">Correo</span><span class="val">mgonzalez@sigah.edu.ar</span></div>
+      <div class="info-row"><span class="lbl">Teléfono</span><span class="val">+54 387 000 0000</span></div>
+      <div class="info-row"><span class="lbl">Institución</span><span class="val">EET N°3100 Rep. de la India</span></div>
+    </div>
+
+    <!-- Estado de cuenta -->
+    <div class="card">
+      <h2>🔑 Estado de la cuenta</h2>
+      <p>Información sobre tu sesión y permisos en el sistema.</p><br>
+      <div class="info-row"><span class="lbl">Rol</span><span class="val">Administrador</span></div>
+      <div class="info-row"><span class="lbl">Estado</span><span class="val" style="color:var(--success)">✅ Activo</span></div>
+      <div class="info-row"><span class="lbl">Último acceso</span><span class="val">Hoy, 08:30 hs</span></div>
+      <div class="info-row"><span class="lbl">Sesiones activas</span><span class="val">1</span></div>
+      <br>
+      <div class="flex-between">
+        <button class="btn btn-primary">Editar perfil</button>
+        <button class="btn btn-outline" onclick="location.href='index.html'">Cerrar sesión</button>
+      </div>
+    </div>
+
+    <!-- Actividad reciente -->
+    <div class="card">
+      <h2>📋 Actividad reciente</h2>
+      <p>Últimas acciones realizadas en el sistema.</p><br>
+      <!-- Imagen relacionada a gestión/actividad -->
+      <img class="activity-img"
+           src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=75"
+           alt="Panel de actividad — SIGAH">
+      <pre style="background:#f8f8f8;padding:12px;border-radius:6px;font-size:12px;line-height:1.8;border-left:3px solid var(--success)">
+[08:30] Inicio de sesión exitoso
+[08:35] Asistencia registrada — 1° A — Matemáticas
+[09:00] Nuevo alumno agregado — González, Lara
+[09:20] Reporte mensual consultado
+[10:10] Horario de 2° B actualizado</pre>
+    </div>
+  </main>
+
+  <div id="site-footer-slot"></div>
+  <script src="components.js"></script>
+</body>
+</html>

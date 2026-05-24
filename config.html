@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIGAH - Configuración</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .cfg-row { display: flex; align-items: center; padding: 14px 16px; border-bottom: 1px solid #f5f5f5; gap: 12px; cursor: pointer; transition: background 0.12s; }
+    .cfg-row:last-child { border-bottom: none; }
+    .cfg-row:hover { background: #f8fbff; }
+    .cfg-icon { font-size: 22px; width: 34px; text-align: center; }
+    .cfg-text { flex: 1; }
+    .cfg-text .lbl { font-size: 14px; color: var(--dark); font-weight: 600; }
+    .cfg-text .desc { font-size: 12px; color: var(--light-gray); margin-top: 2px; }
+    .arrow { color: #ccc; font-size: 18px; }
+    .toggle { width: 44px; height: 24px; background: #ccc; border-radius: 12px; cursor: pointer; position: relative; transition: background 0.2s; flex-shrink: 0; }
+    .toggle.on { background: var(--primary); }
+    .toggle::after { content: ''; position: absolute; width: 20px; height: 20px; background: white; border-radius: 50%; top: 2px; left: 2px; transition: left 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+    .toggle.on::after { left: 22px; }
+
+    /* Banner de configuración */
+    .config-banner { width: 100%; height: 100px; object-fit: cover; border-radius: var(--radius); margin-bottom: 20px; opacity: 0.75; display: block; }
+
+    /* Logo de SIGAH en el bloque "Acerca de" -->
+    .about-img { width: 100%; height: 80px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 12px; opacity: 0.7; }
+    .cfg-row.clickable { cursor: pointer; }
+    .cfg-row.clickable:hover { background: #f0fbff; }
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
+    .modal.show { display: flex; }
+    .modal-content { background: white; border-radius: var(--radius); padding: 24px; width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
+    .modal-header { font-size: 18px; font-weight: 700; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+    .modal-close { font-size: 20px; cursor: pointer; color: #ccc; }
+    .modal-close:hover { color: var(--dark); }
+    .success-msg { background: #e8f5e9; color: var(--success); padding: 10px; border-radius: 4px; margin-bottom: 12px; font-size: 12px; display: none; }
+    .success-msg.show { display: block; }
+  </style>
+</head>
+<body>
+  <div id="site-header-slot"></div>
+
+  <div class="page-header">
+    <div class="breadcrumb"><a href="index.html">SIGAH</a> <span>›</span> <a href="home.html">Dashboard</a> <span>›</span> Configuración</div>
+    <h1><span class="icon">⚙️</span> Configuración</h1>
+    <p>Administrá la institución, usuarios, notificaciones y opciones del sistema.</p>
+  </div>
+
+  <main>
+    <!-- Banner -->
+    <img class="config-banner"
+         src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1000&q=75"
+         alt="Configuración del sistema — SIGAH">
+
+    <!-- Institución -->
+    <div class="card">
+      <h2>🏫 Institución</h2>
+      <p>Datos generales del establecimiento educativo.</p><br>
+      <div class="cfg-row clickable" onclick="abrirModalInstitucion()"><div class="cfg-icon">🏫</div><div class="cfg-text"><div class="lbl">Datos del establecimiento</div><div class="desc" id="descInstitucion">Nombre, CUE, dirección</div></div><div class="arrow">›</div></div>
+      <div class="cfg-row clickable" onclick="abrirModalCicloLectivo()"><div class="cfg-icon">📅</div><div class="cfg-text"><div class="lbl">Ciclo lectivo</div><div class="desc" id="descCiclo">2026 — activo</div></div><div class="arrow">›</div></div>
+      <div class="cfg-row"><div class="cfg-icon">🎓</div><div class="cfg-text"><div class="lbl">Cursos y secciones</div><div class="desc">Gestionar cursos habilitados</div></div><div class="arrow">›</div></div>
+    </div>
+
+    <!-- Usuarios -->
+    <div class="card">
+      <h2>👥 Usuarios y accesos</h2>
+      <p>Administrá administradores, docentes y sus contraseñas.</p><br>
+      <div class="cfg-row"><div class="cfg-icon">👥</div><div class="cfg-text"><div class="lbl">Gestión de usuarios</div><div class="desc">Administradores y docentes</div></div><div class="arrow">›</div></div>
+      <div class="cfg-row"><div class="cfg-icon">🔑</div><div class="cfg-text"><div class="lbl">Cambiar contraseña</div><div class="desc">Actualiza tu contraseña de acceso</div></div><div class="arrow">›</div></div>
+    </div>
+
+    <!-- Notificaciones -->
+    <div class="card">
+      <h2>🔔 Notificaciones y alertas</h2>
+      <p>Configurá cuándo y cómo recibir avisos del sistema.</p><br>
+      <div class="cfg-row"><div class="cfg-icon">⚠️</div><div class="cfg-text"><div class="lbl">Alertas de ausentismo</div><div class="desc">Avisar al superar el límite permitido</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="cfg-row"><div class="cfg-icon">📧</div><div class="cfg-text"><div class="lbl">Notificaciones por correo</div><div class="desc">Enviar resumen diario por email</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+      <div class="cfg-row"><div class="cfg-icon">📊</div><div class="cfg-text"><div class="lbl">Reporte automático mensual</div><div class="desc">Generar al cierre de cada mes</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+    </div>
+
+    <!-- Sistema con imagen "Acerca de" -->
+    <div class="card">
+      <h2>🖥️ Sistema</h2>
+      <p>Opciones avanzadas, backup y acerca del sistema.</p><br>
+      <div class="cfg-row"><div class="cfg-icon">🗂️</div><div class="cfg-text"><div class="lbl">Exportar datos</div><div class="desc">Backup completo de la base de datos</div></div><div class="arrow">›</div></div>
+      <div class="cfg-row"><div class="cfg-icon">ℹ️</div><div class="cfg-text"><div class="lbl">Acerca de SIGAH</div><div class="desc">Versión 1.0.0 — Python + MariaDB</div></div><div class="arrow">›</div></div>
+      <br>
+      <!-- Imagen de tecnología para el bloque "Acerca de" -->
+      <img class="about-img"
+           src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=900&q=70"
+           alt="SIGAH — Sistema desarrollado en Python">
+      <pre style="background:#f8f8f8;border-left:3px solid var(--primary);padding:12px;border-radius:6px;font-size:11px;line-height:1.8">Sistema  : SIGAH v1.0
+Autor    : Rolando Maximo Tupac Flores Arce
+Backend  : Python 3.x
+DB       : MariaDB / SQLite
+Frontend : HTML5 + CSS3 + JavaScript
+Licencia : EET N°3100 — 2026</pre>
+      <br>
+      <button class="btn btn-outline" style="color:var(--danger);border-color:var(--danger);width:100%" onclick="location.href='index.html'">Cerrar sesión</button>
+    </div>
+  </main>
+
+  <div id="site-footer-slot"></div>
+  <script src="components.js"></script>
+
+  <!-- Modal Institución -->
+  <div id="institucionModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span>Editar datos de institución</span>
+        <span class="modal-close" onclick="cerrarModal('institucionModal')">&times;</span>
+      </div>
+      <div id="successMsg" class="success-msg"></div>
+      <div class="form-group">
+        <label>Nombre de la institución</label>
+        <input type="text" id="nombreInst" placeholder="EET N°3100 Rep. de la India">
+      </div>
+      <div class="form-group">
+        <label>CUE</label>
+        <input type="text" id="cueInst" placeholder="3100000">
+      </div>
+      <div class="form-group">
+        <label>Provincia</label>
+        <input type="text" id="provinciaInst" placeholder="Salta">
+      </div>
+      <div class="form-group">
+        <label>Localidad</label>
+        <input type="text" id="localidadInst" placeholder="Salta">
+      </div>
+      <div class="form-group">
+        <label>Dirección</label>
+        <input type="text" id="direccionInst" placeholder="República de la India S/N">
+      </div>
+      <div class="form-group">
+        <label>Teléfono</label>
+        <input type="tel" id="telefonoInst" placeholder="+54 387 000-0000">
+      </div>
+      <div class="form-group">
+        <label>Correo electrónico</label>
+        <input type="email" id="emailInst" placeholder="info@eet3100.edu.ar">
+      </div>
+      <div class="flex-between" style="margin-top: 20px;">
+        <button class="btn btn-outline" onclick="cerrarModal('institucionModal')">Cancelar</button>
+        <button class="btn btn-success" onclick="guardarInstitucion()">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Ciclo Lectivo -->
+  <div id="cicloModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span>Editar ciclo lectivo</span>
+        <span class="modal-close" onclick="cerrarModal('cicloModal')">&times;</span>
+      </div>
+      <div id="successMsg2" class="success-msg"></div>
+      <div class="form-group">
+        <label>Año del ciclo</label>
+        <input type="number" id="anioCiclo" placeholder="2026" min="2020" max="2100">
+      </div>
+      <div class="form-group">
+        <label>Fecha de inicio</label>
+        <input type="date" id="fechaInicio">
+      </div>
+      <div class="form-group">
+        <label>Fecha de fin</label>
+        <input type="date" id="fechaFin">
+      </div>
+      <div class="form-group">
+        <label>Estado</label>
+        <select id="estadoCiclo">
+          <option value="activo">Activo</option>
+          <option value="finalizado">Finalizado</option>
+          <option value="pausado">Pausado</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Turno Mañana</label>
+        <label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="turnoManana"> Habilitado</label>
+      </div>
+      <div class="form-group">
+        <label>Turno Tarde</label>
+        <label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="turnoTarde"> Habilitado</label>
+      </div>
+      <div class="form-group">
+        <label>Turno Noche</label>
+        <label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="turnoNoche"> Habilitado</label>
+      </div>
+      <div class="flex-between" style="margin-top: 20px;">
+        <button class="btn btn-outline" onclick="cerrarModal('cicloModal')">Cancelar</button>
+        <button class="btn btn-success" onclick="guardarCiclo()">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let institucion = {};
+    let cicloLectivo = {};
+
+    async function cargarDatos() {
+      try {
+        const response = await fetch('institution.json');
+        const data = await response.json();
+        institucion = data.institucion;
+        cicloLectivo = data.cicloLectivo;
+        actualizarDescripciones();
+      } catch (error) {
+        console.error('Error al cargar datos:', error);
+      }
+    }
+
+    function actualizarDescripciones() {
+      document.getElementById('descInstitucion').textContent = institucion.nombre || 'Nombre, CUE, dirección';
+      document.getElementById('descCiclo').textContent = cicloLectivo.anio + ' — ' + cicloLectivo.estado;
+    }
+
+    function abrirModalInstitucion() {
+      document.getElementById('nombreInst').value = institucion.nombre || '';
+      document.getElementById('cueInst').value = institucion.cue || '';
+      document.getElementById('provinciaInst').value = institucion.provincia || '';
+      document.getElementById('localidadInst').value = institucion.localidad || '';
+      document.getElementById('direccionInst').value = institucion.direccion || '';
+      document.getElementById('telefonoInst').value = institucion.telefono || '';
+      document.getElementById('emailInst').value = institucion.email || '';
+      document.getElementById('institucionModal').classList.add('show');
+    }
+
+    function abrirModalCicloLectivo() {
+      document.getElementById('anioCiclo').value = cicloLectivo.anio || 2026;
+      document.getElementById('fechaInicio').value = cicloLectivo.fechaInicio || '';
+      document.getElementById('fechaFin').value = cicloLectivo.fechaFin || '';
+      document.getElementById('estadoCiclo').value = cicloLectivo.estado || 'activo';
+      document.getElementById('turnoManana').checked = cicloLectivo.turnosMañana !== false;
+      document.getElementById('turnoTarde').checked = cicloLectivo.turnosTarde !== false;
+      document.getElementById('turnoNoche').checked = cicloLectivo.turnosNoche !== false;
+      document.getElementById('cicloModal').classList.add('show');
+    }
+
+    function cerrarModal(modalId) {
+      document.getElementById(modalId).classList.remove('show');
+    }
+
+    function guardarInstitucion() {
+      institucion.nombre = document.getElementById('nombreInst').value;
+      institucion.cue = document.getElementById('cueInst').value;
+      institucion.provincia = document.getElementById('provinciaInst').value;
+      institucion.localidad = document.getElementById('localidadInst').value;
+      institucion.direccion = document.getElementById('direccionInst').value;
+      institucion.telefono = document.getElementById('telefonoInst').value;
+      institucion.email = document.getElementById('emailInst').value;
+
+      localStorage.setItem('institucion', JSON.stringify(institucion));
+      
+      const msgDiv = document.getElementById('successMsg');
+      msgDiv.textContent = '✓ Datos de institución actualizados correctamente';
+      msgDiv.classList.add('show');
+      
+      actualizarDescripciones();
+      setTimeout(() => {
+        msgDiv.classList.remove('show');
+        cerrarModal('institucionModal');
+      }, 2000);
+    }
+
+    function guardarCiclo() {
+      cicloLectivo.anio = parseInt(document.getElementById('anioCiclo').value);
+      cicloLectivo.fechaInicio = document.getElementById('fechaInicio').value;
+      cicloLectivo.fechaFin = document.getElementById('fechaFin').value;
+      cicloLectivo.estado = document.getElementById('estadoCiclo').value;
+      cicloLectivo.turnosMañana = document.getElementById('turnoManana').checked;
+      cicloLectivo.turnosTarde = document.getElementById('turnoTarde').checked;
+      cicloLectivo.turnosNoche = document.getElementById('turnoNoche').checked;
+
+      localStorage.setItem('cicloLectivo', JSON.stringify(cicloLectivo));
+      
+      const msgDiv = document.getElementById('successMsg2');
+      msgDiv.textContent = '✓ Ciclo lectivo actualizado correctamente';
+      msgDiv.classList.add('show');
+      
+      actualizarDescripciones();
+      setTimeout(() => {
+        msgDiv.classList.remove('show');
+        cerrarModal('cicloModal');
+      }, 2000);
+    }
+
+    document.addEventListener('DOMContentLoaded', cargarDatos);
+  </script>
+</body>
+</html>

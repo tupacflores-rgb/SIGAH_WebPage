@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV — Rolando Maximo Tupac Flores Arce</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .cv-top { background: linear-gradient(135deg, var(--dark) 0%, #0d3d54 100%); border-radius: var(--radius); padding: 32px 28px; color: white; display: flex; gap: 24px; align-items: center; margin-bottom: 24px; flex-wrap: wrap; }
+    .cv-avatar { width: 110px; height: 110px; border-radius: 50%; overflow: hidden; border: 4px solid var(--primary); flex-shrink: 0; background: #e0f7fa; }
+    .cv-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .cv-intro h1 { color: white; font-size: 22px; }
+    .cv-intro h2 { color: var(--primary); font-size: 14px; font-weight: 400; border: none; padding: 0; margin-top: 4px; }
+    .cv-intro p  { color: #a0c4d5; font-size: 13px; margin-top: 6px; line-height: 1.7; }
+    .cv-contact  { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 12px; font-size: 12px; color: #a0c4d5; }
+    .cv-contact span { display: flex; align-items: center; gap: 4px; }
+
+    .cv-section { margin-bottom: 24px; }
+    .cv-section h2 { font-size: 15px; color: var(--dark); padding-bottom: 8px; border-bottom: 2px solid var(--primary); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+
+    .cv-item { margin-bottom: 18px; padding-left: 14px; border-left: 3px solid var(--border); }
+    .cv-item h3 { font-size: 15px; color: var(--dark); }
+    .cv-item h4 { font-size: 13px; color: var(--primary); font-weight: 400; margin-top: 2px; }
+    .cv-item .period { font-size: 12px; color: var(--light-gray); margin-top: 2px; display: flex; align-items: center; gap: 4px; }
+    .cv-item p { font-size: 13px; color: var(--gray); margin-top: 6px; line-height: 1.7; }
+    .cv-item ul { font-size: 13px; color: var(--gray); padding-left: 18px; line-height: 1.9; margin-top: 4px; }
+
+    /* Imagen de proyecto en el item */
+    .cv-item-img { width: 100%; height: 120px; object-fit: cover; border-radius: var(--radius-sm); margin-top: 10px; opacity: 0.88; }
+
+    .skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+    @media(max-width:600px){ .skills-grid { grid-template-columns: 1fr 1fr; } }
+    .skill-item { background: #f4f7fa; border-radius: 8px; padding: 12px 14px; }
+    .skill-item h4 { font-size: 13px; color: var(--dark); margin-bottom: 6px; }
+    .skill-bar-wrap { background: #e0e0e0; border-radius: 20px; height: 6px; }
+    .skill-bar { background: var(--primary); border-radius: 20px; height: 6px; }
+    .skill-pct { font-size: 11px; color: var(--light-gray); margin-top: 4px; text-align: right; }
+
+    .project-card { background: #f8fbff; border: 1px solid #d0eaf5; border-radius: 8px; overflow: hidden; margin-bottom: 12px; }
+    .project-card-img { width: 100%; height: 100px; object-fit: cover; opacity: 0.82; }
+    .project-card-body { padding: 12px 16px; }
+    .project-card h3 { font-size: 14px; color: var(--dark); }
+    .project-card h4 { font-size: 12px; color: var(--primary); margin-top: 2px; }
+    .project-card p { font-size: 13px; color: var(--gray); margin-top: 6px; line-height: 1.7; }
+
+    .print-btn { background: white; border: 1.5px solid var(--primary); color: var(--primary); padding: 10px 22px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .print-btn:hover { background: var(--primary); color: white; }
+    @media print { .site-header, footer, .print-btn, #site-header-slot, #site-footer-slot { display: none !important; } body { background: white; } }
+  </style>
+</head>
+<body>
+  <div id="site-header-slot"></div>
+
+  <div class="page-header">
+    <div class="breadcrumb"><a href="index.html">SIGAH</a> <span>›</span> CV</div>
+    <h1><span class="icon">📄</span> Currículum Vitae</h1>
+    <p>Perfil profesional y académico de Rolando Maximo Tupac Flores Arce.</p>
+  </div>
+
+  <main>
+    <!-- Encabezado del CV con foto de perfil -->
+    <div class="cv-top">
+      <div class="cv-avatar">
+        <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&q=80"
+             alt="Foto de perfil — Rolando Flores Arce">
+      </div>
+      <div class="cv-intro">
+        <h1>Rolando Maximo Tupac Flores Arce</h1>
+        <h2>Desarrollador de Software · Técnico en Reparación de PC · Estudiante</h2>
+        <p>
+          Estudiante de la EET N°3100 "Rep. de la India" — Salta, Argentina.<br>
+          Fundador de <strong>Pixel Fix</strong>, marca personal de reparación de computadoras con<br>
+          más de 100 reparaciones y miles de consultas resueltas.
+        </p>
+        <div class="cv-contact">
+          <span>📅 05/01/2009</span>
+          <span>📍 Salta, Argentina</span>
+          <span>✉️ pixelfix@email.com</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:right;margin-bottom:16px">
+      <button class="print-btn" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+    </div>
+
+    <!-- Experiencia laboral -->
+    <div class="card cv-section">
+      <h2>💼 Experiencia laboral y proyectos</h2>
+
+      <div class="cv-item">
+        <h3>Pixel Fix — Reparación de computadoras</h3>
+        <h4>Fundador y Técnico Principal</h4>
+        <div class="period">📅 2022 — Presente · Salta, Argentina</div>
+        <p>Marca personal de servicios técnicos de hardware y software para computadoras de escritorio y notebooks.</p>
+        <ul>
+          <li>Más de <strong>100 reparaciones</strong> de hardware completadas exitosamente</li>
+          <li>Miles de consultas técnicas resueltas de forma presencial y remota</li>
+          <li>Recuperación y optimización de sistemas operativos (Windows/Linux)</li>
+          <li>Instalación y configuración de software a medida para clientes</li>
+          <li>Mantenimiento preventivo y limpieza de equipos</li>
+        </ul>
+        <!-- Imagen de taller de PC -->
+        <img class="cv-item-img"
+             src="https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=800&q=75"
+             alt="Taller de reparación de computadoras — Pixel Fix">
+      </div>
+
+      <hr style="border:none;border-top:1px solid var(--border);margin:16px 0">
+
+      <div class="cv-item">
+        <h3>SIGAH — Sistema Integral de Gestión de Asistencias y Horarios</h3>
+        <h4>Desarrollador principal · Proyecto académico</h4>
+        <div class="period">📅 2025 — 2026 · EET N°3100</div>
+        <p>Sistema web completo para la gestión de asistencias y horarios escolares.</p>
+        <ul>
+          <li>Backend desarrollado en <strong>Python</strong> con base de datos <strong>MariaDB/SQLite</strong></li>
+          <li>Frontend con <strong>HTML5, CSS3 y JavaScript</strong> sin frameworks externos</li>
+          <li>Módulos: asistencia, horarios, notificaciones, reportes PDF, registro de alumnos</li>
+          <li>Integración con <strong>SANE</strong> para notificaciones automáticas</li>
+        </ul>
+        <!-- Imagen de programación / desarrollo web -->
+        <img class="cv-item-img"
+             src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&q=75"
+             alt="Desarrollo del sistema SIGAH">
+      </div>
+
+      <hr style="border:none;border-top:1px solid var(--border);margin:16px 0">
+
+      <div class="cv-item">
+        <h3>SANE — Sistema Automático de Notificaciones Escolares</h3>
+        <h4>Desarrollador · Proyecto personal</h4>
+        <div class="period">📅 2025 — Presente</div>
+        <p>Módulo complementario a SIGAH que automatiza el envío de notificaciones.</p>
+        <ul>
+          <li>Desarrollado íntegramente en <strong>Python</strong></li>
+          <li>Integración con servicios de mensajería y correo electrónico</li>
+          <li>Configuración de umbrales y reglas de disparo automático</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Educación -->
+    <div class="card cv-section">
+      <h2>🎓 Educación</h2>
+      <div class="cv-item">
+        <h3>EET N°3100 "Rep. de la India"</h3>
+        <h4>Educación Secundaria Técnica</h4>
+        <div class="period">📅 2021 — Presente · Salta, Argentina</div>
+        <!-- Imagen de escuela técnica -->
+        <img class="cv-item-img"
+             src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=75"
+             alt="EET N°3100 — Escuela técnica Salta"
+             style="margin-bottom:10px">
+        <ul>
+          <li>Materias destacadas: Diseño UI/UX, Programación, Bases de datos, Redes</li>
+          <li>Proyecto final integrador: Sistema SIGAH</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Habilidades técnicas -->
+    <div class="card cv-section">
+      <h2>⚙️ Habilidades técnicas</h2>
+      <h3 style="font-size:14px;color:var(--gray);margin-bottom:12px">💻 Lenguajes de programación</h3>
+      <div class="skills-grid">
+        <div class="skill-item"><h4>Python</h4><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div><div class="skill-pct">85%</div></div>
+        <div class="skill-item"><h4>HTML5</h4><div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div><div class="skill-pct">90%</div></div>
+        <div class="skill-item"><h4>CSS3</h4><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div><div class="skill-pct">85%</div></div>
+        <div class="skill-item"><h4>JavaScript</h4><div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div><div class="skill-pct">70%</div></div>
+        <div class="skill-item"><h4>PHP</h4><div class="skill-bar-wrap"><div class="skill-bar" style="width:65%"></div></div><div class="skill-pct">65%</div></div>
+        <div class="skill-item"><h4>C++</h4><div class="skill-bar-wrap"><div class="skill-bar" style="width:55%"></div></div><div class="skill-pct">55%</div></div>
+      </div>
+      <br>
+      <h3 style="font-size:14px;color:var(--gray);margin-bottom:12px">🗄️ Bases de datos</h3>
+      <div class="skills-grid">
+        <div class="skill-item"><h4>MariaDB</h4><div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div><div class="skill-pct">80%</div></div>
+        <div class="skill-item"><h4>MySQL</h4><div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div><div class="skill-pct">75%</div></div>
+        <div class="skill-item"><h4>SQLite</h4><div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div><div class="skill-pct">80%</div></div>
+      </div>
+      <br>
+      <h3 style="font-size:14px;color:var(--gray);margin-bottom:12px">🔧 Técnico en hardware</h3>
+      <p style="font-size:13px;color:var(--gray);line-height:1.8">
+        Diagnóstico de fallas en hardware · Soldadura y reemplazo de componentes ·
+        Instalación y configuración de SO (Windows / Linux) · Redes básicas ·
+        Recuperación de datos · Optimización de sistemas
+      </p>
+    </div>
+
+    <!-- Proyectos destacados con imágenes -->
+    <div class="card cv-section">
+      <h2>🚀 Proyectos destacados</h2>
+
+      <div class="project-card">
+        <img class="project-card-img"
+             src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&q=75"
+             alt="SIGAH — Sistema de gestión escolar">
+        <div class="project-card-body">
+          <h3>SIGAH — Sistema Integral de Gestión de Asistencias y Horarios</h3>
+          <h4>Python · HTML/CSS/JS · MariaDB · SQLite</h4>
+          <p>Sistema web completo para gestión escolar. Incluye registro de alumnos, toma de asistencia, visualización de horarios, reportes y notificaciones automáticas.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img class="project-card-img"
+             src="https://images.unsplash.com/photo-1484807352052-23338990c6c6?w=800&q=75"
+             alt="SANE — Notificaciones automáticas">
+        <div class="project-card-body">
+          <h3>SANE — Sistema Automático de Notificaciones Escolares</h3>
+          <h4>Python</h4>
+          <p>Módulo de automatización para el envío de alertas a padres y docentes ante altos índices de ausentismo.</p>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img class="project-card-img"
+             src="https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=800&q=75"
+             alt="Pixel Fix — Reparación de PCs">
+        <div class="project-card-body">
+          <h3>Pixel Fix</h3>
+          <h4>Hardware · Software · Atención al cliente</h4>
+          <p>Marca personal de reparación de computadoras. +100 reparaciones y miles de consultas resueltas en Salta desde 2022.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info adicional -->
+    <div class="card cv-section">
+      <h2>ℹ️ Información adicional</h2>
+      <pre style="background:#f4f7fa;padding:12px;border-radius:6px;font-size:12px;border-left:3px solid var(--primary)">Nombre   : Rolando Maximo Tupac Flores Arce
+Nacido   : 5 de enero de 2009 (17 años)
+Ciudad   : Salta, Argentina
+Escuela  : EET N°3100 Rep. de la India
+Contacto : pixelfix@email.com
+Proyectos: SIGAH · SANE · Pixel Fix</pre>
+      <br>
+      <p style="font-size:13px;color:var(--gray);line-height:1.8">
+        Idiomas: <strong>Español</strong> (nativo) · <strong>Inglés técnico</strong> (lectura de documentación).<br>
+        Disponibilidad: tiempo parcial, tardes y fines de semana.<br>
+        Intereses: programación, electrónica, robótica, sistemas embebidos.
+      </p>
+    </div>
+  </main>
+
+  <div id="site-footer-slot"></div>
+  <script src="components.js"></script>
+</body>
+</html>

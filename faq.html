@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIGAH - Preguntas Frecuentes</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Banner de sección con imagen -->
+    .faq-banner { width: 100%; height: 120px; object-fit: cover; border-radius: var(--radius); margin-bottom: 20px; opacity: 0.85; display: block; }
+
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-question { width: 100%; text-align: left; background: none; border: none; padding: 16px 0; font-size: 14px; font-weight: 600; color: var(--dark); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .faq-question:hover { color: var(--primary); }
+    .faq-arrow { font-size: 18px; color: var(--primary); transition: transform 0.2s; flex-shrink: 0; }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .faq-answer.open { max-height: 700px; }
+    .faq-answer p { font-size: 13px; color: var(--gray); line-height: 1.8; padding-bottom: 16px; }
+    .faq-answer pre { background: #f4f7fa; border-left: 3px solid var(--primary); padding: 10px 12px; border-radius: 6px; font-size: 11px; margin-bottom: 14px; line-height: 1.7; }
+    .faq-answer ul { font-size: 13px; color: var(--gray); padding-left: 20px; line-height: 1.9; padding-bottom: 14px; }
+
+    /* Imagen dentro de respuesta FAQ */
+    .faq-img { width: 100%; height: 110px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 12px; opacity: 0.82; }
+
+    .contact-box { border-radius: var(--radius); overflow: hidden; }
+    .contact-box-img { width: 100%; height: 110px; object-fit: cover; filter: brightness(0.4); display: block; }
+    .contact-box-body { background: var(--dark); padding: 24px; text-align: center; color: white; }
+    .contact-box-body h2 { color: var(--primary); border: none; font-size: 18px; padding: 0; margin-bottom: 10px; }
+    .contact-box-body p { color: #aaa; font-size: 13px; margin-bottom: 20px; line-height: 1.8; }
+  </style>
+</head>
+<body>
+  <div id="site-header-slot"></div>
+
+  <div class="page-header">
+    <div class="breadcrumb"><a href="index.html">SIGAH</a> <span>›</span> FAQ</div>
+    <h1><span class="icon">❓</span> Preguntas Frecuentes</h1>
+    <p>Respuestas a las dudas más comunes sobre SIGAH y Pixel Fix.</p>
+  </div>
+
+  <main>
+
+    <!-- Sobre SIGAH -->
+    <div class="card">
+      <h2>🖥️ Sobre SIGAH</h2>
+      <!-- Banner de la sección -->
+      <img class="faq-banner"
+           src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=900&q=75"
+           alt="SIGAH — Sistema Integral de Gestión Escolar">
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggle(this)">
+          <h3 style="font-size:14px;font-weight:600;margin:0">¿Qué es SIGAH?</h3>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>SIGAH es el <strong>Sistema Integral de Gestión de Asistencias y Horarios</strong>, desarrollado por Rolando Maximo Tupac Flores Arce como proyecto de la materia Diseño UI/UX en la EET N°3100 "Rep. de la India".</p>
+          <p>Permite a instituciones educativas registrar asistencias, gestionar horarios de clases, generar reportes y enviar notificaciones automáticas a través del módulo SANE.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggle(this)">
+          <h3 style="font-size:14px;font-weight:600;margin:0">¿Con qué tecnologías está desarrollado?</h3>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">
+          <img class="faq-img"
+               src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=800&q=75"
+               alt="Python y tecnologías del backend">
+          <pre>Backend  : Python 3.x
+Base de datos: MariaDB (producción) / SQLite (desarrollo)
+Frontend : HTML5 + CSS3 + JavaScript
+Sistema de notificaciones: SANE (Python)</pre>
+          <p>No utiliza frameworks externos pesados: el frontend es 100% HTML, CSS y JS nativo.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggle(this)">
+          <h3 style="font-size:14px;font-weight:600;margin:0">¿Qué módulos incluye el sistema?</h3>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">
+          <ul>
+            <li><strong>Inicio de sesión</strong> — Acceso seguro con roles</li>
+            <li><strong>Dashboard</strong> — Estadísticas y accesos rápidos</li>
+            <li><strong>Registro de alumnos</strong> — Alta y gestión de estudiantes</li>
+            <li><strong>Asistencia</strong> — Toma y seguimiento por curso y materia</li>
+            <li><strong>Horario</strong> — Grilla semanal interactiva</li>
+            <li><strong>Reportes</strong> — Gráficos y exportación PDF</li>
+            <li><strong>Notificaciones</strong> — Alertas en tiempo real (SANE)</li>
+            <li><strong>Configuración</strong> — Gestión del sistema y usuarios</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggle(this)">
+          <h3 style="font-size:14px;font-weight:600;margin:0">¿Qué es SANE?</h3>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>SANE es el <strong>Sistema Automático de Notificaciones Escolares</strong>, un módulo complementario a SIGAH también desarrollado en Python.</p>
+          <p>Se encarga de detectar automáticamente situaciones de riesgo (como alto ausentismo) y enviar notificaciones a padres, docentes y administradores sin intervención manual.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sobre Pixel Fix -->
+    <div class="card">
+      <h2>🔧 Sobre Pixel Fix</h2>
+      <!-- Banner de taller técnico -->
+      <img class="faq-banner"
+           src="https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=900&q=75"
+           alt="Pixel Fix — Taller de reparación de PCs">
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggle(this)">
+          <h3 style="font-size:14px;font-weight:600;margin:0">¿Qué es Pixel Fix?</h3>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><strong>Pixel Fix</strong> es la marca personal de servicios técnicos de Rolando Flores Arce, especializada en reparación y mantenimiento de computadoras de escritorio y notebooks.</p>
+          <p>Con más de <strong>100 reparaciones exitosas</strong> y miles de consultas resueltas, Pixel Fix es referente en soporte técnico en Salta, Argentina.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggle(this)">
+          <h3 style="font-size:14px;font-weight:600;margin:0">¿Qué servicios ofrece Pixel Fix?</h3>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">
+          <ul>
+            <li>Reparación de hardware (placa base, pantalla, teclado, disco)</li>
+            <li>Recuperación de datos y sistemas operativos</li>
+            <li>Instalación y reinstalación de Windows/Linux</li>
+            <li>Optimización y limpieza de equipos lentos</li>
+            <li>Configuración de redes domésticas y laborales</li>
+            <li>Consultoría técnica personalizada</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggle(this)">
+          <h3 style="font-size:14px;font-weight:600;margin:0">¿Cómo puedo solicitar un servicio?</h3>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Podés contactar a Pixel Fix por correo electrónico o de forma presencial en Salta.</p>
+          <p>✉️ <strong>pixelfix@email.com</strong></p>
+          <p>Respondemos en menos de 24 horas hábiles.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Uso del sistema -->
+    <div class="card">
+      <h2>📋 Uso del sistema SIGAH</h2>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggle(this)">
+          <h3 style="font-size:14px;font-weight:600;margin:0">¿Cómo registro la asistencia diaria?</h3>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Desde el <a href="home.html" style="color:var(--primary)">Dashboard</a>, accedé al módulo <strong>Asistencia</strong>. Seleccioná el curso, la fecha y la materia, luego marcá el estado de cada alumno y presioná <em>Guardar Asistencia</em>.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggle(this)">
+          <h3 style="font-size:14px;font-weight:600;margin:0">¿Cómo genero un reporte de asistencia?</h3>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Desde el módulo <a href="report.html" style="color:var(--primary)">Reportes</a>, seleccioná el período y el curso. El sistema genera el gráfico y la tabla automáticamente. Podés exportar en PDF con el botón <em>Exportar PDF</em>.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggle(this)">
+          <h3 style="font-size:14px;font-weight:600;margin:0">¿Qué pasa si un alumno alcanza el límite de ausencias?</h3>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>El módulo <strong>SANE</strong> detecta automáticamente cuando un alumno supera el umbral. Se genera una alerta en <a href="notif.html" style="color:var(--primary)">Notificaciones</a> y se envía aviso al administrador y/o docente.</p>
+          <p>El umbral se configura desde <a href="config.html" style="color:var(--primary)">Configuración → Notificaciones</a>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contacto con imagen -->
+    <div class="contact-box">
+      <img class="contact-box-img"
+           src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=900&q=75"
+           alt="Contacto y soporte técnico Pixel Fix">
+      <div class="contact-box-body">
+        <h2>¿No encontraste tu respuesta?</h2>
+        <p>
+          Escribinos y te respondemos a la brevedad.<br>
+          También podés revisar el <a href="blog.html" style="color:var(--primary)">Blog técnico</a> para más información.
+        </p>
+        <a href="mailto:pixelfix@email.com" class="btn btn-primary" style="padding:12px 28px;font-size:14px">✉️ Contactar a soporte</a>
+      </div>
+    </div>
+
+  </main>
+
+  <div id="site-footer-slot"></div>
+  <script src="components.js"></script>
+  <script>
+    function toggle(btn) {
+      const ans = btn.nextElementSibling;
+      const arr = btn.querySelector('.faq-arrow');
+      const isOpen = ans.classList.contains('open');
+      document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.faq-arrow').forEach(a => a.textContent = '+');
+      if (!isOpen) {
+        ans.classList.add('open');
+        arr.textContent = '−';
+      }
+    }
+  </script>
+</body>
+</html>

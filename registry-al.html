@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIGAH - Registro de Alumnos</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .photo-section { text-align: center; margin-bottom: 20px; }
+    .photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      border: 3px solid var(--border);
+      overflow: hidden;
+      background: #e0e0e0;
+      position: relative;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .photo:hover { border-color: var(--primary); }
+    .photo img { width: 100%; height: 100%; object-fit: cover; }
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      opacity: 0;
+      transition: opacity 0.2s;
+      border-radius: 50%;
+    }
+    .photo:hover .photo-overlay { opacity: 1; }
+    .reg-banner { width: 100%; height: 110px; object-fit: cover; border-radius: var(--radius); margin-bottom: 20px; opacity: 0.82; display: block; }
+    .alumno-item { background: #f8f8f8; border-radius: 8px; padding: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
+    .alumno-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); }
+    .alumno-info { flex: 1; }
+    .alumno-info .nombre { font-weight: 700; color: var(--dark); }
+    .alumno-info .datos { font-size: 12px; color: var(--gray); }
+    .alumno-acciones { display: flex; gap: 6px; }
+    .alumno-acciones button { padding: 6px 12px; font-size: 12px; }
+    .error-msg { background: #ffebee; color: var(--danger); padding: 10px; border-radius: 4px; margin-bottom: 12px; font-size: 12px; display: none; }
+    .error-msg.show { display: block; }
+    .success-msg { background: #e8f5e9; color: var(--success); padding: 10px; border-radius: 4px; margin-bottom: 12px; font-size: 12px; display: none; }
+    .success-msg.show { display: block; }
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
+    .modal.show { display: flex; }
+    .modal-content { background: white; border-radius: var(--radius); padding: 24px; width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
+    .modal-header { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+    .modal-close { float: right; font-size: 20px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div id="site-header-slot"></div>
+
+  <div class="page-header">
+    <div class="breadcrumb"><a href="index.html">SIGAH</a> <span>›</span> <a href="home.html">Dashboard</a> <span>›</span> Registro</div>
+    <h1><span class="icon">📝</span> Registro de Alumnos</h1>
+    <p>Gestionar alumnos: crear, editar o eliminar registros del sistema.</p>
+  </div>
+
+  <main>
+    <img class="reg-banner" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=900&q=75" alt="Registro de alumnos — EET N°3100">
+
+    <div id="errorMsg" class="error-msg"></div>
+    <div id="successMsg" class="success-msg"></div>
+
+    <!-- Botón agregar alumno -->
+    <div class="card">
+      <div class="flex-between">
+        <h2>📋 Alumnos del sistema</h2>
+        <button class="btn btn-success" onclick="abrirModalNuevoAlumno()">+ Agregar alumno</button>
+      </div>
+    </div>
+
+    <!-- Filtro -->
+    <div class="card">
+      <div class="form-group">
+        <label>Buscar alumno (nombre, DNI, curso)</label>
+        <input type="text" id="searchInput" placeholder="Ej: Flores, 00.000.000, 1° A..." onkeyup="filtrarAlumnos()">
+      </div>
+      <div class="form-group">
+        <label>Filtrar por curso</label>
+        <select id="cursoFilter" onchange="filtrarAlumnos()">
+          <option value="">-- Todos los cursos --</option>
+          <option value="1° A">1° A</option>
+          <option value="1° B">1° B</option>
+          <option value="2° A">2° A</option>
+          <option value="2° B">2° B</option>
+          <option value="3° A">3° A</option>
+          <option value="3° B">3° B</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Lista de alumnos -->
+    <div class="card">
+      <div id="alumnosList"></div>
+    </div>
+  </main>
+
+  <!-- Modal para agregar/editar alumno -->
+  <div id="alumnoModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close" onclick="cerrarModal()">&times;</span>
+        <span id="modalTitle">Agregar alumno</span>
+      </div>
+
+      <div id="formError" class="error-msg"></div>
+
+      <div class="row2">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" id="nombre" placeholder="Nombre/s">
+        </div>
+        <div class="form-group">
+          <label>Apellido</label>
+          <input type="text" id="apellido" placeholder="Apellido/s">
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="form-group">
+          <label>DNI</label>
+          <input type="text" id="dni" placeholder="00.000.000">
+        </div>
+        <div class="form-group">
+          <label>Fecha de nacimiento</label>
+          <input type="date" id="fechaNacimiento">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Correo electrónico</label>
+        <input type="email" id="email" placeholder="alumno@email.com">
+      </div>
+
+      <div class="form-group">
+        <label>Teléfono</label>
+        <input type="tel" id="telefono" placeholder="+54 387 000-0000">
+      </div>
+
+      <div class="row2">
+        <div class="form-group">
+          <label>Curso</label>
+          <select id="curso">
+            <option>1° A</option><option>1° B</option><option>2° A</option>
+            <option>2° B</option><option>3° A</option><option>3° B</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Turno</label>
+          <select id="turno">
+            <option>Mañana</option><option>Tarde</option><option>Noche</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Observaciones</label>
+        <textarea id="observaciones" rows="3" placeholder="Información adicional..."></textarea>
+      </div>
+
+      <div class="flex-between">
+        <button class="btn btn-outline" onclick="cerrarModal()">Cancelar</button>
+        <button class="btn btn-success" onclick="guardarAlumno()">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="site-footer-slot"></div>
+  <script src="components.js"></script>
+
+  <script>
+    let estudiantes = [];
+    let estudianteEnEdicion = null;
+
+    async function cargarEstudiantes() {
+      try {
+        const response = await fetch('students.json');
+        const data = await response.json();
+        estudiantes = data.estudiantes;
+        mostrarAlumnos(estudiantes);
+      } catch (error) {
+        console.error('Error al cargar estudiantes:', error);
+        mostrarError('Error al cargar los datos de estudiantes');
+      }
+    }
+
+    function mostrarAlumnos(lista) {
+      const container = document.getElementById('alumnosList');
+      if (lista.length === 0) {
+        container.innerHTML = '<p style="text-align:center;color:var(--gray)">No hay alumnos registrados</p>';
+        return;
+      }
+
+      container.innerHTML = lista.map(alumno => `
+        <div class="alumno-item">
+          <img class="alumno-avatar" src="${alumno.foto}" alt="${alumno.nombre}">
+          <div class="alumno-info">
+            <div class="nombre">${alumno.apellido}, ${alumno.nombre}</div>
+            <div class="datos">DNI: ${alumno.dni} | ${alumno.curso} ${alumno.turno}</div>
+            <div class="datos">${alumno.email} | ${alumno.telefono}</div>
+            <div class="datos" style="color: ${alumno.asistencia >= 85 ? 'var(--success)' : 'var(--warning)'}">
+              📊 Asistencia: ${alumno.asistencia}% | Promedio: ${alumno.promedio}
+            </div>
+          </div>
+          <div class="alumno-acciones">
+            <button class="btn btn-outline" onclick="editarAlumno(${alumno.id})">✏️ Editar</button>
+            <button class="btn btn-outline" style="color:var(--danger);border-color:var(--danger)" onclick="confirmarEliminar(${alumno.id})">🗑️ Eliminar</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filtrarAlumnos() {
+      const searchText = document.getElementById('searchInput').value.toLowerCase();
+      const cursoFilter = document.getElementById('cursoFilter').value;
+
+      const filtrados = estudiantes.filter(a => {
+        const cumpleSearch = !searchText || 
+          a.nombre.toLowerCase().includes(searchText) ||
+          a.apellido.toLowerCase().includes(searchText) ||
+          a.dni.includes(searchText);
+        
+        const cumpeCurso = !cursoFilter || a.curso === cursoFilter;
+        
+        return cumpleSearch && cumpeCurso;
+      });
+
+      mostrarAlumnos(filtrados);
+    }
+
+    function abrirModalNuevoAlumno() {
+      estudianteEnEdicion = null;
+      document.getElementById('modalTitle').textContent = 'Agregar alumno';
+      document.getElementById('nombre').value = '';
+      document.getElementById('apellido').value = '';
+      document.getElementById('dni').value = '';
+      document.getElementById('fechaNacimiento').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('telefono').value = '';
+      document.getElementById('curso').value = '1° A';
+      document.getElementById('turno').value = 'Mañana';
+      document.getElementById('observaciones').value = '';
+      document.getElementById('formError').className = 'error-msg';
+      document.getElementById('alumnoModal').classList.add('show');
+    }
+
+    function editarAlumno(id) {
+      const alumno = estudiantes.find(a => a.id === id);
+      if (!alumno) return;
+
+      estudianteEnEdicion = id;
+      document.getElementById('modalTitle').textContent = 'Editar alumno';
+      document.getElementById('nombre').value = alumno.nombre;
+      document.getElementById('apellido').value = alumno.apellido;
+      document.getElementById('dni').value = alumno.dni;
+      document.getElementById('fechaNacimiento').value = alumno.fechaNacimiento;
+      document.getElementById('email').value = alumno.email;
+      document.getElementById('telefono').value = alumno.telefono;
+      document.getElementById('curso').value = alumno.curso;
+      document.getElementById('turno').value = alumno.turno;
+      document.getElementById('observaciones').value = alumno.observaciones;
+      document.getElementById('formError').className = 'error-msg';
+      document.getElementById('alumnoModal').classList.add('show');
+    }
+
+    function cerrarModal() {
+      document.getElementById('alumnoModal').classList.remove('show');
+    }
+
+    function guardarAlumno() {
+      const nombre = document.getElementById('nombre').value.trim();
+      const apellido = document.getElementById('apellido').value.trim();
+      const dni = document.getElementById('dni').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const curso = document.getElementById('curso').value;
+      const formError = document.getElementById('formError');
+
+      if (!nombre) {
+        mostrarErrorForm('Por favor ingresa el nombre');
+        return;
+      }
+      if (!apellido) {
+        mostrarErrorForm('Por favor ingresa el apellido');
+        return;
+      }
+      if (!dni) {
+        mostrarErrorForm('Por favor ingresa el DNI');
+        return;
+      }
+      if (!email) {
+        mostrarErrorForm('Por favor ingresa el correo');
+        return;
+      }
+
+      if (estudianteEnEdicion) {
+        // Editar
+        const alumno = estudiantes.find(a => a.id === estudianteEnEdicion);
+        if (alumno) {
+          alumno.nombre = nombre;
+          alumno.apellido = apellido;
+          alumno.dni = dni;
+          alumno.email = email;
+          alumno.telefono = document.getElementById('telefono').value;
+          alumno.curso = curso;
+          alumno.turno = document.getElementById('turno').value;
+          alumno.observaciones = document.getElementById('observaciones').value;
+          alumno.fechaNacimiento = document.getElementById('fechaNacimiento').value;
+          mostrarExito('Alumno actualizado correctamente');
+        }
+      } else {
+        // Crear nuevo
+        const nuevoAlumno = {
+          id: Math.max(...estudiantes.map(a => a.id), 0) + 1,
+          nombre: nombre,
+          apellido: apellido,
+          dni: dni,
+          email: email,
+          telefono: document.getElementById('telefono').value,
+          curso: curso,
+          turno: document.getElementById('turno').value,
+          fechaNacimiento: document.getElementById('fechaNacimiento').value,
+          observaciones: document.getElementById('observaciones').value,
+          foto: 'https://i.pravatar.cc/150?img=' + Math.floor(Math.random() * 70),
+          estado: 'activo',
+          asistencia: 85,
+          ausencias: 0,
+          tardanzas: 0,
+          promedio: 0,
+          observaciones: ''
+        };
+        estudiantes.push(nuevoAlumno);
+        mostrarExito('Alumno agregado correctamente');
+      }
+
+      guardarEnLocal();
+      cerrarModal();
+      filtrarAlumnos();
+    }
+
+    function confirmarEliminar(id) {
+      if (confirm('¿Estás seguro de que deseas eliminar este alumno?')) {
+        estudiantes = estudiantes.filter(a => a.id !== id);
+        guardarEnLocal();
+        mostrarExito('Alumno eliminado correctamente');
+        filtrarAlumnos();
+      }
+    }
+
+    function guardarEnLocal() {
+      localStorage.setItem('estudiantes', JSON.stringify(estudiantes));
+    }
+
+    function mostrarErrorForm(msg) {
+      const formError = document.getElementById('formError');
+      formError.textContent = msg;
+      formError.classList.add('show');
+      setTimeout(() => formError.classList.remove('show'), 4000);
+    }
+
+    function mostrarError(msg) {
+      const errorDiv = document.getElementById('errorMsg');
+      errorDiv.textContent = msg;
+      errorDiv.classList.add('show');
+      setTimeout(() => errorDiv.classList.remove('show'), 4000);
+    }
+
+    function mostrarExito(msg) {
+      const successDiv = document.getElementById('successMsg');
+      successDiv.textContent = msg;
+      successDiv.classList.add('show');
+      setTimeout(() => successDiv.classList.remove('show'), 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', cargarEstudiantes);
+  </script>
+</body>
+</html>
