@@ -5,12 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SIGAH - Blog Técnico</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
     .post-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 24px; }
-
-    /* Imagen de portada del post */
     .post-cover { width: 100%; height: 200px; object-fit: cover; display: block; }
-
     .post-thumb { background: linear-gradient(135deg, var(--dark), #0d3d54); padding: 20px 24px 16px; color: white; position: relative; }
     .post-thumb h2 { color: white; font-size: 17px; border: none; padding: 0; margin-bottom: 6px; }
     .post-thumb .post-meta { font-size: 12px; color: #7bb8cc; display: flex; gap: 14px; flex-wrap: wrap; }
@@ -19,13 +17,9 @@
     .post-body h4 { font-size: 13px; color: var(--primary); margin: 12px 0 6px; }
     .post-body p  { font-size: 13px; color: var(--gray); line-height: 1.8; margin-bottom: 8px; }
     .post-body pre { background: #1e2a35; color: #69f0ae; font-family: 'Courier New', monospace; font-size: 11px; padding: 12px; border-radius: 6px; overflow-x: auto; line-height: 1.8; margin: 10px 0; }
-
-    /* Imagen inline dentro del post body */
     .post-inline-img { width: 100%; height: 150px; object-fit: cover; border-radius: var(--radius-sm); margin: 12px 0; opacity: 0.88; }
-
     .read-more { color: var(--primary); font-size: 13px; font-weight: 600; text-decoration: none; }
     .read-more:hover { text-decoration: underline; }
-
     .comments-section { background: #f8fbff; border-top: 1px solid var(--border); padding: 20px 24px; }
     .comments-section h3 { font-size: 14px; color: var(--dark); margin-bottom: 14px; }
     .comment { display: flex; gap: 10px; margin-bottom: 14px; }
@@ -36,7 +30,6 @@
     .comment-body p  { font-size: 12px; color: var(--gray); line-height: 1.6; }
     .comment-body .ctime { font-size: 11px; color: #bbb; margin-top: 4px; }
     .comment-form textarea { min-height: 70px; resize: vertical; margin-bottom: 10px; }
-
     .cats { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
     .cat { padding: 5px 14px; border-radius: 20px; font-size: 12px; cursor: pointer; }
     .cat.active { background: var(--primary); color: white; }
@@ -48,14 +41,13 @@
 
   <div class="page-header">
     <div class="breadcrumb"><a href="index.html">SIGAH</a> <span>›</span> Blog</div>
-    <h1><span class="icon">✍️</span> Blog Técnico</h1>
+    <h1><i class="fas fa-pen-fancy icon"></i> Blog Técnico</h1>
     <p>Artículos sobre programación, reparación de PC, sistemas y tecnología educativa.</p>
   </div>
 
   <main class="wide">
-
     <div class="card">
-      <h2>🏷️ Categorías</h2>
+      <h2><i class="fas fa-tags"></i> Categorías</h2>
       <div class="cats">
         <span class="cat active" onclick="setCat(this)">Todos</span>
         <span class="cat" onclick="setCat(this)">Python</span>
@@ -68,17 +60,16 @@
 
     <!-- Entrada 1 -->
     <div class="post-card">
-      <!-- Imagen de portada: programación Python -->
       <img class="post-cover"
            src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=900&q=80"
            alt="Desarrollo de SIGAH con Python">
       <div class="post-thumb">
-        <span class="badge badge-primary">🐍 Python</span>&nbsp;&nbsp;<span class="badge" style="background:rgba(255,255,255,0.1);color:#aaa">SIGAH</span>
+        <span class="badge badge-primary"><i class="fab fa-python"></i> Python</span>&nbsp;&nbsp;<span class="badge" style="background:rgba(255,255,255,0.1);color:#aaa">SIGAH</span>
         <h2>Cómo desarrollé SIGAH: de la idea al sistema funcional</h2>
         <div class="post-meta">
-          <span>✍️ Rolando Flores Arce</span>
-          <span>📅 10 de abril, 2026</span>
-          <span>⏱️ 6 min de lectura</span>
+          <span><i class="fas fa-user-edit"></i> Rolando Flores Arce</span>
+          <span><i class="fas fa-calendar-alt"></i> 10 de abril, 2026</span>
+          <span><i class="fas fa-clock"></i> 6 min de lectura</span>
         </div>
       </div>
       <div class="post-body">
@@ -89,10 +80,9 @@
           Así nació la idea de <strong>SIGAH</strong>.
         </p>
 
-        <!-- Imagen de aula escolar -->
         <img class="post-inline-img"
              src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=75"
-             alt="Aula escolar — contexto del problema">
+             alt="Aula escolar – contexto del problema de asistencia">
 
         <h3>¿Por qué elegí Python?</h3>
         <p>
@@ -100,7 +90,7 @@
           y el sistema de notificaciones automáticas (SANE).
         </p>
 
-        <h4>🔧 Estructura básica del proyecto:</h4>
+        <h4><i class="fas fa-code"></i> Estructura básica del proyecto:</h4>
         <pre>SIGAH/
 ├── backend/
 │   ├── app.py
@@ -116,14 +106,14 @@
         <h3>Resultado</h3>
         <p>Más de 100 reparaciones de PC documentadas con Pixel Fix y sistemas escolares gestionados con SIGAH.</p>
         <br>
-        <a href="#" class="read-more">Leer artículo completo →</a>
+        <a href="#" class="read-more">Leer artículo completo <i class="fas fa-arrow-right"></i></a>
       </div>
 
       <div class="comments-section">
-        <h3>💬 Comentarios (3)</h3>
+        <h3><i class="fas fa-comments"></i> Comentarios (3)</h3>
         <div class="comment">
           <div class="comment-avatar">
-            <img src="https://i.pravatar.cc/34?img=47" alt="María González">
+            <img src="https://i.pravatar.cc/34?img=47" alt="Avatar de María González">
           </div>
           <div class="comment-body">
             <h4>María González</h4>
@@ -133,7 +123,7 @@
         </div>
         <div class="comment">
           <div class="comment-avatar">
-            <img src="https://i.pravatar.cc/34?img=12" alt="Carlos López">
+            <img src="https://i.pravatar.cc/34?img=12" alt="Avatar de Carlos López">
           </div>
           <div class="comment-body">
             <h4>Carlos López</h4>
@@ -143,7 +133,7 @@
         </div>
         <div class="comment">
           <div class="comment-avatar">
-            <img src="https://i.pravatar.cc/34?img=23" alt="Ana Torres">
+            <img src="https://i.pravatar.cc/34?img=23" alt="Avatar de Ana Torres">
           </div>
           <div class="comment-body">
             <h4>Ana Torres</h4>
@@ -151,60 +141,58 @@
             <div class="ctime">Hace 5 horas</div>
           </div>
         </div>
-        <h3 style="margin-top:16px">✏️ Dejá tu comentario</h3>
+        <h3 style="margin-top:16px"><i class="fas fa-edit"></i> Dejá tu comentario</h3>
         <div class="form-group" style="margin-top:10px">
-          <label>Tu nombre</label>
-          <input type="text" placeholder="Nombre...">
+          <label for="nombreComentario">Tu nombre</label>
+          <input type="text" id="nombreComentario" placeholder="Nombre...">
         </div>
         <div class="form-group">
-          <label>Comentario</label>
-          <textarea class="comment-form" placeholder="Escribí tu comentario..."></textarea>
+          <label for="comentarioTexto">Comentario</label>
+          <textarea class="comment-form" id="comentarioTexto" placeholder="Escribí tu comentario..."></textarea>
         </div>
-        <button class="btn btn-primary">Publicar comentario</button>
+        <button class="btn btn-primary"><i class="fas fa-paper-plane"></i> Publicar comentario</button>
       </div>
     </div>
 
     <!-- Entrada 2 -->
     <div class="post-card">
-      <!-- Imagen de portada: reparación de PC -->
       <img class="post-cover"
            src="https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=900&q=80"
-           alt="Reparación de notebooks — Pixel Fix">
+           alt="Reparación de notebooks – Pixel Fix">
       <div class="post-thumb">
-        <span class="badge badge-warning">🔧 Reparación PC</span>
+        <span class="badge badge-warning"><i class="fas fa-tools"></i> Reparación PC</span>
         <h2>Las 5 fallas más comunes en notebooks — y cómo repararlas</h2>
         <div class="post-meta">
-          <span>✍️ Rolando Flores Arce</span>
-          <span>📅 25 de marzo, 2026</span>
-          <span>⏱️ 4 min de lectura</span>
+          <span><i class="fas fa-user-edit"></i> Rolando Flores Arce</span>
+          <span><i class="fas fa-calendar-alt"></i> 25 de marzo, 2026</span>
+          <span><i class="fas fa-clock"></i> 4 min de lectura</span>
         </div>
       </div>
       <div class="post-body">
         <h3>Experiencia tras más de 100 reparaciones</h3>
         <p>Con <strong>Pixel Fix</strong> atendí cientos de consultas y realicé más de 100 reparaciones exitosas.</p>
 
-        <!-- Imagen de componentes de PC -->
         <img class="post-inline-img"
              src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=75"
-             alt="Componentes internos de notebook">
+             alt="Componentes internos de notebook para reparación">
 
-        <h4>1. Pantalla con líneas o sin imagen</h4>
+        <h4><i class="fas fa-desktop"></i> 1. Pantalla con líneas o sin imagen</h4>
         <p>Suele ser el cable de pantalla o la placa de video integrada. Primero revisá el cable flat.</p>
-        <h4>2. Sobrecalentamiento y apagado repentino</h4>
+        <h4><i class="fas fa-thermometer-half"></i> 2. Sobrecalentamiento y apagado repentino</h4>
         <p>El 80% de los casos se resuelve con limpieza de pasta térmica y cooler.</p>
-        <h4>3. No enciende (sin imagen)</h4>
+        <h4><i class="fas fa-power-off"></i> 3. No enciende (sin imagen)</h4>
         <p>Probá sin batería solo con el cargador. Si tampoco enciende, revisar BIOS o placa base.</p>
 
         <h3>Consejo de Pixel Fix</h3>
         <p>El 60% de las reparaciones se resuelven con software y limpieza, sin gastar en repuestos.</p>
         <br>
-        <a href="#" class="read-more">Leer artículo completo →</a>
+        <a href="#" class="read-more">Leer artículo completo <i class="fas fa-arrow-right"></i></a>
       </div>
       <div class="comments-section">
-        <h3>💬 Comentarios (1)</h3>
+        <h3><i class="fas fa-comments"></i> Comentarios (1)</h3>
         <div class="comment">
           <div class="comment-avatar">
-            <img src="https://i.pravatar.cc/34?img=32" alt="Lucía Ramírez">
+            <img src="https://i.pravatar.cc/34?img=32" alt="Avatar de Lucía Ramírez">
           </div>
           <div class="comment-body">
             <h4>Lucía Ramírez</h4>
@@ -212,56 +200,58 @@
             <div class="ctime">Hace 3 horas</div>
           </div>
         </div>
-        <h3 style="margin-top:16px">✏️ Dejá tu comentario</h3>
+        <h3 style="margin-top:16px"><i class="fas fa-edit"></i> Dejá tu comentario</h3>
         <div class="form-group" style="margin-top:10px">
-          <input type="text" placeholder="Tu nombre...">
+          <label for="nombreComentario2">Tu nombre</label>
+          <input type="text" id="nombreComentario2" placeholder="Nombre...">
         </div>
         <div class="form-group">
-          <textarea class="comment-form" placeholder="Escribí tu comentario..."></textarea>
+          <label for="comentarioTexto2">Comentario</label>
+          <textarea class="comment-form" id="comentarioTexto2" placeholder="Escribí tu comentario..."></textarea>
         </div>
-        <button class="btn btn-primary">Publicar comentario</button>
+        <button class="btn btn-primary"><i class="fas fa-paper-plane"></i> Publicar comentario</button>
       </div>
     </div>
 
     <!-- Entrada 3 -->
     <div class="post-card">
-      <!-- Imagen de portada: bases de datos -->
       <img class="post-cover"
            src="https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=900&q=80"
-           alt="MariaDB vs SQLite — bases de datos">
+           alt="MariaDB vs SQLite – bases de datos">
       <div class="post-thumb">
-        <span class="badge badge-success">🗄️ Bases de datos</span>
+        <span class="badge badge-success"><i class="fas fa-database"></i> Bases de datos</span>
         <h2>MariaDB vs SQLite: ¿cuál elegir para tu proyecto?</h2>
         <div class="post-meta">
-          <span>✍️ Rolando Flores Arce</span>
-          <span>📅 5 de marzo, 2026</span>
-          <span>⏱️ 3 min de lectura</span>
+          <span><i class="fas fa-user-edit"></i> Rolando Flores Arce</span>
+          <span><i class="fas fa-calendar-alt"></i> 5 de marzo, 2026</span>
+          <span><i class="fas fa-clock"></i> 3 min de lectura</span>
         </div>
       </div>
       <div class="post-body">
         <h3>Comparativa práctica desde la experiencia con SIGAH</h3>
         <p>Para el desarrollo de SIGAH probé ambas opciones. Acá un resumen:</p>
-        <h4>SQLite — ideal para desarrollo y apps pequeñas</h4>
+        <h4><i class="fas fa-file-code"></i> SQLite — ideal para desarrollo y apps pequeñas</h4>
         <p>Sin servidor, un solo archivo, perfecto para prototipos. SIGAH usó SQLite en su etapa inicial.</p>
-        <h4>MariaDB — para producción y múltiples usuarios</h4>
+        <h4><i class="fas fa-server"></i> MariaDB — para producción y múltiples usuarios</h4>
         <p>Soporta conexiones concurrentes, roles y permisos, backups automáticos. La versión final migró a MariaDB.</p>
         <br>
-        <a href="#" class="read-more">Leer artículo completo →</a>
+        <a href="#" class="read-more">Leer artículo completo <i class="fas fa-arrow-right"></i></a>
       </div>
       <div class="comments-section">
-        <h3>💬 Comentarios (0)</h3>
+        <h3><i class="fas fa-comments"></i> Comentarios (0)</h3>
         <p class="text-muted">Sé el primero en comentar este artículo.</p>
-        <h3 style="margin-top:16px">✏️ Dejá tu comentario</h3>
+        <h3 style="margin-top:16px"><i class="fas fa-edit"></i> Dejá tu comentario</h3>
         <div class="form-group" style="margin-top:10px">
-          <input type="text" placeholder="Tu nombre...">
+          <label for="nombreComentario3">Tu nombre</label>
+          <input type="text" id="nombreComentario3" placeholder="Nombre...">
         </div>
         <div class="form-group">
-          <textarea class="comment-form" placeholder="Escribí tu comentario..."></textarea>
+          <label for="comentarioTexto3">Comentario</label>
+          <textarea class="comment-form" id="comentarioTexto3" placeholder="Escribí tu comentario..."></textarea>
         </div>
-        <button class="btn btn-primary">Publicar comentario</button>
+        <button class="btn btn-primary"><i class="fas fa-paper-plane"></i> Publicar comentario</button>
       </div>
     </div>
-
   </main>
 
   <div id="site-footer-slot"></div>

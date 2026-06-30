@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SIGAH - Curso de Programación</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
     .course-hero {
       border-radius: var(--radius);
@@ -33,17 +34,13 @@
     .course-hero-overlay p { color: #a0d4e8; margin-top: 8px; font-size: 14px; line-height: 1.7; }
     .course-hero-overlay .tags { margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap; }
     .course-hero-overlay .tag { background: rgba(255,255,255,0.15); color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; }
-
     .module { border-left: 4px solid var(--primary); padding-left: 16px; margin-bottom: 24px; }
     .module h3 { font-size: 15px; color: var(--dark); margin-bottom: 8px; }
     .module h4 { font-size: 13px; color: var(--primary); margin-top: 10px; margin-bottom: 6px; }
     .module h5 { font-size: 12px; color: var(--gray); margin-top: 8px; margin-bottom: 4px; font-style: italic; }
     .module p { font-size: 13px; color: var(--gray); line-height: 1.7; margin-bottom: 6px; }
     .module ul { font-size: 13px; color: var(--gray); padding-left: 20px; line-height: 1.9; }
-
-    /* Imagen ilustrativa de módulo */
     .module-img { width: 100%; height: 130px; object-fit: cover; border-radius: var(--radius-sm); margin: 10px 0 14px; opacity: 0.85; }
-
     .enroll-card { border-radius: var(--radius); overflow: hidden; }
     .enroll-cover { width: 100%; height: 140px; object-fit: cover; filter: brightness(0.4) saturate(0.6); display: block; }
     .enroll-body { background: var(--dark); color: white; padding: 28px 24px; text-align: center; }
@@ -59,51 +56,48 @@
 
   <div class="page-header">
     <div class="breadcrumb"><a href="index.html">SIGAH</a> <span>›</span> Curso</div>
-    <h1><span class="icon">📚</span> Curso de Programación Web y Sistemas</h1>
+    <h1><i class="fas fa-book-open icon"></i> Curso de Programación Web y Sistemas</h1>
     <p>Aprendé a desarrollar sistemas reales como SIGAH desde cero.</p>
   </div>
 
   <main class="wide">
-
-    <!-- Hero del curso con imagen de fondo -->
     <div class="course-hero">
       <img class="course-hero-img"
            src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&q=80"
-           alt="Curso de programación web — SIGAH">
+           alt="Curso de programación web – SIGAH">
       <div class="course-hero-overlay">
-        <h2>🎓 Programación Web y Gestión de Sistemas con Python</h2>
+        <h2><i class="fas fa-graduation-cap"></i> Programación Web y Gestión de Sistemas con Python</h2>
         <p>
           Un curso práctico basado en la experiencia real de crear <strong>SIGAH</strong> y <strong>SANE</strong>.<br>
           Aprendé desde HTML básico hasta sistemas completos con base de datos.
         </p>
         <div class="tags">
-          <span class="tag">🐍 Python</span>
-          <span class="tag">🌐 HTML/CSS</span>
-          <span class="tag">⚙️ JavaScript</span>
-          <span class="tag">🗄️ MySQL/MariaDB</span>
-          <span class="tag">🔷 C++</span>
-          <span class="tag">🐘 PHP</span>
+          <span class="tag"><i class="fab fa-python"></i> Python</span>
+          <span class="tag"><i class="fab fa-html5"></i> HTML/CSS</span>
+          <span class="tag"><i class="fab fa-js"></i> JavaScript</span>
+          <span class="tag"><i class="fas fa-database"></i> MySQL/MariaDB</span>
+          <span class="tag"><i class="fas fa-code"></i> C++</span>
+          <span class="tag"><i class="fab fa-php"></i> PHP</span>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <h2>📖 Guía de estudio en línea</h2>
+      <h2><i class="fas fa-book"></i> Guía de estudio en línea</h2>
       <p>Contenido organizado por módulos. Seguí el orden para un aprendizaje progresivo.</p>
     </div>
 
     <!-- Módulo 1 -->
     <div class="card">
-      <h2>🟦 Módulo 1 — Fundamentos de la Web</h2>
+      <h2><i class="fas fa-cube"></i> Módulo 1 — Fundamentos de la Web</h2>
 
       <div class="module">
         <h3>1.1 HTML5: Estructura y semántica</h3>
-        <!-- Imagen de HTML/código -->
         <img class="module-img"
              src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=800&q=75"
-             alt="HTML5 — Estructura y semántica">
+             alt="HTML5 – Estructura y semántica">
         <p>El lenguaje base de toda página web. Aprendé a estructurar contenido con etiquetas semánticas.</p>
-        <h4>📌 Temas principales:</h4>
+        <h4><i class="fas fa-list-check"></i> Temas principales:</h4>
         <ul>
           <li>Estructura básica: DOCTYPE, html, head, body</li>
           <li>Encabezados: &lt;h1&gt; a &lt;h6&gt; y su jerarquía</li>
@@ -112,9 +106,9 @@
           <li>Formularios: input, select, textarea, button</li>
           <li>Tablas: thead, tbody, tr, th, td</li>
         </ul>
-        <h5>✏️ Práctica recomendada:</h5>
+        <h5><i class="fas fa-pencil-alt"></i> Práctica recomendada:</h5>
         <p>Creá una página HTML que muestre tu currículum usando todos los niveles de encabezados y formularios.</p>
-        <h4>💻 Ejemplo de código:</h4>
+        <h4><i class="fas fa-code"></i> Ejemplo de código:</h4>
         <pre class="code-block">&lt;!DOCTYPE html&gt;
 &lt;html lang="es"&gt;
   &lt;head&gt;
@@ -132,9 +126,9 @@
         <h3>1.2 CSS3: Estilos y diseño responsive</h3>
         <img class="module-img"
              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=75"
-             alt="CSS3 — Diseño y estilos responsive">
+             alt="CSS3 – Diseño y estilos responsive">
         <p>Dá vida visual a tus páginas. Desde colores y tipografías hasta layouts con Flexbox y Grid.</p>
-        <h4>📌 Temas principales:</h4>
+        <h4><i class="fas fa-list-check"></i> Temas principales:</h4>
         <ul>
           <li>Selectores, clases e IDs</li>
           <li>Variables CSS (:root, var())</li>
@@ -142,22 +136,22 @@
           <li>Media Queries — diseño responsive</li>
           <li>Transiciones y animaciones</li>
         </ul>
-        <h5>✏️ Práctica:</h5>
+        <h5><i class="fas fa-pencil-alt"></i> Práctica:</h5>
         <p>Diseñá la interfaz del sistema SIGAH respetando la paleta de colores y los componentes vistos en clase.</p>
       </div>
     </div>
 
     <!-- Módulo 2 -->
     <div class="card">
-      <h2>🟨 Módulo 2 — JavaScript y PHP</h2>
+      <h2><i class="fas fa-cube"></i> Módulo 2 — JavaScript y PHP</h2>
 
       <div class="module">
         <h3>2.1 JavaScript — Interactividad del lado del cliente</h3>
         <img class="module-img"
              src="https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=800&q=75"
-             alt="JavaScript — Programación del lado del cliente">
+             alt="JavaScript – Programación del lado del cliente">
         <p>Hacé que tus páginas respondan a acciones del usuario sin recargar.</p>
-        <h4>📌 Temas principales:</h4>
+        <h4><i class="fas fa-list-check"></i> Temas principales:</h4>
         <ul>
           <li>Variables, tipos de datos, funciones</li>
           <li>Manipulación del DOM</li>
@@ -165,7 +159,7 @@
           <li>Fetch API — consumo de servicios REST</li>
           <li>LocalStorage para persistencia simple</li>
         </ul>
-        <h4>💻 Ejemplo:</h4>
+        <h4><i class="fas fa-code"></i> Ejemplo:</h4>
         <pre class="code-block">// Cambiar estado de asistencia
 function toggleEstado(btn) {
   const estados = ['Presente','Ausente','Tardanza'];
@@ -177,7 +171,7 @@ function toggleEstado(btn) {
       <div class="module">
         <h3>2.2 PHP — Servidor web básico</h3>
         <p>Procesá formularios, conectate a bases de datos y generá HTML dinámico desde el servidor.</p>
-        <h4>📌 Temas principales:</h4>
+        <h4><i class="fas fa-list-check"></i> Temas principales:</h4>
         <ul>
           <li>Variables, arrays, funciones</li>
           <li>Formularios POST/GET</li>
@@ -189,22 +183,22 @@ function toggleEstado(btn) {
 
     <!-- Módulo 3 -->
     <div class="card">
-      <h2>🟩 Módulo 3 — Python para sistemas</h2>
+      <h2><i class="fas fa-cube"></i> Módulo 3 — Python para sistemas</h2>
 
       <div class="module">
         <h3>3.1 Python base y automatización</h3>
         <img class="module-img"
              src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=800&q=75"
-             alt="Python — Programación y automatización">
+             alt="Python – Programación y automatización">
         <p>El lenguaje principal de SIGAH y SANE. Desde la sintaxis básica hasta módulos de automatización.</p>
-        <h4>📌 Temas principales:</h4>
+        <h4><i class="fas fa-list-check"></i> Temas principales:</h4>
         <ul>
           <li>Sintaxis, variables, listas, diccionarios</li>
           <li>Funciones, clases y módulos</li>
           <li>Manejo de archivos y errores</li>
           <li>Bibliotecas: os, datetime, json, requests</li>
         </ul>
-        <h4>💻 Ejemplo:</h4>
+        <h4><i class="fas fa-code"></i> Ejemplo:</h4>
         <pre class="code-block">import datetime
 
 def registrar_asistencia(alumno, estado):
@@ -224,9 +218,9 @@ registrar_asistencia("Flores Arce, Rolando", "Presente")</pre>
         <h3>3.2 Bases de datos: MariaDB, MySQL y SQLite</h3>
         <img class="module-img"
              src="https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800&q=75"
-             alt="Bases de datos — MariaDB y SQLite">
+             alt="Bases de datos – MariaDB y SQLite">
         <p>Almacenamiento y consulta de datos para sistemas reales.</p>
-        <h4>📌 Temas principales:</h4>
+        <h4><i class="fas fa-list-check"></i> Temas principales:</h4>
         <ul>
           <li>Modelado de datos y tablas</li>
           <li>SQL: SELECT, INSERT, UPDATE, DELETE</li>
@@ -239,14 +233,14 @@ registrar_asistencia("Flores Arce, Rolando", "Presente")</pre>
 
     <!-- Módulo 4 -->
     <div class="card">
-      <h2>🟥 Módulo 4 — Proyecto final integrador</h2>
+      <h2><i class="fas fa-cube"></i> Módulo 4 — Proyecto final integrador</h2>
       <div class="module">
         <h3>4.1 Desarrollo de un sistema web completo</h3>
         <img class="module-img"
              src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=75"
-             alt="Proyecto final integrador — Sistema web completo">
+             alt="Proyecto final integrador – Sistema web completo">
         <p>Aplicá todos los conocimientos del curso para crear tu propio sistema de gestión.</p>
-        <h4>📌 Objetivos:</h4>
+        <h4><i class="fas fa-list-check"></i> Objetivos:</h4>
         <ul>
           <li>Diseñar la arquitectura del sistema</li>
           <li>Crear el frontend con HTML, CSS y JS</li>
@@ -254,25 +248,24 @@ registrar_asistencia("Flores Arce, Rolando", "Presente")</pre>
           <li>Conectar con base de datos MariaDB</li>
           <li>Documentar el proyecto</li>
         </ul>
-        <h5>✏️ Referencia:</h5>
+        <h5><i class="fas fa-pencil-alt"></i> Referencia:</h5>
         <p>El sistema <strong>SIGAH</strong> desarrollado por Rolando Flores Arce es el ejemplo de referencia del proyecto final.</p>
       </div>
     </div>
 
-    <!-- Inscripción con imagen de fondo -->
+    <!-- Inscripción -->
     <div class="enroll-card">
       <img class="enroll-cover"
            src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1000&q=75"
-           alt="Clases de programación — Pixel Fix">
+           alt="Clases de programación – Pixel Fix">
       <div class="enroll-body">
-        <h2>🚀 ¡Inscribite ahora!</h2>
+        <h2><i class="fas fa-rocket"></i> ¡Inscribite ahora!</h2>
         <p>Clases presenciales y virtuales en Salta.<br>Cupos limitados — dictado por Rolando Flores Arce (Pixel Fix).</p>
-        <div class="price">Gratis <span>para estudiantes de EET N°3100</span></div>
+        <div class="price"><i class="fas fa-gratipay"></i> Gratis <span>para estudiantes de EET N°3100</span></div>
         <br><br>
-        <a href="mailto:pixelfix@email.com" class="btn btn-primary" style="font-size:15px;padding:12px 32px;">✉️ Contactar para inscribirse</a>
+        <a href="mailto:pixelfix@email.com" class="btn btn-primary" style="font-size:15px;padding:12px 32px;"><i class="fas fa-envelope"></i> Contactar para inscribirse</a>
       </div>
     </div>
-
   </main>
 
   <div id="site-footer-slot"></div>

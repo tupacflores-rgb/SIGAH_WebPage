@@ -3,222 +3,267 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SIGAH - Reportes</title>
+  <title>SIGAH - Crear Nuevo Usuario</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
-    .bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 150px; border-bottom: 2px solid var(--border); padding-bottom: 0; margin-bottom: 10px; }
-    .bar-wrap { display: flex; flex-direction: column; align-items: center; flex: 1; gap: 4px; }
-    .bar { width: 100%; border-radius: 4px 4px 0 0; }
-    .bar.ok { background: var(--primary); }
-    .bar.risk { background: var(--danger); }
-    .bar-val { font-size: 11px; font-weight: 700; color: var(--gray); }
-    .bar-label { font-size: 11px; color: var(--light-gray); margin-top: 6px; }
-    .pct.high { color: var(--success); font-weight: 700; }
-    .pct.mid  { color: var(--warning); font-weight: 700; }
-    .pct.low  { color: var(--danger);  font-weight: 700; }
-    .legend { display: flex; gap: 16px; font-size: 12px; margin-top: 6px; }
-    .legend div { display: flex; align-items: center; gap: 6px; }
-    .leg-dot { width: 12px; height: 12px; border-radius: 3px; }
-
-    /* Banner de reportes -->
-    .report-banner { width: 100%; height: 100px; object-fit: cover; border-radius: var(--radius); margin-bottom: 20px; opacity: 0.78; display: block; }
-
-    /* Imagen decorativa en resumen -->
-    .summary-img { width: 100%; height: 90px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 16px; opacity: 0.75; }
+    body { flex-direction: column; }
+    .login-hero {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1400&q=80') center/cover no-repeat;
+      filter: brightness(0.22) saturate(0.7);
+    }
+    .login-wrap {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 32px 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .login-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      width: 420px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+      text-align: center;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .login-card h1 { color: var(--primary); font-size: 24px; margin-bottom: 6px; }
+    .login-card h2 { color: var(--light-gray); font-size: 13px; font-weight: 400; margin-bottom: 20px; line-height: 1.5; }
+    .login-card .form-group { text-align: left; }
+    .error-message { background: #ffebee; border-left: 3px solid var(--danger); color: var(--danger); padding: 10px 12px; border-radius: 4px; margin-bottom: 14px; font-size: 12px; display: none; }
+    .error-message.show { display: block; }
+    .success-message { background: #e8f5e9; border-left: 3px solid var(--success); color: var(--success); padding: 10px 12px; border-radius: 4px; margin-bottom: 14px; font-size: 12px; display: none; }
+    .success-message.show { display: block; }
+    .password-requirements {
+      background: #f5f5f5;
+      border-radius: 6px;
+      padding: 12px;
+      margin-top: 12px;
+      font-size: 11px;
+      text-align: left;
+      display: none;
+    }
+    .password-requirements.show { display: block; }
+    .req-item { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+    .req-item:last-child { margin-bottom: 0; }
+    .req-icon { width: 14px; text-align: center; }
+    .req-check { color: var(--success); }
+    .req-pending { color: #ccc; }
+    .button-group { display: flex; gap: 10px; margin-top: 20px; }
+    .button-group button { flex: 1; }
+    .back-link { margin-top: 16px; font-size: 13px; text-align: center; }
+    .back-link a { color: var(--primary); text-decoration: none; }
+    .back-link a:hover { text-decoration: underline; }
+    @media (max-width: 600px) { .login-card { width: 90%; } }
   </style>
 </head>
 <body>
+  <div class="login-hero"></div>
+
   <div id="site-header-slot"></div>
 
-  <div class="page-header">
-    <div class="breadcrumb"><a href="index.html">SIGAH</a> <span>›</span> <a href="home.html">Dashboard</a> <span>›</span> Reportes</div>
-    <h1><span class="icon">📊</span> Reportes de Asistencia</h1>
-    <p>Analizá la asistencia por curso, mes y estadísticas generales.</p>
+  <div class="login-wrap">
+    <div class="login-card">
+      <h1><i class="fas fa-user-plus"></i> Crear Usuario</h1>
+      <h2>Completa el formulario para registrarte<br>en SIGAH</h2>
+
+      <div id="errorMessage" class="error-message"></div>
+      <div id="successMessage" class="success-message"></div>
+
+      <div class="form-group">
+        <label for="nombreInput">Nombre completo</label>
+        <input type="text" id="nombreInput" placeholder="Ej: Juan Pérez García">
+      </div>
+
+      <div class="form-group">
+        <label for="emailInput">Correo electrónico</label>
+        <input type="email" id="emailInput" placeholder="correo@sigah.edu.ar">
+      </div>
+
+      <div class="form-group">
+        <label for="usuarioInput">Nombre de usuario</label>
+        <input type="text" id="usuarioInput" placeholder="nombre_usuario (sin espacios)">
+      </div>
+
+      <div class="form-group">
+        <label for="rolSelect">Rol</label>
+        <select id="rolSelect">
+          <option value="">-- Selecciona tu rol --</option>
+          <option value="admin">Administrador</option>
+          <option value="docente">Docente</option>
+          <option value="alumno">Alumno</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="passwordInput">Contraseña</label>
+        <input type="password" id="passwordInput" placeholder="••••••••" onkeyup="actualizarRequisitos()">
+      </div>
+
+      <div id="passwordReqs" class="password-requirements">
+        <div class="req-item">
+          <span class="req-icon req-pending" id="reqLength"><i class="fas fa-times"></i></span>
+          <span>Mínimo 8 caracteres</span>
+        </div>
+        <div class="req-item">
+          <span class="req-icon req-pending" id="reqNumber"><i class="fas fa-times"></i></span>
+          <span>Al menos un número (0-9)</span>
+        </div>
+        <div class="req-item">
+          <span class="req-icon req-pending" id="reqUpper"><i class="fas fa-times"></i></span>
+          <span>Al menos una mayúscula (A-Z)</span>
+        </div>
+        <div class="req-item">
+          <span class="req-icon req-pending" id="reqLower"><i class="fas fa-times"></i></span>
+          <span>Al menos una minúscula (a-z)</span>
+        </div>
+        <div class="req-item">
+          <span class="req-icon req-pending" id="reqSpecial"><i class="fas fa-times"></i></span>
+          <span>Carácter especial (@$!%*?&)</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="passwordConfirmInput">Confirmar contraseña</label>
+        <input type="password" id="passwordConfirmInput" placeholder="••••••••">
+      </div>
+
+      <div class="button-group">
+        <button class="btn btn-outline" onclick="location.href='index.html'">Cancelar</button>
+        <button class="btn btn-success" onclick="crearUsuario()"><i class="fas fa-check"></i> Registrarse</button>
+      </div>
+
+      <div class="back-link">
+        ¿Ya tienes cuenta? <a href="index.html">Inicia sesión aquí</a>
+      </div>
+    </div>
   </div>
-
-  <main class="wide">
-    <!-- Banner de reportes -->
-    <img class="report-banner"
-         src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1000&q=75"
-         alt="Reportes y análisis de datos — SIGAH">
-
-    <!-- Filtros -->
-    <div class="card">
-      <h2>🎛️ Filtros del reporte</h2>
-      <p>Seleccioná el período y el curso para generar el reporte.</p><br>
-      <div class="row2">
-        <div class="form-group">
-          <label>Período</label>
-          <select><option>Mayo 2026</option><option>Abril 2026</option><option>Marzo 2026</option></select>
-        </div>
-        <div class="form-group">
-          <label>Curso</label>
-          <select><option>Todos los cursos</option><option>1° A</option><option>1° B</option><option>2° A</option></select>
-        </div>
-      </div>
-      <div class="flex-between">
-        <button class="btn btn-primary">Generar reporte</button>
-        <button class="btn btn-dark">⬇ Exportar PDF</button>
-      </div>
-    </div>
-
-    <!-- Resumen general -->
-    <div class="card">
-      <h2>📈 Resumen general — Mayo 2026</h2>
-      <img class="summary-img"
-           src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=75"
-           alt="Estadísticas generales de asistencia">
-      <div class="grid-3">
-        <div style="background:#e0f7fa;border-radius:8px;padding:16px;text-align:center">
-          <div style="font-size:26px;font-weight:700;color:var(--primary)">87%</div>
-          <div style="font-size:12px;color:#666">Asistencia promedio</div>
-        </div>
-        <div style="background:#ffebee;border-radius:8px;padding:16px;text-align:center">
-          <div style="font-size:26px;font-weight:700;color:var(--danger)">8</div>
-          <div style="font-size:12px;color:#666">Alumnos en riesgo</div>
-        </div>
-        <div style="background:#e8f5e9;border-radius:8px;padding:16px;text-align:center">
-          <div style="font-size:26px;font-weight:700;color:var(--success)">156</div>
-          <div style="font-size:12px;color:#666">Alumnos totales</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Gráfico por curso -->
-    <div class="card">
-      <h2>📊 Asistencia por curso</h2>
-      <p>Porcentaje de asistencia mensual para cada curso.</p><br>
-      <div class="bar-chart">
-        <div class="bar-wrap"><div class="bar-val">92%</div><div class="bar ok" style="height:138px"></div><div class="bar-label">1°A</div></div>
-        <div class="bar-wrap"><div class="bar-val">85%</div><div class="bar ok" style="height:128px"></div><div class="bar-label">1°B</div></div>
-        <div class="bar-wrap"><div class="bar-val">78%</div><div class="bar risk" style="height:117px"></div><div class="bar-label">2°A</div></div>
-        <div class="bar-wrap"><div class="bar-val">90%</div><div class="bar ok" style="height:135px"></div><div class="bar-label">2°B</div></div>
-        <div class="bar-wrap"><div class="bar-val">88%</div><div class="bar ok" style="height:132px"></div><div class="bar-label">3°A</div></div>
-        <div class="bar-wrap"><div class="bar-val">72%</div><div class="bar risk" style="height:108px"></div><div class="bar-label">3°B</div></div>
-      </div>
-      <div class="legend">
-        <div><div class="leg-dot" style="background:var(--primary)"></div>≥ 80% (normal)</div>
-        <div><div class="leg-dot" style="background:var(--danger)"></div>&lt; 80% (riesgo)</div>
-      </div>
-    </div>
-
-    <!-- Tabla detallada -->
-    <div class="card">
-      <h2>📋 Detalle por curso</h2>
-      <p>Tabla comparativa de asistencia, ausencias y porcentajes.</p><br>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Curso</th><th>Alumnos</th><th>Presentes</th><th>Ausentes</th><th>Tardanzas</th><th>% Asistencia</th></tr></thead>
-          <tbody>
-            <tr><td>1° A</td><td>30</td><td>28</td><td>2</td><td>0</td><td class="pct high">92%</td></tr>
-            <tr><td>1° B</td><td>28</td><td>24</td><td>4</td><td>1</td><td class="pct mid">85%</td></tr>
-            <tr><td>2° A</td><td>25</td><td>20</td><td>5</td><td>2</td><td class="pct low">78%</td></tr>
-            <tr><td>2° B</td><td>27</td><td>24</td><td>3</td><td>0</td><td class="pct high">90%</td></tr>
-            <tr><td>3° A</td><td>24</td><td>21</td><td>3</td><td>1</td><td class="pct mid">88%</td></tr>
-            <tr><td>3° B</td><td>22</td><td>16</td><td>6</td><td>3</td><td class="pct low">72%</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </main>
 
   <div id="site-footer-slot"></div>
   <script src="components.js"></script>
 
   <script>
-    let estudiantes = [];
-    let reportData = {};
+    let credenciales = [];
+    let validacionReqs = {};
 
-    async function cargarDatos() {
+    async function cargarCredenciales() {
       try {
-        const response = await fetch('students.json');
+        const response = await fetch('credentials.json');
         const data = await response.json();
-        estudiantes = data.estudiantes;
-        generarReporte();
+        credenciales = data.usuarios;
+        validacionReqs = data.validacion.contrasena;
       } catch (error) {
-        console.error('Error al cargar datos:', error);
-        const stored = localStorage.getItem('estudiantes');
-        if (stored) {
-          estudiantes = JSON.parse(stored);
-          generarReporte();
-        }
+        console.error('Error al cargar credenciales:', error);
+        validacionReqs = { minCaracteres: 8, requiereNumero: true, requireMayuscula: true, requireMinuscula: true, requireEspecial: true };
       }
     }
 
-    function generarReporte() {
-      // Calcular estadísticas generales
-      const totalAlumnos = estudiantes.length;
-      const asistenciaPromedio = Math.round(
-        estudiantes.reduce((sum, e) => sum + e.asistencia, 0) / totalAlumnos
-      );
-      const alumnosEnRiesgo = estudiantes.filter(e => e.asistencia < 80).length;
-
-      // Actualizar resumen general
-      document.querySelectorAll('.grid-3 div')[0].innerHTML = 
-        `<div style="font-size:26px;font-weight:700;color:var(--primary)">${asistenciaPromedio}%</div><div style="font-size:12px;color:#666">Asistencia promedio</div>`;
-      document.querySelectorAll('.grid-3 div')[1].innerHTML = 
-        `<div style="font-size:26px;font-weight:700;color:var(--danger)">${alumnosEnRiesgo}</div><div style="font-size:12px;color:#666">Alumnos en riesgo</div>`;
-      document.querySelectorAll('.grid-3 div')[2].innerHTML = 
-        `<div style="font-size:26px;font-weight:700;color:var(--success)">${totalAlumnos}</div><div style="font-size:12px;color:#666">Alumnos totales</div>`;
-
-      // Agrupar por curso
-      const cursos = {};
-      estudiantes.forEach(e => {
-        if (!cursos[e.curso]) {
-          cursos[e.curso] = [];
-        }
-        cursos[e.curso].push(e);
-      });
-
-      // Generar gráfico de barras por curso
-      const chartHtml = Object.entries(cursos).map(([curso, alumnos]) => {
-        const asistencia = Math.round(
-          alumnos.reduce((sum, a) => sum + a.asistencia, 0) / alumnos.length
-        );
-        const barHeight = asistencia * 1.5;
-        const barClass = asistencia >= 80 ? 'ok' : 'risk';
-        return `
-          <div class="bar-wrap">
-            <div class="bar-val">${asistencia}%</div>
-            <div class="bar ${barClass}" style="height:${barHeight}px"></div>
-            <div class="bar-label">${curso}</div>
-          </div>
-        `;
-      }).join('');
-      document.querySelector('.bar-chart').innerHTML = chartHtml;
-
-      // Generar tabla de cursos
-      const tableBodyHtml = Object.entries(cursos).map(([curso, alumnos]) => {
-        const totalAlum = alumnos.length;
-        const asistencia = Math.round(alumnos.reduce((sum, a) => sum + a.asistencia, 0) / totalAlum);
-        const ausencias = alumnos.reduce((sum, a) => sum + a.ausencias, 0);
-        const tardanzas = alumnos.reduce((sum, a) => sum + a.tardanzas, 0);
-        
-        let pctClass = 'pct high';
-        if (asistencia < 80) pctClass = 'pct low';
-        else if (asistencia < 90) pctClass = 'pct mid';
-
-        return `
-          <tr>
-            <td>${curso}</td>
-            <td>${totalAlum}</td>
-            <td>${totalAlum - ausencias - tardanzas}</td>
-            <td>${ausencias}</td>
-            <td>${tardanzas}</td>
-            <td class="${pctClass}">${asistencia}%</td>
-          </tr>
-        `;
-      }).join('');
-      document.querySelector('table tbody').innerHTML = tableBodyHtml;
+    function mostrarError(mensaje) {
+      const errorDiv = document.getElementById('errorMessage');
+      errorDiv.textContent = mensaje;
+      errorDiv.classList.add('show');
+      setTimeout(() => errorDiv.classList.remove('show'), 5000);
     }
 
-    // Botones de filtro
-    document.addEventListener('DOMContentLoaded', function() {
-      cargarDatos();
+    function mostrarExito(mensaje) {
+      const successDiv = document.getElementById('successMessage');
+      successDiv.textContent = mensaje;
+      successDiv.classList.add('show');
+    }
+
+    function validarFormatoEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function actualizarRequisitos() {
+      const password = document.getElementById('passwordInput').value;
+      const reqsDiv = document.getElementById('passwordReqs');
       
-      document.querySelector('.flex-between .btn-primary').addEventListener('click', function() {
-        generarReporte();
-        alert('Reporte generado correctamente');
+      if (password.length > 0) reqsDiv.classList.add('show');
+      else reqsDiv.classList.remove('show');
+
+      const checks = {
+        reqLength: password.length >= validacionReqs.minCaracteres,
+        reqNumber: /\d/.test(password),
+        reqUpper: /[A-Z]/.test(password),
+        reqLower: /[a-z]/.test(password),
+        reqSpecial: /[@$!%*?&]/.test(password)
+      };
+
+      for (const [id, ok] of Object.entries(checks)) {
+        const el = document.getElementById(id);
+        el.innerHTML = ok ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>';
+        el.className = 'req-icon ' + (ok ? 'req-check' : 'req-pending');
+      }
+    }
+
+    function validarContrasena(contrasena) {
+      const errores = [];
+      if (contrasena.length < validacionReqs.minCaracteres) errores.push(`Mínimo ${validacionReqs.minCaracteres} caracteres`);
+      if (validacionReqs.requiereNumero && !/\d/.test(contrasena)) errores.push("Debe contener al menos un número");
+      if (validacionReqs.requireMayuscula && !/[A-Z]/.test(contrasena)) errores.push("Debe contener al menos una mayúscula");
+      if (validacionReqs.requireMinuscula && !/[a-z]/.test(contrasena)) errores.push("Debe contener al menos una minúscula");
+      if (validacionReqs.requireEspecial && !/@[$!%*?&]/.test(contrasena)) errores.push("Debe contener un carácter especial (@$!%*?&)");
+      return errores;
+    }
+
+    function crearUsuario() {
+      const nombre = document.getElementById('nombreInput').value.trim();
+      const email = document.getElementById('emailInput').value.trim();
+      const usuario = document.getElementById('usuarioInput').value.trim();
+      const rol = document.getElementById('rolSelect').value;
+      const password = document.getElementById('passwordInput').value;
+      const passwordConfirm = document.getElementById('passwordConfirmInput').value;
+
+      if (!nombre) { mostrarError("Por favor ingresa tu nombre completo"); return; }
+      if (nombre.length < 3) { mostrarError("El nombre debe tener al menos 3 caracteres"); return; }
+      if (!email) { mostrarError("Por favor ingresa tu correo electrónico"); return; }
+      if (!validarFormatoEmail(email)) { mostrarError("Por favor ingresa un correo válido (ej: usuario@sigah.edu.ar)"); return; }
+      if (credenciales.some(u => u.email === email)) { mostrarError("Este correo ya está registrado"); return; }
+      if (!usuario) { mostrarError("Por favor ingresa un nombre de usuario"); return; }
+      if (usuario.length < 3) { mostrarError("El nombre de usuario debe tener al menos 3 caracteres"); return; }
+      if (/\s/.test(usuario)) { mostrarError("El nombre de usuario no puede contener espacios"); return; }
+      if (credenciales.some(u => u.usuario === usuario)) { mostrarError("Este nombre de usuario ya está en uso"); return; }
+      if (!rol) { mostrarError("Por favor selecciona un rol"); return; }
+      if (!password) { mostrarError("Por favor ingresa una contraseña"); return; }
+
+      const erroresPassword = validarContrasena(password);
+      if (erroresPassword.length > 0) {
+        mostrarError("Contraseña no cumple los requisitos:\n• " + erroresPassword.join("\n• "));
+        return;
+      }
+
+      if (!passwordConfirm) { mostrarError("Por favor confirma tu contraseña"); return; }
+      if (password !== passwordConfirm) { mostrarError("Las contraseñas no coinciden"); return; }
+
+      const nuevoUsuario = {
+        id: Math.max(...credenciales.map(u => u.id), 0) + 1,
+        nombre, email, usuario,
+        contrasena: password, rol,
+        estado: "activo",
+        fechaCreacion: new Date().toISOString().split('T')[0]
+      };
+
+      let usuariosGuardados = JSON.parse(localStorage.getItem('usuariosRegistrados') || '[]');
+      usuariosGuardados.push(nuevoUsuario);
+      localStorage.setItem('usuariosRegistrados', JSON.stringify(usuariosGuardados));
+      credenciales.push(nuevoUsuario);
+
+      mostrarExito("¡Usuario registrado exitosamente! Redirigiendo al login...");
+      setTimeout(() => location.href = 'index.html', 2000);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      cargarCredenciales();
+      document.getElementById('passwordConfirmInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') crearUsuario();
       });
     });
   </script>

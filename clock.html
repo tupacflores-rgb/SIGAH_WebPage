@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SIGAH - Horario</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
     .sch-table th { background: var(--dark); color: white; text-align: center; font-size: 13px; }
     .sch-table td { text-align: center; height: 52px; font-size: 12px; font-weight: 600; }
@@ -17,11 +18,7 @@
     .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 14px; font-size: 12px; }
     .legend div { display: flex; align-items: center; gap: 6px; }
     .leg-dot { width: 14px; height: 14px; border-radius: 3px; }
-
-    /* Banner de horario */
     .clock-banner { width: 100%; height: 100px; object-fit: cover; border-radius: var(--radius); margin-bottom: 20px; opacity: 0.8; display: block; }
-
-    /* Avatares de docentes en la leyenda */
     .teacher-list { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 16px; }
     .teacher-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--gray); }
     .teacher-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); }
@@ -32,36 +29,33 @@
 
   <div class="page-header">
     <div class="breadcrumb"><a href="index.html">SIGAH</a> <span>›</span> <a href="home.html">Dashboard</a> <span>›</span> Horario</div>
-    <h1><span class="icon">🕐</span> Horario de Clases</h1>
+    <h1><i class="fas fa-clock icon"></i> Horario de Clases</h1>
     <p>Visualizá y gestioná los horarios por curso y turno.</p>
   </div>
 
   <main class="wide">
-    <!-- Banner -->
     <img class="clock-banner"
          src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1000&q=75"
-         alt="Horario de clases — EET N°3100">
+         alt="Horario de clases – EET N°3100">
 
-    <!-- Filtros -->
     <div class="card">
-      <h2>🎛️ Filtros</h2>
+      <h2><i class="fas fa-sliders-h"></i> Filtros</h2>
       <p>Seleccioná el curso y turno para ver su horario semanal.</p><br>
       <div class="row2">
         <div class="form-group">
-          <label>Curso</label>
-          <select><option>1° A</option><option>1° B</option><option>2° A</option><option>2° B</option><option>3° A</option></select>
+          <label for="cursoHorario">Curso</label>
+          <select id="cursoHorario"><option>1° A</option><option>1° B</option><option>2° A</option><option>2° B</option><option>3° A</option></select>
         </div>
         <div class="form-group">
-          <label>Turno</label>
-          <select><option>Mañana (07:30–12:00)</option><option>Tarde (13:00–17:30)</option><option>Noche (18:00–22:00)</option></select>
+          <label for="turnoHorario">Turno</label>
+          <select id="turnoHorario"><option>Mañana (07:30–12:00)</option><option>Tarde (13:00–17:30)</option><option>Noche (18:00–22:00)</option></select>
         </div>
       </div>
-      <button class="btn btn-primary">Ver horario</button>
+      <button class="btn btn-primary"><i class="fas fa-eye"></i> Ver horario</button>
     </div>
 
-    <!-- Grilla horaria -->
     <div class="card">
-      <h2>📅 Grilla semanal — 1° A Mañana</h2>
+      <h2><i class="fas fa-calendar-week"></i> Grilla semanal — 1° A Mañana</h2>
       <p>Horario correspondiente al ciclo lectivo 2026.</p><br>
       <div class="table-wrap">
         <table class="sch-table">
@@ -85,24 +79,23 @@
         <div><div class="leg-dot" style="background:#ffcdd2"></div>Talleres</div>
       </div>
 
-      <!-- Docentes a cargo con avatares -->
       <hr style="border:none;border-top:1px solid var(--border);margin:18px 0 14px">
-      <p style="font-size:12px;color:var(--light-gray);margin-bottom:10px">👨‍🏫 Docentes a cargo — 1° A</p>
+      <p style="font-size:12px;color:var(--light-gray);margin-bottom:10px"><i class="fas fa-chalkboard-teacher"></i> Docentes a cargo — 1° A</p>
       <div class="teacher-list">
         <div class="teacher-item">
-          <img class="teacher-avatar" src="https://i.pravatar.cc/32?img=12" alt="Prof. López">
+          <img class="teacher-avatar" src="https://i.pravatar.cc/32?img=12" alt="Avatar del Prof. López">
           <span>Prof. López — Matemáticas / Física</span>
         </div>
         <div class="teacher-item">
-          <img class="teacher-avatar" src="https://i.pravatar.cc/32?img=47" alt="Prof. Torres">
+          <img class="teacher-avatar" src="https://i.pravatar.cc/32?img=47" alt="Avatar de la Prof. Torres">
           <span>Prof. Torres — Lengua / Inglés</span>
         </div>
         <div class="teacher-item">
-          <img class="teacher-avatar" src="https://i.pravatar.cc/32?img=33" alt="Prof. Ramírez">
+          <img class="teacher-avatar" src="https://i.pravatar.cc/32?img=33" alt="Avatar del Prof. Ramírez">
           <span>Prof. Ramírez — Historia / Geografía</span>
         </div>
         <div class="teacher-item">
-          <img class="teacher-avatar" src="https://i.pravatar.cc/32?img=22" alt="Prof. Díaz">
+          <img class="teacher-avatar" src="https://i.pravatar.cc/32?img=22" alt="Avatar de la Prof. Díaz">
           <span>Prof. Díaz — Ed. Física / Artística</span>
         </div>
       </div>

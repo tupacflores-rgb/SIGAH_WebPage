@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SIGAH - Registro de Alumnos</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
     .photo-section { text-align: center; margin-bottom: 20px; }
     .photo {
@@ -58,32 +59,30 @@
 
   <div class="page-header">
     <div class="breadcrumb"><a href="index.html">SIGAH</a> <span>›</span> <a href="home.html">Dashboard</a> <span>›</span> Registro</div>
-    <h1><span class="icon">📝</span> Registro de Alumnos</h1>
+    <h1><i class="fas fa-user-plus icon"></i> Registro de Alumnos</h1>
     <p>Gestionar alumnos: crear, editar o eliminar registros del sistema.</p>
   </div>
 
   <main>
-    <img class="reg-banner" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=900&q=75" alt="Registro de alumnos — EET N°3100">
+    <img class="reg-banner" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=900&q=75" alt="Banner de registro de alumnos – EET N°3100">
 
     <div id="errorMsg" class="error-msg"></div>
     <div id="successMsg" class="success-msg"></div>
 
-    <!-- Botón agregar alumno -->
     <div class="card">
       <div class="flex-between">
-        <h2>📋 Alumnos del sistema</h2>
-        <button class="btn btn-success" onclick="abrirModalNuevoAlumno()">+ Agregar alumno</button>
+        <h2><i class="fas fa-users"></i> Alumnos del sistema</h2>
+        <button class="btn btn-success" onclick="abrirModalNuevoAlumno()"><i class="fas fa-plus"></i> Agregar alumno</button>
       </div>
     </div>
 
-    <!-- Filtro -->
     <div class="card">
       <div class="form-group">
-        <label>Buscar alumno (nombre, DNI, curso)</label>
+        <label for="searchInput">Buscar alumno (nombre, DNI, curso)</label>
         <input type="text" id="searchInput" placeholder="Ej: Flores, 00.000.000, 1° A..." onkeyup="filtrarAlumnos()">
       </div>
       <div class="form-group">
-        <label>Filtrar por curso</label>
+        <label for="cursoFilter">Filtrar por curso</label>
         <select id="cursoFilter" onchange="filtrarAlumnos()">
           <option value="">-- Todos los cursos --</option>
           <option value="1° A">1° A</option>
@@ -96,7 +95,6 @@
       </div>
     </div>
 
-    <!-- Lista de alumnos -->
     <div class="card">
       <div id="alumnosList"></div>
     </div>
@@ -106,7 +104,7 @@
   <div id="alumnoModal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
-        <span class="modal-close" onclick="cerrarModal()">&times;</span>
+        <span class="modal-close" onclick="cerrarModal()"><i class="fas fa-times"></i></span>
         <span id="modalTitle">Agregar alumno</span>
       </div>
 
@@ -114,46 +112,46 @@
 
       <div class="row2">
         <div class="form-group">
-          <label>Nombre</label>
+          <label for="nombre">Nombre</label>
           <input type="text" id="nombre" placeholder="Nombre/s">
         </div>
         <div class="form-group">
-          <label>Apellido</label>
+          <label for="apellido">Apellido</label>
           <input type="text" id="apellido" placeholder="Apellido/s">
         </div>
       </div>
 
       <div class="row2">
         <div class="form-group">
-          <label>DNI</label>
+          <label for="dni">DNI</label>
           <input type="text" id="dni" placeholder="00.000.000">
         </div>
         <div class="form-group">
-          <label>Fecha de nacimiento</label>
+          <label for="fechaNacimiento">Fecha de nacimiento</label>
           <input type="date" id="fechaNacimiento">
         </div>
       </div>
 
       <div class="form-group">
-        <label>Correo electrónico</label>
+        <label for="email">Correo electrónico</label>
         <input type="email" id="email" placeholder="alumno@email.com">
       </div>
 
       <div class="form-group">
-        <label>Teléfono</label>
+        <label for="telefono">Teléfono</label>
         <input type="tel" id="telefono" placeholder="+54 387 000-0000">
       </div>
 
       <div class="row2">
         <div class="form-group">
-          <label>Curso</label>
+          <label for="curso">Curso</label>
           <select id="curso">
             <option>1° A</option><option>1° B</option><option>2° A</option>
             <option>2° B</option><option>3° A</option><option>3° B</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Turno</label>
+          <label for="turno">Turno</label>
           <select id="turno">
             <option>Mañana</option><option>Tarde</option><option>Noche</option>
           </select>
@@ -161,13 +159,13 @@
       </div>
 
       <div class="form-group">
-        <label>Observaciones</label>
+        <label for="observaciones">Observaciones</label>
         <textarea id="observaciones" rows="3" placeholder="Información adicional..."></textarea>
       </div>
 
       <div class="flex-between">
         <button class="btn btn-outline" onclick="cerrarModal()">Cancelar</button>
-        <button class="btn btn-success" onclick="guardarAlumno()">Guardar</button>
+        <button class="btn btn-success" onclick="guardarAlumno()"><i class="fas fa-save"></i> Guardar</button>
       </div>
     </div>
   </div>
@@ -200,18 +198,18 @@
 
       container.innerHTML = lista.map(alumno => `
         <div class="alumno-item">
-          <img class="alumno-avatar" src="${alumno.foto}" alt="${alumno.nombre}">
+          <img class="alumno-avatar" src="${alumno.foto}" alt="Avatar de ${alumno.nombre} ${alumno.apellido}">
           <div class="alumno-info">
             <div class="nombre">${alumno.apellido}, ${alumno.nombre}</div>
-            <div class="datos">DNI: ${alumno.dni} | ${alumno.curso} ${alumno.turno}</div>
-            <div class="datos">${alumno.email} | ${alumno.telefono}</div>
+            <div class="datos"><i class="fas fa-id-card"></i> DNI: ${alumno.dni} | ${alumno.curso} ${alumno.turno}</div>
+            <div class="datos"><i class="fas fa-envelope"></i> ${alumno.email} | <i class="fas fa-phone"></i> ${alumno.telefono}</div>
             <div class="datos" style="color: ${alumno.asistencia >= 85 ? 'var(--success)' : 'var(--warning)'}">
-              📊 Asistencia: ${alumno.asistencia}% | Promedio: ${alumno.promedio}
+              <i class="fas fa-chart-line"></i> Asistencia: ${alumno.asistencia}% | Promedio: ${alumno.promedio}
             </div>
           </div>
           <div class="alumno-acciones">
-            <button class="btn btn-outline" onclick="editarAlumno(${alumno.id})">✏️ Editar</button>
-            <button class="btn btn-outline" style="color:var(--danger);border-color:var(--danger)" onclick="confirmarEliminar(${alumno.id})">🗑️ Eliminar</button>
+            <button class="btn btn-outline" onclick="editarAlumno(${alumno.id})"><i class="fas fa-edit"></i> Editar</button>
+            <button class="btn btn-outline" style="color:var(--danger);border-color:var(--danger)" onclick="confirmarEliminar(${alumno.id})"><i class="fas fa-trash"></i> Eliminar</button>
           </div>
         </div>
       `).join('');
@@ -226,9 +224,7 @@
           a.nombre.toLowerCase().includes(searchText) ||
           a.apellido.toLowerCase().includes(searchText) ||
           a.dni.includes(searchText);
-        
         const cumpeCurso = !cursoFilter || a.curso === cursoFilter;
-        
         return cumpleSearch && cumpeCurso;
       });
 
@@ -282,25 +278,12 @@
       const curso = document.getElementById('curso').value;
       const formError = document.getElementById('formError');
 
-      if (!nombre) {
-        mostrarErrorForm('Por favor ingresa el nombre');
-        return;
-      }
-      if (!apellido) {
-        mostrarErrorForm('Por favor ingresa el apellido');
-        return;
-      }
-      if (!dni) {
-        mostrarErrorForm('Por favor ingresa el DNI');
-        return;
-      }
-      if (!email) {
-        mostrarErrorForm('Por favor ingresa el correo');
-        return;
-      }
+      if (!nombre) { mostrarErrorForm('Por favor ingresa el nombre'); return; }
+      if (!apellido) { mostrarErrorForm('Por favor ingresa el apellido'); return; }
+      if (!dni) { mostrarErrorForm('Por favor ingresa el DNI'); return; }
+      if (!email) { mostrarErrorForm('Por favor ingresa el correo'); return; }
 
       if (estudianteEnEdicion) {
-        // Editar
         const alumno = estudiantes.find(a => a.id === estudianteEnEdicion);
         if (alumno) {
           alumno.nombre = nombre;
@@ -315,7 +298,6 @@
           mostrarExito('Alumno actualizado correctamente');
         }
       } else {
-        // Crear nuevo
         const nuevoAlumno = {
           id: Math.max(...estudiantes.map(a => a.id), 0) + 1,
           nombre: nombre,

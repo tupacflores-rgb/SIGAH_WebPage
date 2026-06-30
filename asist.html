@@ -5,13 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SIGAH - Asistencia</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
     .est-btn { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; border: none; cursor: pointer; }
     .presente { background: #e8f5e9; color: var(--success); }
     .ausente  { background: #ffebee; color: var(--danger);  }
     .tardanza { background: #fff3e0; color: var(--warning); }
-
-    /* Avatar de alumno en la tabla */
     .alumno-avatar {
       width: 30px;
       height: 30px;
@@ -22,9 +21,6 @@
       border: 1.5px solid var(--border);
     }
     .alumno-cell { display: flex; align-items: center; }
-
-    /* Banner de la sección -->
-    .asist-banner { width: 100%; height: 100px; object-fit: cover; border-radius: var(--radius); margin-bottom: 20px; opacity: 0.8; display: block; }
   </style>
 </head>
 <body>
@@ -32,58 +28,54 @@
 
   <div class="page-header">
     <div class="breadcrumb"><a href="index.html">SIGAH</a> <span>›</span> <a href="home.html">Dashboard</a> <span>›</span> Asistencia</div>
-    <h1><span class="icon">📋</span> Registro de Asistencia</h1>
+    <h1><i class="fas fa-clipboard-list icon"></i> Registro de Asistencia</h1>
     <p>Tomá asistencia por curso, fecha y materia.</p>
   </div>
 
   <main class="wide">
-    <!-- Banner con imagen de aula -->
     <img class="asist-banner"
          src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1000&q=75"
-         alt="Aula escolar — Registro de asistencia">
+         alt="Aula escolar – registro de asistencia">
 
-    <!-- Parámetros -->
     <div class="card">
-      <h2>🎛️ Parámetros del registro</h2>
+      <h2><i class="fas fa-sliders-h"></i> Parámetros del registro</h2>
       <p>Seleccioná el curso, la fecha y la materia antes de registrar la asistencia.</p><br>
       <div class="row2">
-        <div class="form-group"><label>Curso</label>
-          <select><option>1° A</option><option>1° B</option><option>2° A</option></select>
+        <div class="form-group"><label for="cursoAsist">Curso</label>
+          <select id="cursoAsist"><option>1° A</option><option>1° B</option><option>2° A</option></select>
         </div>
-        <div class="form-group"><label>Fecha</label><input type="date" value="2026-05-06"></div>
+        <div class="form-group"><label for="fechaAsist">Fecha</label><input type="date" id="fechaAsist" value="2026-05-06"></div>
       </div>
       <div class="row2">
-        <div class="form-group"><label>Materia</label>
-          <select><option>Matemáticas</option><option>Lengua</option><option>Historia</option></select>
+        <div class="form-group"><label for="materiaAsist">Materia</label>
+          <select id="materiaAsist"><option>Matemáticas</option><option>Lengua</option><option>Historia</option></select>
         </div>
-        <div class="form-group"><label>Turno</label>
-          <select><option>Mañana</option><option>Tarde</option></select>
+        <div class="form-group"><label for="turnoAsist">Turno</label>
+          <select id="turnoAsist"><option>Mañana</option><option>Tarde</option></select>
         </div>
       </div>
     </div>
 
-    <!-- Estadísticas -->
     <div class="card">
-      <h2>📊 Estadísticas del día</h2>
+      <h2><i class="fas fa-chart-bar"></i> Estadísticas del día</h2>
       <div class="grid-3">
         <div style="background:#e8f5e9;border-radius:8px;padding:14px;text-align:center">
           <div style="font-size:24px;font-weight:700;color:var(--success)">18</div>
-          <div style="font-size:12px;color:#666">Presentes</div>
+          <div style="font-size:12px;color:#666"><i class="fas fa-check-circle"></i> Presentes</div>
         </div>
         <div style="background:#ffebee;border-radius:8px;padding:14px;text-align:center">
           <div style="font-size:24px;font-weight:700;color:var(--danger)">3</div>
-          <div style="font-size:12px;color:#666">Ausentes</div>
+          <div style="font-size:12px;color:#666"><i class="fas fa-times-circle"></i> Ausentes</div>
         </div>
         <div style="background:#fff3e0;border-radius:8px;padding:14px;text-align:center">
           <div style="font-size:24px;font-weight:700;color:var(--warning)">2</div>
-          <div style="font-size:12px;color:#666">Tardanzas</div>
+          <div style="font-size:12px;color:#666"><i class="fas fa-clock"></i> Tardanzas</div>
         </div>
       </div>
     </div>
 
-    <!-- Lista de alumnos con avatares -->
     <div class="card">
-      <h2>👥 Lista de alumnos — 1° A</h2>
+      <h2><i class="fas fa-users"></i> Lista de alumnos — 1° A</h2>
       <p>Hacé click en el estado de cada alumno para cambiarlo.</p><br>
       <div class="table-wrap">
         <table>
@@ -91,71 +83,71 @@
           <tbody>
             <tr>
               <td>1</td>
-              <td><div class="alumno-cell"><img class="alumno-avatar" src="https://i.pravatar.cc/30?img=11" alt="">Aguilar, Marcos</div></td>
+              <td><div class="alumno-cell"><img class="alumno-avatar" src="https://i.pravatar.cc/30?img=11" alt="Avatar de Aguilar, Marcos">Aguilar, Marcos</div></td>
               <td>47 001 001</td>
-              <td><button class="est-btn presente" onclick="ciclar(this)">Presente</button></td>
+              <td><button class="est-btn presente" onclick="ciclar(this)"><i class="fas fa-check-circle"></i> Presente</button></td>
             </tr>
             <tr>
               <td>2</td>
-              <td><div class="alumno-cell"><img class="alumno-avatar" src="https://i.pravatar.cc/30?img=23" alt="">Benítez, Sofía</div></td>
+              <td><div class="alumno-cell"><img class="alumno-avatar" src="https://i.pravatar.cc/30?img=23" alt="Avatar de Benítez, Sofía">Benítez, Sofía</div></td>
               <td>47 002 002</td>
-              <td><button class="est-btn presente" onclick="ciclar(this)">Presente</button></td>
+              <td><button class="est-btn presente" onclick="ciclar(this)"><i class="fas fa-check-circle"></i> Presente</button></td>
             </tr>
             <tr>
               <td>3</td>
-              <td><div class="alumno-cell"><img class="alumno-avatar" src="https://i.pravatar.cc/30?img=15" alt="">Carrizo, Tomás</div></td>
+              <td><div class="alumno-cell"><img class="alumno-avatar" src="https://i.pravatar.cc/30?img=15" alt="Avatar de Carrizo, Tomás">Carrizo, Tomás</div></td>
               <td>47 003 003</td>
-              <td><button class="est-btn ausente" onclick="ciclar(this)">Ausente</button></td>
+              <td><button class="est-btn ausente" onclick="ciclar(this)"><i class="fas fa-times-circle"></i> Ausente</button></td>
             </tr>
             <tr>
               <td>4</td>
-              <td><div class="alumno-cell"><img class="alumno-avatar" src="https://i.pravatar.cc/30?img=32" alt="">Díaz, Valentina</div></td>
+              <td><div class="alumno-cell"><img class="alumno-avatar" src="https://i.pravatar.cc/30?img=32" alt="Avatar de Díaz, Valentina">Díaz, Valentina</div></td>
               <td>47 004 004</td>
-              <td><button class="est-btn tardanza" onclick="ciclar(this)">Tardanza</button></td>
+              <td><button class="est-btn tardanza" onclick="ciclar(this)"><i class="fas fa-clock"></i> Tardanza</button></td>
             </tr>
             <tr>
               <td>5</td>
-              <td><div class="alumno-cell"><img class="alumno-avatar" src="https://i.pravatar.cc/30?img=7" alt="">Flores, Rodrigo</div></td>
+              <td><div class="alumno-cell"><img class="alumno-avatar" src="https://i.pravatar.cc/30?img=7" alt="Avatar de Flores, Rodrigo">Flores, Rodrigo</div></td>
               <td>47 005 005</td>
-              <td><button class="est-btn presente" onclick="ciclar(this)">Presente</button></td>
+              <td><button class="est-btn presente" onclick="ciclar(this)"><i class="fas fa-check-circle"></i> Presente</button></td>
             </tr>
             <tr>
               <td>6</td>
-              <td><div class="alumno-cell"><img class="alumno-avatar" src="https://i.pravatar.cc/30?img=44" alt="">García, Camila</div></td>
+              <td><div class="alumno-cell"><img class="alumno-avatar" src="https://i.pravatar.cc/30?img=44" alt="Avatar de García, Camila">García, Camila</div></td>
               <td>47 006 006</td>
-              <td><button class="est-btn presente" onclick="ciclar(this)">Presente</button></td>
+              <td><button class="est-btn presente" onclick="ciclar(this)"><i class="fas fa-check-circle"></i> Presente</button></td>
             </tr>
             <tr>
               <td>7</td>
-              <td><div class="alumno-cell"><img class="alumno-avatar" src="https://i.pravatar.cc/30?img=52" alt="">Herrera, Bruno</div></td>
+              <td><div class="alumno-cell"><img class="alumno-avatar" src="https://i.pravatar.cc/30?img=52" alt="Avatar de Herrera, Bruno">Herrera, Bruno</div></td>
               <td>47 007 007</td>
-              <td><button class="est-btn ausente" onclick="ciclar(this)">Ausente</button></td>
+              <td><button class="est-btn ausente" onclick="ciclar(this)"><i class="fas fa-times-circle"></i> Ausente</button></td>
             </tr>
             <tr>
               <td>8</td>
-              <td><div class="alumno-cell"><img class="alumno-avatar" src="https://i.pravatar.cc/30?img=25" alt="">López, Martina</div></td>
+              <td><div class="alumno-cell"><img class="alumno-avatar" src="https://i.pravatar.cc/30?img=25" alt="Avatar de López, Martina">López, Martina</div></td>
               <td>47 008 008</td>
-              <td><button class="est-btn tardanza" onclick="ciclar(this)">Tardanza</button></td>
+              <td><button class="est-btn tardanza" onclick="ciclar(this)"><i class="fas fa-clock"></i> Tardanza</button></td>
             </tr>
             <tr>
               <td>9</td>
-              <td><div class="alumno-cell"><img class="alumno-avatar" src="https://i.pravatar.cc/30?img=60" alt="">Medina, Lautaro</div></td>
+              <td><div class="alumno-cell"><img class="alumno-avatar" src="https://i.pravatar.cc/30?img=60" alt="Avatar de Medina, Lautaro">Medina, Lautaro</div></td>
               <td>47 009 009</td>
-              <td><button class="est-btn presente" onclick="ciclar(this)">Presente</button></td>
+              <td><button class="est-btn presente" onclick="ciclar(this)"><i class="fas fa-check-circle"></i> Presente</button></td>
             </tr>
             <tr>
               <td>10</td>
-              <td><div class="alumno-cell"><img class="alumno-avatar" src="https://i.pravatar.cc/30?img=38" alt="">Núñez, Florencia</div></td>
+              <td><div class="alumno-cell"><img class="alumno-avatar" src="https://i.pravatar.cc/30?img=38" alt="Avatar de Núñez, Florencia">Núñez, Florencia</div></td>
               <td>47 010 010</td>
-              <td><button class="est-btn presente" onclick="ciclar(this)">Presente</button></td>
+              <td><button class="est-btn presente" onclick="ciclar(this)"><i class="fas fa-check-circle"></i> Presente</button></td>
             </tr>
           </tbody>
         </table>
       </div>
       <br>
       <div class="flex-between">
-        <button class="btn btn-outline">Cancelar</button>
-        <button class="btn btn-success">💾 Guardar asistencia</button>
+        <button class="btn btn-outline"><i class="fas fa-times"></i> Cancelar</button>
+        <button class="btn btn-success"><i class="fas fa-save"></i> Guardar asistencia</button>
       </div>
     </div>
   </main>
