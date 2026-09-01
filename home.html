@@ -75,6 +75,70 @@
       <div class="stat"><div class="n" style="color:#9C27B0">6</div><div class="l"><i class="fas fa-graduation-cap"></i> Cursos</div></div>
     </div>
 
+    <div class="card">
+      <h2><i class="fas fa-code"></i> Demo de JavaScript</h2>
+      <p id="saludoDemo"></p>
+      <div id="reloj">Cargando hora...</div>
+
+      <div class="demo-menu">
+        <button class="demo-menu-btn active" type="button" data-target="demo-panel-1">Sección 1</button>
+        <button class="demo-menu-btn" type="button" data-target="demo-panel-2">Sección 2</button>
+        <button class="demo-menu-btn" type="button" data-target="demo-panel-3">Sección 3</button>
+      </div>
+
+      <div class="demo-panel active" id="demo-panel-1">
+        <p>Este bloque se muestra u oculta con el menú interactivo y ayuda a probar la navegación dinámica.</p>
+      </div>
+      <div class="demo-panel" id="demo-panel-2">
+        <p>También podés cambiar el tema, validar formularios y revisar el resumen antes de enviar la información.</p>
+      </div>
+      <div class="demo-panel" id="demo-panel-3">
+        <p>La galería permite avanzar imágenes y ampliar una vista previa al hacer clic sobre cada miniatura.</p>
+      </div>
+
+      <div class="gallery-main">
+        <img id="galleryImage" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80" alt="Imagen principal de galería">
+      </div>
+      <div class="gallery-thumbs">
+        <img class="gallery-thumb active" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&q=80" alt="Miniatura 1" data-index="0">
+        <img class="gallery-thumb" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=500&q=80" alt="Miniatura 2" data-index="1">
+        <img class="gallery-thumb" src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&q=80" alt="Miniatura 3" data-index="2">
+        <img class="gallery-thumb" src="https://images.unsplash.com/photo-1513258496099-48168024aec0?w=500&q=80" alt="Miniatura 4" data-index="3">
+      </div>
+      <div class="gallery-controls">
+        <button class="btn btn-outline" type="button" id="prevGallery">Anterior</button>
+        <button class="btn btn-primary" type="button" id="nextGallery">Siguiente</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><i class="fas fa-file-signature"></i> Formulario con resumen</h2>
+      <form id="resumenForm" novalidate>
+        <div class="form-group">
+          <label for="nombreResumen">Nombre completo</label>
+          <input type="text" id="nombreResumen" placeholder="Ej: Ana García">
+          <div class="field-error" id="nombreResumenError"></div>
+        </div>
+        <div class="form-group">
+          <label for="emailResumen">Correo electrónico</label>
+          <input type="email" id="emailResumen" placeholder="ana@sigah.edu.ar">
+          <div class="field-error" id="emailResumenError"></div>
+        </div>
+        <div class="form-group">
+          <label for="cursoResumen">Curso</label>
+          <select id="cursoResumen">
+            <option value="">Seleccioná un curso</option>
+            <option value="Primero">Primero</option>
+            <option value="Segundo">Segundo</option>
+            <option value="Tercero">Tercero</option>
+          </select>
+          <div class="field-error" id="cursoResumenError"></div>
+        </div>
+        <button class="btn btn-success" type="submit">Ver resumen</button>
+        <div id="summaryBox" class="summary-box"></div>
+      </form>
+    </div>
+
     <h2 style="font-size:15px;color:var(--gray);margin-bottom:12px;"><i class="fas fa-bolt"></i> Accesos rápidos</h2>
     <div class="dash-grid">
       <a class="dash-btn c1" href="asist.html"><div class="icon"><i class="fas fa-clipboard-list"></i></div>Asistencia</a>
@@ -103,6 +167,107 @@
   <script>
     const d = new Date();
     document.getElementById('fecha').textContent = d.toLocaleDateString('es-AR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+    window.addEventListener('load', function() {
+      document.getElementById('saludoDemo').textContent = '¡Hola! Este panel demuestra mensajes, validación, menú interactivo, reloj y galería.';
+      alert('¡Bienvenido al panel de demo de SIGAH!');
+    });
+
+    function updateClock() {
+      const now = new Date();
+      const reloj = document.getElementById('reloj');
+      if (reloj) {
+        reloj.textContent = now.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      }
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    document.querySelectorAll('.demo-menu-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.demo-menu-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.demo-panel').forEach(panel => panel.classList.remove('active'));
+        button.classList.add('active');
+        const target = document.getElementById(button.dataset.target);
+        if (target) target.classList.add('active');
+      });
+    });
+
+    const galleryImages = [
+      'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80',
+      'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&q=80',
+      'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&q=80',
+      'https://images.unsplash.com/photo-1513258496099-48168024aec0?w=1200&q=80'
+    ];
+    let galleryIndex = 0;
+    const galleryImage = document.getElementById('galleryImage');
+    const thumbs = document.querySelectorAll('.gallery-thumb');
+    function renderGallery() {
+      if (!galleryImage) return;
+      galleryImage.src = galleryImages[galleryIndex];
+      galleryImage.alt = 'Imagen ' + (galleryIndex + 1) + ' de la galería';
+      thumbs.forEach((thumb, index) => {
+        thumb.classList.toggle('active', index === galleryIndex);
+      });
+    }
+    document.getElementById('nextGallery')?.addEventListener('click', () => {
+      galleryIndex = (galleryIndex + 1) % galleryImages.length;
+      renderGallery();
+    });
+    document.getElementById('prevGallery')?.addEventListener('click', () => {
+      galleryIndex = (galleryIndex - 1 + galleryImages.length) % galleryImages.length;
+      renderGallery();
+    });
+    thumbs.forEach((thumb) => {
+      thumb.addEventListener('click', () => {
+        galleryIndex = Number(thumb.dataset.index);
+        renderGallery();
+      });
+    });
+
+    document.getElementById('resumenForm')?.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const nombre = document.getElementById('nombreResumen').value.trim();
+      const email = document.getElementById('emailResumen').value.trim();
+      const curso = document.getElementById('cursoResumen').value;
+      const summary = document.getElementById('summaryBox');
+      let valid = true;
+      document.querySelectorAll('.field-error').forEach(err => err.textContent = '');
+      document.querySelectorAll('.field-error').forEach(err => err.classList.remove('show'));
+
+      if (!nombre) {
+        document.getElementById('nombreResumenError').textContent = 'El nombre es obligatorio.';
+        document.getElementById('nombreResumenError').classList.add('show');
+        valid = false;
+      }
+      if (!email) {
+        document.getElementById('emailResumenError').textContent = 'El correo es obligatorio.';
+        document.getElementById('emailResumenError').classList.add('show');
+        valid = false;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        document.getElementById('emailResumenError').textContent = 'Ingresá un correo válido.';
+        document.getElementById('emailResumenError').classList.add('show');
+        valid = false;
+      }
+      if (!curso) {
+        document.getElementById('cursoResumenError').textContent = 'Debés seleccionar un curso.';
+        document.getElementById('cursoResumenError').classList.add('show');
+        valid = false;
+      }
+
+      if (!valid) {
+        summary.classList.remove('show');
+        return;
+      }
+
+      summary.innerHTML = `
+        <strong>Resumen:</strong><br>
+        Nombre: ${nombre}<br>
+        Correo: ${email}<br>
+        Curso: ${curso}
+      `;
+      summary.classList.add('show');
+    });
   </script>
 </body>
 </html>

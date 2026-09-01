@@ -108,13 +108,18 @@
       <div class="form-group">
         <label for="emailInput">Correo electrónico o Usuario</label>
         <input type="text" id="emailInput" placeholder="usuario@sigah.edu.ar o usuario_nombre">
+        <div id="emailInputError" class="field-error"></div>
       </div>
       <div class="form-group">
         <label for="passwordInput">Contraseña</label>
         <input type="password" id="passwordInput" placeholder="••••••••">
+        <div id="passwordInputError" class="field-error"></div>
       </div>
       <button class="btn btn-primary btn-block" onclick="iniciarSesion()">
         Ingresar al sistema
+      </button>
+      <button class="btn btn-outline btn-block mt-8" type="button" onclick="ingresarDemo()">
+        <i class="fas fa-door-open"></i> Entrar como prueba
       </button>
       <p class="forgot"><a href="#">¿Olvidaste tu contraseña?</a></p>
       <div class="signup-link">
@@ -153,6 +158,26 @@
       setTimeout(() => errorDiv.classList.remove('show'), 5000);
     }
 
+    function mostrarErrorCampo(id, mensaje) {
+      const field = document.getElementById(id);
+      const error = document.getElementById(id + 'Error');
+      if (field) field.classList.add('error-input');
+      if (error) {
+        error.textContent = mensaje;
+        error.classList.add('show');
+      }
+    }
+
+    function limpiarErrorCampo(id) {
+      const field = document.getElementById(id);
+      const error = document.getElementById(id + 'Error');
+      if (field) field.classList.remove('error-input');
+      if (error) {
+        error.textContent = '';
+        error.classList.remove('show');
+      }
+    }
+
     function mostrarExito(mensaje) {
       const successDiv = document.getElementById('successMessage');
       successDiv.textContent = mensaje;
@@ -175,18 +200,53 @@
       return errores;
     }
 
+    function ingresarDemo() {
+      const demoUsuario = {
+        id: 0,
+        nombre: 'Usuario de prueba',
+        email: 'demo@sigah.edu.ar',
+        usuario: 'demo',
+        rol: 'admin'
+      };
+      localStorage.setItem('usuarioActual', JSON.stringify(demoUsuario));
+      mostrarExito('Acceso de prueba activado');
+      setTimeout(() => { location.href = 'home.html'; }, 700);
+    }
+
     function iniciarSesion() {
       const email = document.getElementById('emailInput').value.trim();
       const password = document.getElementById('passwordInput').value;
 
-      if (!email) { mostrarError("Por favor ingresa tu correo o usuario"); return; }
-      if (!password) { mostrarError("Por favor ingresa tu contraseña"); return; }
+      limpiarErrorCampo('emailInput');
+      limpiarErrorCampo('passwordInput');
+
+      let valido = true;
+      if (!email) {
+        mostrarErrorCampo('emailInput', 'Por favor ingresa tu correo o usuario');
+        valido = false;
+      }
+      if (!password) {
+        mostrarErrorCampo('passwordInput', 'Por favor ingresa tu contraseña');
+        valido = false;
+      }
+      if (!valido) {
+        mostrarError('Revisá los campos resaltados');
+        return;
+      }
 
       const usuario = credenciales.find(u => u.email === email || u.usuario === email);
-      if (!usuario) { mostrarError("Usuario o correo no encontrado"); return; }
-      if (usuario.contrasena !== password) { mostrarError("Contraseña incorrecta"); return; }
+      if (!usuario) {
+        mostrarErrorCampo('emailInput', 'Usuario o correo no encontrado');
+        mostrarError('Usuario o correo no encontrado');
+        return;
+      }
+      if (usuario.contrasena !== password) {
+        mostrarErrorCampo('passwordInput', 'Contraseña incorrecta');
+        mostrarError('Contraseña incorrecta');
+        return;
+      }
 
-      mostrarExito("¡Bienvenido " + usuario.nombre + "!");
+      mostrarExito('¡Bienvenido ' + usuario.nombre + '!');
       localStorage.setItem('usuarioActual', JSON.stringify({
         id: usuario.id,
         nombre: usuario.nombre,
@@ -200,6 +260,7 @@
 
     document.addEventListener('DOMContentLoaded', function() {
       cargarCredenciales();
+      alert('¡Bienvenido a SIGAH!');
       document.getElementById('passwordInput').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') iniciarSesion();
       });

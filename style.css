@@ -53,6 +53,69 @@ body {
   flex-direction: column;
 }
 
+body.dark-mode {
+  --bg: #0c1724;
+  --surface: #132536;
+  --dark: #ecf4ff;
+  --gray: #d9e7f5;
+  --light-gray: #a9bfd4;
+  --border: #23445d;
+  --primary: #4ec3ea;
+  --primary-dark: #3bb6dd;
+  --success: #7fe39d;
+  --warning: #ffba6b;
+  --danger: #ff8a80;
+  --shadow: 0 2px 12px rgba(0,0,0,0.35);
+}
+
+body.dark-mode .card,
+body.dark-mode .stat,
+body.dark-mode .dash-btn,
+body.dark-mode .login-card,
+body.dark-mode .modal-content,
+body.dark-mode .form-group input,
+body.dark-mode .form-group select,
+body.dark-mode .form-group textarea,
+body.dark-mode .password-requirements,
+body.dark-mode .error-message,
+body.dark-mode .success-message {
+  background: var(--surface);
+  color: var(--gray);
+}
+
+body.dark-mode .site-header,
+body.dark-mode .page-header,
+body.dark-mode footer {
+  background: #0b1724;
+}
+
+body.dark-mode .dash-btn {
+  color: var(--dark);
+}
+
+body.dark-mode .welcome-box {
+  background: linear-gradient(135deg, #091d2e, #123d60);
+}
+
+body.dark-mode .faq-answer pre,
+body.dark-mode .card pre {
+  background: rgba(255,255,255,0.04);
+  color: var(--gray);
+}
+
+body.dark-mode .brand,
+body.dark-mode .logo-sub,
+body.dark-mode .page-header p,
+body.dark-mode .footer-brand p,
+body.dark-mode .footer-links a,
+body.dark-mode .footer-contact p,
+body.dark-mode .footer-copy,
+body.dark-mode p,
+body.dark-mode label,
+body.dark-mode .text-muted {
+  color: var(--gray);
+}
+
 a { color: var(--primary); text-decoration: none; }
 a:hover { text-decoration: underline; }
 img { max-width: 100%; display: block; }
@@ -117,6 +180,27 @@ pre { white-space: pre-wrap; word-break: break-word; }
   display: flex;
   align-items: center;
   gap: 4px;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.theme-toggle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.06);
+  color: white;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-small {
+  padding: 7px 12px;
+  font-size: 12px;
 }
 #main-nav a {
   color: #a8bfc9;
@@ -327,6 +411,104 @@ select {
   padding-right: 30px;
 }
 textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+
+.field-error {
+  display: none;
+  color: var(--danger);
+  font-size: 11px;
+  margin-top: -8px;
+  margin-bottom: 8px;
+}
+.field-error.show {
+  display: block;
+}
+.field-error input,
+.field-error textarea,
+.field-error select {
+  border-color: var(--danger);
+}
+
+.demo-menu {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+.demo-menu-btn {
+  background: #edf6fb;
+  color: var(--dark);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.demo-menu-btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+.demo-panel {
+  display: none;
+  background: #f7fbfd;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.demo-panel.active {
+  display: block;
+}
+.gallery-main {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 12px;
+  background: #f8fafd;
+}
+.gallery-main img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+.gallery-thumbs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+.gallery-thumbs img {
+  width: 100%;
+  height: 72px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+.gallery-thumbs img.active {
+  border-color: var(--primary);
+}
+.gallery-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  gap: 10px;
+}
+.summary-box {
+  margin-top: 12px;
+  padding: 12px;
+  background: #f5fafc;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  display: none;
+}
+.summary-box.show {
+  display: block;
+}
+#reloj {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 10px 0 16px;
+}
 
 /* Tables */
 .table-wrap { overflow-x: auto; border-radius: var(--radius-sm); }
