@@ -9,7 +9,9 @@ las vistas renderizan HTML desde el servidor (SSR), reutilizan plantillas median
 `require/include` (SSI), generan el título y el enlace activo del menú dinámicamente,
 y cargan la configuración global desde `.env`.
 
-**Prototipo de Figma:** pendiente de completar con el enlace público o de solo lectura del diseño original.
+**Prototipo de Figma:** [SIGAH](https://www.figma.com/site/LXN9SMqXKIH1vqBHc9Rfwb/SIGAH?node-id=0-1&t=NyciRH0tEqnR4roP-1)
+
+**Repositorio:** [SIGAH_WebPage — rama main-php](https://github.com/tupacflores-rgb/SIGAH_WebPage/tree/main-php)
 
 **Tecnologías:** HTML5, CSS3, JavaScript, PHP 8.1+, Apache/XAMPP y MariaDB/MySQL opcional.
 
@@ -36,8 +38,8 @@ Descarga de XAMPP: <https://www.apachefriends.org/es/download.html>
 2. Abrí **XAMPP Control Panel**. Si Windows solicita permiso de firewall, permití
   Apache en redes privadas. No hace falta iniciar MySQL para la configuración básica.
 3. Ubicá la carpeta `htdocs`, normalmente `C:\xampp\htdocs`.
-4. Luego seguí el paso 1 de abajo para copiar el repositorio en `htdocs` y elegir
-  el nombre de la carpeta del proyecto.
+4. Luego seguí el paso 1 de abajo para copiar el repositorio en `htdocs` con la
+  carpeta `sigah`.
 
 > Si clonás desde GitHub, cloná el repositorio dentro de `C:\xampp\htdocs`.
 > Si descargás un ZIP, extraelo y evitá dejar una carpeta anidada duplicada: `index.php`
@@ -45,7 +47,8 @@ Descarga de XAMPP: <https://www.apachefriends.org/es/download.html>
 
 ### 1. Copiar el proyecto a `htdocs`
 
-Copiá toda la carpeta del proyecto adentro de `htdocs` y llamala `sigah`:
+Copiá toda la carpeta del proyecto adentro de `htdocs` y llamala `sigah`.
+La ruta local esperada es `C:\xampp\htdocs\sigah`:
 
 ```
 C:\xampp\htdocs\sigah\
@@ -83,6 +86,9 @@ Solo hace falta MySQL si vas a usar la base de datos (paso 6).
 ```
 http://localhost/sigah/
 ```
+
+Después de iniciar sesión, el dashboard se encuentra en
+<http://localhost/sigah/home.php>.
 
 ### 5. Entrar al sistema
 
@@ -204,28 +210,40 @@ La plantilla versionada `.env.example` contiene, entre otras, `APP_NAME`,
 
 ### Figma
 
-Agregar aquí el enlace público o de solo lectura al prototipo original: **pendiente de completar**.
-No se incluye una URL porque el enlace no fue proporcionado en el proyecto.
+El prototipo de Figma está enlazado al comienzo de este README.
 
-### Capturas requeridas
+### Capturas de funcionamiento y estructura
 
-Las capturas deben ser imágenes reales tomadas después de iniciar el proyecto en XAMPP;
-no se deben reemplazar por imágenes ilustrativas. Guardalas, por ejemplo, en una carpeta
-`docs/evidencias/` y enlazalas aquí antes de entregar:
+Las capturas están guardadas en `fotos/` dentro del repositorio:
 
-- [ ] Sitio abierto con una URL `http://localhost/...`.
-- [ ] Código de `partials/header.php`, `partials/nav.php` y `partials/footer.php`.
-- [ ] Pestaña del navegador mostrando un título dinámico y navegación con el elemento activo.
-- [ ] Archivo `.env.example` visible en el repositorio.
+**Sitio ejecutándose en XAMPP** — muestra `http://localhost/sigah/home.php` y la opción activa del menú:
 
-Estas evidencias y el enlace de Figma requieren datos/capturas del autor y quedan pendientes
-hasta agregarlos al repositorio.
+![Dashboard SIGAH ejecutándose en localhost con Dashboard activo](fotos/Page_work.png)
+
+**Plantilla HTML y título dinámico** — `header.php`:
+
+![Código de partials/header.php con título dinámico](fotos/header_fontCode.png)
+
+**Navegación modular con enlace activo** — `nav.php`:
+
+![Código de partials/nav.php](fotos/nav_fontCode.png)
+
+**Pie de página compartido** — `footer.php`:
+
+![Código de partials/footer.php](fotos/footer_fonCode.png)
+
+La captura del dashboard evidencia que la aplicación está servida desde localhost y que
+el enlace correspondiente está activo. El título dinámico se muestra en la plantilla
+`header.php`. Para completar la evidencia visual de configuración, agregá también una
+captura de `.env.example` si la cátedra solicita verla como imagen; el archivo ya está
+versionado en la raíz del repositorio.
 
 ### Flujo Git sugerido
 
-Creá una rama de trabajo, guardá los cambios en commits pequeños y descriptivos, subila a
-GitHub y abrí un Pull Request hacia `main`. Ejemplo de nombre de rama:
-`feature/migracion-php-ssi`. El enlace del PR y el repositorio público se entregan en Classroom.
+El proyecto se encuentra publicado en la rama `main-php` del repositorio enlazado arriba.
+Para cumplir el flujo solicitado por la consigna, creá una rama de trabajo, guardá los
+cambios en commits pequeños y descriptivos, subila a GitHub y abrí un Pull Request hacia
+`main`. El enlace del PR y el repositorio público se entregan en Classroom.
 
 ---
 
