@@ -1,35 +1,26 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SIGAH - Curso de Programación</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <style>
-    .course-hero {
-      border-radius: var(--radius);
-      margin-bottom: 24px;
-      overflow: hidden;
-      position: relative;
-      min-height: 200px;
-    }
-    .course-hero-img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      display: block;
-      filter: brightness(0.35) saturate(0.7);
-    }
-    .course-hero-overlay {
-      position: absolute;
-      inset: 0;
-      padding: 32px 28px;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
+<?php
+declare(strict_types=1);
+
+require __DIR__ . '/app/bootstrap.php';
+// Página pública.
+
+$app     = (string) env('APP_NAME', 'SIGAH');
+$marca   = (string) env('SUPPORT_BRAND', 'Pixel Fix');
+$soporte = (string) env('SUPPORT_EMAIL', '');
+
+$titulo_pagina = 'Curso de programación';
+$pageIcon    = 'fa-book-open';
+$pageHeading = 'Curso de Programación Web y Sistemas';
+$pageDesc    = 'Aprendé a desarrollar sistemas reales como ' . $app . ' desde cero.';
+$breadcrumb  = [
+    ['label' => $app, 'url' => 'index.php'],
+    ['label' => 'Curso'],
+];
+
+$pageStyles = <<<'CSS'
+    .course-hero { border-radius: var(--radius); margin-bottom: 24px; overflow: hidden; position: relative; min-height: 200px; }
+    .course-hero-img { width: 100%; height: 220px; object-fit: cover; display: block; filter: brightness(0.35) saturate(0.7); }
+    .course-hero-overlay { position: absolute; inset: 0; padding: 32px 28px; color: white; display: flex; flex-direction: column; justify-content: center; }
     .course-hero-overlay h2 { color: white; font-size: 22px; border: none; padding: 0; }
     .course-hero-overlay p { color: #a0d4e8; margin-top: 8px; font-size: 14px; line-height: 1.7; }
     .course-hero-overlay .tags { margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap; }
@@ -43,41 +34,35 @@
     .module-img { width: 100%; height: 130px; object-fit: cover; border-radius: var(--radius-sm); margin: 10px 0 14px; opacity: 0.85; }
     .enroll-card { border-radius: var(--radius); overflow: hidden; }
     .enroll-cover { width: 100%; height: 140px; object-fit: cover; filter: brightness(0.4) saturate(0.6); display: block; }
-    .enroll-body { background: var(--dark); color: white; padding: 28px 24px; text-align: center; }
+    .enroll-body { background: #0f2533; color: white; padding: 28px 24px; text-align: center; }
     .enroll-body h2 { color: var(--primary); border: none; font-size: 18px; padding: 0; margin-bottom: 10px; }
     .enroll-body p { color: #aaa; font-size: 13px; margin-bottom: 20px; }
     .price { font-size: 30px; font-weight: 700; color: white; }
     .price span { font-size: 14px; color: #aaa; }
-    .code-block { background: #1e2a35; color: #69f0ae; font-family: 'Courier New', monospace; font-size: 12px; padding: 14px 16px; border-radius: 6px; overflow-x: auto; line-height: 1.8; margin: 10px 0; }
-  </style>
-</head>
-<body>
-  <div id="site-header-slot"></div>
+    .code-block { background: #1e2a35; color: #69f0ae; font-family: 'IBM Plex Mono', monospace; font-size: 12px; padding: 14px 16px; border-radius: 6px; overflow-x: auto; line-height: 1.8; margin: 10px 0; }
+CSS;
 
-  <div class="page-header">
-    <div class="breadcrumb"><a href="index.html">SIGAH</a> <span>›</span> Curso</div>
-    <h1><i class="fas fa-book-open icon"></i> Curso de Programación Web y Sistemas</h1>
-    <p>Aprendé a desarrollar sistemas reales como SIGAH desde cero.</p>
-  </div>
+include __DIR__ . '/partials/header.php';
+?>
 
   <main class="wide">
     <div class="course-hero">
       <img class="course-hero-img"
            src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&q=80"
-           alt="Curso de programación web – SIGAH">
+           alt="Curso de programación web – <?= e($app) ?>">
       <div class="course-hero-overlay">
-        <h2><i class="fas fa-graduation-cap"></i> Programación Web y Gestión de Sistemas con Python</h2>
+        <h2><i class="fas fa-graduation-cap"></i> Programación Web y Gestión de Sistemas</h2>
         <p>
-          Un curso práctico basado en la experiencia real de crear <strong>SIGAH</strong> y <strong>SANE</strong>.<br>
+          Un curso práctico basado en la experiencia real de crear <strong><?= e($app) ?></strong> y <strong>SANE</strong>.<br>
           Aprendé desde HTML básico hasta sistemas completos con base de datos.
         </p>
         <div class="tags">
-          <span class="tag"><i class="fab fa-python"></i> Python</span>
           <span class="tag"><i class="fab fa-html5"></i> HTML/CSS</span>
           <span class="tag"><i class="fab fa-js"></i> JavaScript</span>
-          <span class="tag"><i class="fas fa-database"></i> MySQL/MariaDB</span>
-          <span class="tag"><i class="fas fa-code"></i> C++</span>
           <span class="tag"><i class="fab fa-php"></i> PHP</span>
+          <span class="tag"><i class="fas fa-database"></i> MySQL/MariaDB</span>
+          <span class="tag"><i class="fab fa-python"></i> Python</span>
+          <span class="tag"><i class="fas fa-code"></i> C++</span>
         </div>
       </div>
     </div>
@@ -92,7 +77,7 @@
       <h2><i class="fas fa-cube"></i> Módulo 1 — Fundamentos de la Web</h2>
 
       <div class="module">
-        <h3>1.1 HTML5: Estructura y semántica</h3>
+        <h3>1.1 HTML5: estructura y semántica</h3>
         <img class="module-img"
              src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=800&q=75"
              alt="HTML5 – Estructura y semántica">
@@ -101,7 +86,7 @@
         <ul>
           <li>Estructura básica: DOCTYPE, html, head, body</li>
           <li>Encabezados: &lt;h1&gt; a &lt;h6&gt; y su jerarquía</li>
-          <li>Párrafos, saltos de línea: &lt;p&gt;, &lt;br&gt;</li>
+          <li>Párrafos y saltos de línea: &lt;p&gt;, &lt;br&gt;</li>
           <li>Código y texto preformateado: &lt;pre&gt;, &lt;code&gt;</li>
           <li>Formularios: input, select, textarea, button</li>
           <li>Tablas: thead, tbody, tr, th, td</li>
@@ -123,11 +108,11 @@
       </div>
 
       <div class="module">
-        <h3>1.2 CSS3: Estilos y diseño responsive</h3>
+        <h3>1.2 CSS3: estilos y diseño responsive</h3>
         <img class="module-img"
              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=75"
              alt="CSS3 – Diseño y estilos responsive">
-        <p>Dá vida visual a tus páginas. Desde colores y tipografías hasta layouts con Flexbox y Grid.</p>
+        <p>Dale vida visual a tus páginas. Desde colores y tipografías hasta layouts con Flexbox y Grid.</p>
         <h4><i class="fas fa-list-check"></i> Temas principales:</h4>
         <ul>
           <li>Selectores, clases e IDs</li>
@@ -137,7 +122,7 @@
           <li>Transiciones y animaciones</li>
         </ul>
         <h5><i class="fas fa-pencil-alt"></i> Práctica:</h5>
-        <p>Diseñá la interfaz del sistema SIGAH respetando la paleta de colores y los componentes vistos en clase.</p>
+        <p>Diseñá la interfaz del sistema <?= e($app) ?> respetando la paleta de colores y los componentes vistos en clase.</p>
       </div>
     </div>
 
@@ -146,7 +131,7 @@
       <h2><i class="fas fa-cube"></i> Módulo 2 — JavaScript y PHP</h2>
 
       <div class="module">
-        <h3>2.1 JavaScript — Interactividad del lado del cliente</h3>
+        <h3>2.1 JavaScript — interactividad del lado del cliente</h3>
         <img class="module-img"
              src="https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=800&q=75"
              alt="JavaScript – Programación del lado del cliente">
@@ -155,42 +140,61 @@
         <ul>
           <li>Variables, tipos de datos, funciones</li>
           <li>Manipulación del DOM</li>
-          <li>Eventos: onclick, onchange, onsubmit</li>
+          <li>Eventos: click, change, submit</li>
           <li>Fetch API — consumo de servicios REST</li>
-          <li>LocalStorage para persistencia simple</li>
+          <li>LocalStorage y cookies</li>
         </ul>
         <h4><i class="fas fa-code"></i> Ejemplo:</h4>
         <pre class="code-block">// Cambiar estado de asistencia
 function toggleEstado(btn) {
   const estados = ['Presente','Ausente','Tardanza'];
-  const idx = estados.indexOf(btn.textContent);
+  const idx = estados.indexOf(btn.textContent.trim());
   btn.textContent = estados[(idx + 1) % 3];
 }</pre>
       </div>
 
       <div class="module">
-        <h3>2.2 PHP — Servidor web básico</h3>
-        <p>Procesá formularios, conectate a bases de datos y generá HTML dinámico desde el servidor.</p>
+        <h3>2.2 PHP — el servidor web</h3>
+        <img class="module-img"
+             src="https://images.unsplash.com/photo-1599507593499-a3f7d7d97667?w=800&q=75"
+             alt="PHP – Programación del lado del servidor">
+        <p>Procesá formularios, conectate a bases de datos y generá HTML dinámico desde el servidor.
+           Es exactamente lo que hace esta web: cada página que estás viendo es un archivo <code>.php</code>.</p>
         <h4><i class="fas fa-list-check"></i> Temas principales:</h4>
         <ul>
-          <li>Variables, arrays, funciones</li>
-          <li>Formularios POST/GET</li>
-          <li>Conexión a MySQL con PDO</li>
-          <li>Sesiones y autenticación básica</li>
+          <li>Variables, arrays y funciones</li>
+          <li>Formularios POST/GET y validación del lado del servidor</li>
+          <li><code>include</code> / <code>require</code> para reutilizar header y footer</li>
+          <li>Sesiones (<code>$_SESSION</code>) y autenticación</li>
+          <li>Conexión a MySQL/MariaDB con PDO</li>
+          <li>Variables de entorno con archivos <code>.env</code></li>
         </ul>
+        <h4><i class="fas fa-code"></i> Ejemplo:</h4>
+        <pre class="code-block">&lt;?php
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $usuario = trim($_POST['usuario'] ?? '');
+
+    if ($usuario !== '') {
+        $_SESSION['usuario'] = $usuario;
+        header('Location: home.php');
+        exit;
+    }
+}</pre>
       </div>
     </div>
 
     <!-- Módulo 3 -->
     <div class="card">
-      <h2><i class="fas fa-cube"></i> Módulo 3 — Python para sistemas</h2>
+      <h2><i class="fas fa-cube"></i> Módulo 3 — Python y bases de datos</h2>
 
       <div class="module">
         <h3>3.1 Python base y automatización</h3>
         <img class="module-img"
              src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=800&q=75"
              alt="Python – Programación y automatización">
-        <p>El lenguaje principal de SIGAH y SANE. Desde la sintaxis básica hasta módulos de automatización.</p>
+        <p>El lenguaje del módulo SANE. Desde la sintaxis básica hasta scripts de automatización.</p>
         <h4><i class="fas fa-list-check"></i> Temas principales:</h4>
         <ul>
           <li>Sintaxis, variables, listas, diccionarios</li>
@@ -203,13 +207,8 @@ function toggleEstado(btn) {
 
 def registrar_asistencia(alumno, estado):
     fecha = datetime.date.today()
-    registro = {
-        "alumno": alumno,
-        "estado": estado,
-        "fecha": str(fecha)
-    }
     print(f"[{fecha}] {alumno}: {estado}")
-    return registro
+    return {"alumno": alumno, "estado": estado, "fecha": str(fecha)}
 
 registrar_asistencia("Flores Arce, Rolando", "Presente")</pre>
       </div>
@@ -225,7 +224,7 @@ registrar_asistencia("Flores Arce, Rolando", "Presente")</pre>
           <li>Modelado de datos y tablas</li>
           <li>SQL: SELECT, INSERT, UPDATE, DELETE</li>
           <li>Relaciones y JOIN</li>
-          <li>Conexión desde Python (mysql-connector, sqlite3)</li>
+          <li>phpMyAdmin (XAMPP) para administrar la base</li>
           <li>Migraciones y respaldos</li>
         </ul>
       </div>
@@ -244,31 +243,35 @@ registrar_asistencia("Flores Arce, Rolando", "Presente")</pre>
         <ul>
           <li>Diseñar la arquitectura del sistema</li>
           <li>Crear el frontend con HTML, CSS y JS</li>
-          <li>Desarrollar el backend con Python o PHP</li>
+          <li>Desarrollar el backend con PHP</li>
           <li>Conectar con base de datos MariaDB</li>
-          <li>Documentar el proyecto</li>
+          <li>Publicarlo en un servidor local (XAMPP) y documentarlo</li>
         </ul>
         <h5><i class="fas fa-pencil-alt"></i> Referencia:</h5>
-        <p>El sistema <strong>SIGAH</strong> desarrollado por Rolando Flores Arce es el ejemplo de referencia del proyecto final.</p>
+        <p>El sistema <strong><?= e($app) ?></strong> desarrollado por Rolando Flores Arce es el ejemplo de referencia del proyecto final.</p>
       </div>
     </div>
 
-    <!-- Inscripción -->
     <div class="enroll-card">
       <img class="enroll-cover"
            src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1000&q=75"
-           alt="Clases de programación – Pixel Fix">
+           alt="Clases de programación – <?= e($marca) ?>">
       <div class="enroll-body">
         <h2><i class="fas fa-rocket"></i> ¡Inscribite ahora!</h2>
-        <p>Clases presenciales y virtuales en Salta.<br>Cupos limitados — dictado por Rolando Flores Arce (Pixel Fix).</p>
-        <div class="price"><i class="fas fa-gratipay"></i> Gratis <span>para estudiantes de EET N°3100</span></div>
+        <p>
+          Clases presenciales y virtuales en <?= e(env('SCHOOL_CITY', 'Salta')) ?>.<br>
+          Cupos limitados — dictado por Rolando Flores Arce (<?= e($marca) ?>).
+        </p>
+        <div class="price">
+          <i class="fas fa-gratipay"></i> Gratis
+          <span>para estudiantes de <?= e(env('SCHOOL_SHORT', '')) ?></span>
+        </div>
         <br><br>
-        <a href="mailto:pixelfix@email.com" class="btn btn-primary" style="font-size:15px;padding:12px 32px;"><i class="fas fa-envelope"></i> Contactar para inscribirse</a>
+        <a href="mailto:<?= e($soporte) ?>" class="btn btn-primary" style="font-size:15px;padding:12px 32px;">
+          <i class="fas fa-envelope"></i> Contactar para inscribirse
+        </a>
       </div>
     </div>
   </main>
 
-  <div id="site-footer-slot"></div>
-  <script src="components.js"></script>
-</body>
-</html>
+<?php include __DIR__ . '/partials/footer.php'; ?>

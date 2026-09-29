@@ -1,0 +1,18 @@
+# Entorno — nunca subir credenciales
+.env
+.env.local
+.env.*.local
+
+# Datos generados en tiempo de ejecución
+data/attendance.json
+data/comments.json
+
+# Sistema operativo / editores
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
+
+# Logs
+*.log
