@@ -247,6 +247,35 @@ cambios en commits pequeños y descriptivos, subila a GitHub y abrí un Pull Req
 
 ---
 
+## Clase 5 – Formularios seguros con PHP
+
+En esta entrega se incorporó la lógica del lado del servidor para procesar formularios de forma segura, con validación y sanitización de entradas provenientes de `$_POST` y `$_GET`.
+
+### Formularios creados
+
+- Formulario por `POST`: registro/contacto con validación de nombre, email, asunto y mensaje.
+- Formulario por `GET`: búsqueda con filtro por categoría y resultados dinámicos.
+- Sanitización estricta: uso de `trim()`, `filter_var()`, `FILTER_VALIDATE_EMAIL` y `htmlspecialchars()` para evitar XSS y entradas inválidas.
+- Persistencia de datos: si hay errores, los campos completados se conservan para no volver a escribirlos.
+- Mensajes al usuario: se muestran mensajes claros de éxito o validación en pantalla.
+
+### Archivos de la entrega
+
+La implementación queda en la carpeta `clase5/` del repositorio:
+
+- `clase5/index.php` – lógica principal de la entrega.
+- `clase5/style.css` – estilos del mockup y formularios.
+- `clase5/screenshots/post-form.svg` – captura del formulario por POST.
+- `clase5/screenshots/get-form.svg` – captura del formulario por GET.
+
+### Capturas de pantalla
+
+![Formulario POST validado y sanitizado](clase5/screenshots/post-form.svg)
+
+![Formulario GET con búsqueda segura y filtro](clase5/screenshots/get-form.svg)
+
+---
+
 ## Problemas frecuentes
 
 | Síntoma | Causa y solución |

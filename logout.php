@@ -12,3 +12,4 @@ auth_logout();
 flash_set('success', 'Cerraste sesión correctamente.');
 
 redirect('index.php');
+

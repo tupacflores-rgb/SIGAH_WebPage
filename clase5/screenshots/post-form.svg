@@ -1,0 +1,22 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#F4F7FB"/>
+  <rect x="60" y="50" width="1160" height="620" rx="28" fill="white" stroke="#DFEAF5" stroke-width="2"/>
+  <rect x="90" y="80" width="290" height="60" rx="18" fill="#EDF5FF"/>
+  <text x="120" y="120" fill="#2B6CB0" font-size="28" font-family="Arial, Helvetica, sans-serif" font-weight="700">Clase 5</text>
+  <text x="90" y="185" fill="#1F2937" font-size="38" font-family="Arial, Helvetica, sans-serif" font-weight="700">Formulario por POST</text>
+  <text x="90" y="225" fill="#5F6C7B" font-size="24" font-family="Arial, Helvetica, sans-serif">Registro, contacto y validación de entrada</text>
+
+  <rect x="90" y="280" width="1100" height="300" rx="18" fill="#F9FBFF" stroke="#DFEAF5" stroke-width="2"/>
+  <rect x="130" y="320" width="350" height="48" rx="12" fill="white" stroke="#DFEAF5" stroke-width="2"/>
+  <rect x="130" y="385" width="350" height="48" rx="12" fill="white" stroke="#DFEAF5" stroke-width="2"/>
+  <rect x="130" y="450" width="350" height="48" rx="12" fill="white" stroke="#DFEAF5" stroke-width="2"/>
+  <rect x="130" y="515" width="350" height="48" rx="12" fill="#2B6CB0"/>
+  <text x="158" y="545" fill="white" font-size="20" font-family="Arial, Helvetica, sans-serif" font-weight="700">Enviar formulario</text>
+
+  <text x="500" y="360" fill="#1F2937" font-size="26" font-family="Arial, Helvetica, sans-serif" font-weight="700">Validación del lado del servidor</text>
+  <text x="500" y="410" fill="#1F2937" font-size="20" font-family="Arial, Helvetica, sans-serif">✓ Nombre obligatorio</text>
+  <text x="500" y="450" fill="#1F2937" font-size="20" font-family="Arial, Helvetica, sans-serif">✓ Email válido</text>
+  <text x="500" y="490" fill="#1F2937" font-size="20" font-family="Arial, Helvetica, sans-serif">✓ Mensaje con longitud mínima</text>
+  <rect x="500" y="520" width="510" height="40" rx="10" fill="#EAFAF1" stroke="#7BD7AA" stroke-width="2"/>
+  <text x="530" y="547" fill="#1D8F5F" font-size="22" font-family="Arial, Helvetica, sans-serif" font-weight="700">Éxito: formulario enviado correctamente</text>
+</svg>

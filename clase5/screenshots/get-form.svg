@@ -1,0 +1,21 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#F4F7FB"/>
+  <rect x="60" y="50" width="1160" height="620" rx="28" fill="white" stroke="#DFEAF5" stroke-width="2"/>
+  <rect x="90" y="80" width="290" height="60" rx="18" fill="#EDF5FF"/>
+  <text x="120" y="120" fill="#2B6CB0" font-size="28" font-family="Arial, Helvetica, sans-serif" font-weight="700">Clase 5</text>
+  <text x="90" y="185" fill="#1F2937" font-size="38" font-family="Arial, Helvetica, sans-serif" font-weight="700">Formulario por GET</text>
+  <text x="90" y="225" fill="#5F6C7B" font-size="24" font-family="Arial, Helvetica, sans-serif">Búsqueda y filtrado de resultados</text>
+
+  <rect x="90" y="280" width="1100" height="300" rx="18" fill="#F9FBFF" stroke="#DFEAF5" stroke-width="2"/>
+  <rect x="130" y="320" width="440" height="48" rx="12" fill="white" stroke="#DFEAF5" stroke-width="2"/>
+  <rect x="590" y="320" width="250" height="48" rx="12" fill="white" stroke="#DFEAF5" stroke-width="2"/>
+  <rect x="860" y="320" width="200" height="48" rx="12" fill="#2B6CB0"/>
+  <text x="918" y="350" fill="white" font-size="20" font-family="Arial, Helvetica, sans-serif" font-weight="700">Buscar</text>
+
+  <text x="500" y="420" fill="#1F2937" font-size="26" font-family="Arial, Helvetica, sans-serif" font-weight="700">Búsqueda segura con filtro</text>
+  <text x="500" y="470" fill="#1F2937" font-size="20" font-family="Arial, Helvetica, sans-serif">✓ Query sanitizada</text>
+  <text x="500" y="510" fill="#1F2937" font-size="20" font-family="Arial, Helvetica, sans-serif">✓ Categoría validada</text>
+  <text x="500" y="550" fill="#1F2937" font-size="20" font-family="Arial, Helvetica, sans-serif">✓ Resultados filtrados</text>
+  <rect x="500" y="580" width="510" height="40" rx="10" fill="#E8F9F8" stroke="#9ADBD7" stroke-width="2"/>
+  <text x="530" y="607" fill="#0F766E" font-size="22" font-family="Arial, Helvetica, sans-serif" font-weight="700">Resultado: 2 coincidencias encontradas</text>
+</svg>
