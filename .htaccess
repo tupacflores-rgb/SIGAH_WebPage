@@ -1,0 +1,47 @@
+# ==================================================================
+#  SIGAH — Configuración de Apache (XAMPP)
+# ==================================================================
+
+DirectoryIndex index.php index.html
+
+# No listar el contenido de las carpetas
+Options -Indexes
+
+# ------------------------------------------------------------------
+#  Bloquear archivos sensibles
+# ------------------------------------------------------------------
+<FilesMatch "^\.(env|env\..*|gitignore|htaccess)$">
+    Require all denied
+</FilesMatch>
+
+<FilesMatch "\.(md|sql|txt|json)$">
+    Require all denied
+</FilesMatch>
+
+# ------------------------------------------------------------------
+#  Compatibilidad con los enlaces viejos: /home.html -> /home.php
+# ------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.+)\.html$ $1.php [R=301,L]
+</IfModule>
+
+# ------------------------------------------------------------------
+#  Caché de recursos estáticos
+# ------------------------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css            "access plus 7 days"
+    ExpiresByType application/javascript "access plus 7 days"
+    ExpiresByType image/png           "access plus 30 days"
+    ExpiresByType image/jpeg          "access plus 30 days"
+    ExpiresByType image/svg+xml       "access plus 30 days"
+</IfModule>
+
+# ------------------------------------------------------------------
+#  UTF-8 por defecto
+# ------------------------------------------------------------------
+AddDefaultCharset UTF-8

@@ -1,0 +1,3 @@
+# Los JSON de esta carpeta solo se leen desde PHP.
+# Nadie debe poder abrir http://localhost/sigah/data/credentials.json
+Require all denied
