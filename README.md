@@ -269,6 +269,61 @@ La entrega se encuentra en la carpeta `clase5/` del repositorio y aquí se muest
 
 ---
 
+## Normalización y esquema SQL
+
+### Parte 1: normalización aplicada al proyecto
+
+Un registro no normalizado en un sistema escolar podría verse así:
+
+| id_alumno | nombre | apellido | telefonos | cursos | rol | provincia | ciudad |
+|---|---|---|---|---|---|---|---|
+| 1 | María | García | 3815550011,3815550099 | Matemática,Historia | admin,docente | Salta | Salta |
+
+Este diseño presenta redundancia y campos multivalorados, por ejemplo:
+- `telefonos` guarda varios teléfonos en una sola cadena.
+- `cursos` guarda varias materias en un mismo campo.
+- `rol` guarda varios roles en un valor único.
+
+#### 1FN (Primera Forma Normal)
+Se elimina la repetición y cada campo queda atómico:
+
+| id_alumno | nombre | apellido | telefono | curso | rol |
+|---|---|---|---|---|---|
+| 1 | María | García | 3815550011 | Matemática | admin |
+| 1 | María | García | 3815550099 | Historia | docente |
+
+#### 2FN (Segunda Forma Normal)
+Se separan las entidades que tienen dependencia parcial sobre la clave primaria.
+Entonces, se crean tablas distintas para:
+- `alumnos`
+- `usuarios`
+- `roles`
+- `cursos`
+- `alumno_curso`
+
+#### 3FN (Tercera Forma Normal)
+Se extraen atributos que dependen de otros atributos no clave, por ejemplo:
+- `provincias` y `ciudades` pueden separarse si fueran necesarias.
+- `roles` y `cursos` quedan como tablas maestras independientes.
+
+### Tablas resultantes
+
+| Tabla | PK | FK | Descripción |
+|---|---|---|---|
+| `roles` | `id` | - | Roles del sistema |
+| `usuarios` | `id` | `rol_id` -> `roles.id` | Datos de autenticación de usuarios |
+| `cursos` | `id` | - | Materias o asignaturas |
+| `alumnos` | `id` | `usuario_id` -> `usuarios.id` | Alumnos del sistema |
+| `alumno_curso` | `id` | `alumno_id` -> `alumnos.id`, `curso_id` -> `cursos.id` | Relación de muchos a muchos |
+| `asistencias` | `id` | `alumno_id` -> `alumnos.id`, `curso_id` -> `cursos.id` | Registro de asistencias |
+
+### Archivos SQL generados
+
+- [schema.sql](schema.sql) — DDL del esquema MySQL con base de datos, tablas, claves primarias, claves foráneas, auditoría e índices.
+- [consultas.sql](consultas.sql) — INSERT, SELECT, UPDATE y DELETE de prueba para validar el sistema.
+
+---
+
 ## Problemas frecuentes
 
 | Síntoma | Causa y solución |
