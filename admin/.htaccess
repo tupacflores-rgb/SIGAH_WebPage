@@ -1,0 +1,4 @@
+# Los archivos que empiezan con "_" son parciales internos.
+<FilesMatch "^_">
+    Require all denied
+</FilesMatch>

@@ -356,3 +356,18 @@ Este proyecto es **didáctico** y está pensado para un servidor local:
 
 Rolando Maximo Tupac Flores Arce — EET N°3100 "Rep. de la India", Salta.
 Proyecto de la materia Diseño UI/UX. Soporte técnico: Pixel Fix.
+
+
+## TP7 y TP8 — Persistencia PDO, sesiones y autenticación
+
+Requiere importar `sql/sigah.sql`, generar los hashes con `php sql/generar-hashes.php` y poner `DB_ENABLED=true` en `.env.local`.
+
+| Archivo | Función |
+|---|---|
+| `config/conexion.php` | Conexión PDO con `try/catch (PDOException)` |
+| `admin/index.php`, `crear.php`, `editar.php`, `eliminar.php` | CRUD de alumnos (consultas preparadas, `htmlspecialchars` vía `e()`, CSRF) |
+| `add-user.php` | Registro: valida email único y usa `password_hash(..., PASSWORD_BCRYPT)` |
+| `index.php` | Login: `password_verify`, `session_regenerate_id(true)`, `$_SESSION['usuario_id' / 'usuario_nombre' / 'rol']` |
+| `auth_guard.php` | Guardián de rutas (sesión + roles) |
+| `admin_panel.php` | Vista exclusiva del rol `admin` |
+| `logout.php` | Vacía `$_SESSION`, borra la cookie y `session_destroy()` |

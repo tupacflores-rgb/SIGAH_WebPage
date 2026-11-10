@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'nombre'        => $form['nombre'],
             'email'         => $form['email'],
             'usuario'       => $form['usuario'],
-            'contrasena'    => password_hash($password, PASSWORD_DEFAULT),
+            'contrasena'    => password_hash($password, PASSWORD_BCRYPT),
             'rol'           => $form['rol'],
             'estado'        => 'activo',
             'fechaCreacion' => date('Y-m-d'),

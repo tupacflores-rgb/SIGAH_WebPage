@@ -15,6 +15,13 @@ $general = flash_get('error');
 $success = flash_get('success');
 $email   = '';
 
+if (($_GET['error'] ?? '') === 'acceso_denegado') {
+    $general = 'Iniciá sesión para acceder a esa sección.';
+}
+if (isset($_GET['logout'])) {
+    $success = 'Cerraste sesión correctamente.';
+}
+
 /* ------------------------------------------------------------------
  |  Procesar el formulario
  | ------------------------------------------------------------------ */

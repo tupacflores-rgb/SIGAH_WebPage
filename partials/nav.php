@@ -13,6 +13,7 @@ $navItems = [
     'report.php'      => 'Reportes',
     'notif.php'       => 'Notificaciones',
     'faq.php'         => 'FAQ',
+    'admin/index.php' => 'Administración',
     'config.php'      => 'Configuración',
 ];
 $currentPage = current_page();

@@ -7,9 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_check();
 }
 
+// Vacía $_SESSION, borra la cookie y ejecuta session_destroy().
 auth_logout();
 
-flash_set('success', 'Cerraste sesión correctamente.');
-
-redirect('index.php');
-
+redirect('index.php?logout=1');

@@ -101,6 +101,24 @@ function users_find(string $identifier): ?array
 {
     $needle = mb_strtolower(trim($identifier));
 
+    // Modo base de datos (DB_ENABLED=true): consulta preparada, sin concatenar SQL.
+    $pdo = db();
+    if ($pdo !== null) {
+        if ($needle === '') {
+            return null;
+        }
+
+        $stmt = $pdo->prepare(
+            'SELECT id, nombre, email, usuario, contrasena, rol, estado
+               FROM usuarios
+              WHERE email = :email OR usuario = :usuario
+              LIMIT 1'
+        );
+        $stmt->execute([':email' => $needle, ':usuario' => $needle]);
+
+        return $stmt->fetch() ?: null;
+    }
+
     foreach (users_all() as $user) {
         $email   = mb_strtolower((string) ($user['email'] ?? ''));
         $usuario = mb_strtolower((string) ($user['usuario'] ?? ''));
@@ -135,6 +153,30 @@ function password_matches(string $password, string $stored): bool
  */
 function users_create(array $user): bool
 {
+    // Modo base de datos: INSERT preparado (la contraseña ya llega hasheada).
+    $pdo = db();
+    if ($pdo !== null) {
+        try {
+            $stmt = $pdo->prepare(
+                'INSERT INTO usuarios (nombre, email, usuario, contrasena, rol, estado)
+                 VALUES (:nombre, :email, :usuario, :contrasena, :rol, :estado)'
+            );
+
+            return $stmt->execute([
+                ':nombre'     => (string) $user['nombre'],
+                ':email'      => (string) $user['email'],
+                ':usuario'    => (string) $user['usuario'],
+                ':contrasena' => (string) $user['contrasena'],
+                ':rol'        => (string) $user['rol'],
+                ':estado'     => (string) ($user['estado'] ?? 'activo'),
+            ]);
+        } catch (PDOException $e) {
+            error_log('SIGAH · users_create: ' . $e->getMessage());
+
+            return false;
+        }
+    }
+
     $data = read_json('credentials.json');
     $data['usuarios'] ??= [];
 
@@ -167,18 +209,35 @@ function auth_login(array $user): void
         'demo'    => (bool) ($user['demo'] ?? false),
     ];
     $_SESSION['login_at'] = time();
+
+    // Claves planas pedidas por el TP8 (las usa auth_guard.php).
+    $_SESSION['usuario_id']     = (int) ($user['id'] ?? 0);
+    $_SESSION['usuario_nombre'] = (string) ($user['nombre'] ?? '');
+    $_SESSION['rol']            = (string) ($user['rol'] ?? 'docente');
 }
 
 /**
- * Cierra la sesión: borra los datos y renueva el identificador,
- * pero mantiene la sesión viva para poder mostrar el mensaje de despedida.
+ * Cierra la sesión por completo (TP8): vacía $_SESSION, borra la cookie
+ * de sesión del navegador y destruye la sesión en el servidor.
  */
 function auth_logout(): void
 {
     $_SESSION = [];
 
+    if (ini_get('session.use_cookies')) {
+        $p = session_get_cookie_params();
+        setcookie(session_name(), '', [
+            'expires'  => time() - 42000,
+            'path'     => $p['path'],
+            'domain'   => $p['domain'],
+            'secure'   => $p['secure'],
+            'httponly' => $p['httponly'],
+            'samesite' => $p['samesite'] ?? 'Lax',
+        ]);
+    }
+
     if (session_status() === PHP_SESSION_ACTIVE) {
-        session_regenerate_id(true);
+        session_destroy();
     }
 }
 
@@ -210,14 +269,11 @@ function auth_name(): string
  */
 function require_login(): void
 {
-    if (auth_check()) {
+    if (isset($_SESSION['usuario_id']) && auth_check()) {
         return;
     }
 
-    flash_set('error', 'Iniciá sesión para acceder a esa sección.');
-    $_SESSION['_intended'] = (string) ($_SERVER['REQUEST_URI'] ?? '');
-
-    redirect('index.php');
+    redirect('index.php?error=acceso_denegado');
 }
 
 /**
