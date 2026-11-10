@@ -251,7 +251,8 @@ function auth_user(): ?array
 
 function auth_check(): bool
 {
-    return auth_user() !== null;
+    // Una sesión vieja (sin usuario_id) no cuenta como iniciada: evita bucles de redirección.
+    return isset($_SESSION['usuario_id']) && auth_user() !== null;
 }
 
 function auth_role(): string
