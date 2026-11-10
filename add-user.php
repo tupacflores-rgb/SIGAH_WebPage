@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 require __DIR__ . '/app/bootstrap.php';
 
-if (!(bool) env('ALLOW_SELF_REGISTER', true) && !auth_check()) {
-    flash_set('error', 'El registro de usuarios está deshabilitado. Pedile un alta al administrador.');
-    redirect('index.php');
-}
+// El alta de usuarios es una tarea del administrador (no hay registro público).
+require_role('admin');
 
 $roles = [
     'admin'   => 'Administrador',
@@ -97,8 +95,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
 
         if ($created) {
-            flash_set('success', 'Usuario registrado correctamente. Ya podés iniciar sesión.');
-            redirect('index.php');
+            flash_set('success', 'Usuario creado correctamente.');
+            redirect('admin_panel.php');
         }
 
         $general = 'No se pudo guardar el usuario. Revisá que la carpeta data/ tenga permisos de escritura.';
@@ -253,13 +251,13 @@ include __DIR__ . '/partials/header.php';
         </div>
 
         <div class="button-group">
-          <a class="btn btn-outline" href="<?= e(url('index.php')) ?>">Cancelar</a>
-          <button class="btn btn-success" type="submit"><i class="fas fa-check"></i> Registrarse</button>
+          <a class="btn btn-outline" href="<?= e(url('admin_panel.php')) ?>">Cancelar</a>
+          <button class="btn btn-success" type="submit"><i class="fas fa-check"></i> Crear usuario</button>
         </div>
       </form>
 
       <div class="back-link">
-        ¿Ya tenés cuenta? <a href="<?= e(url('index.php')) ?>">Iniciá sesión acá</a>
+        <a href="<?= e(url('admin_panel.php')) ?>">Volver al panel de administración</a>
       </div>
     </div>
   </div>

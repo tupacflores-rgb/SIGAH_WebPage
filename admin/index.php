@@ -81,12 +81,14 @@ include __DIR__ . '/../partials/header.php';
               <td><span class="badge <?= $item['estado'] === 'activo' ? 'badge-success' : 'badge-warning' ?>"><?= e($item['estado']) ?></span></td>
               <td style="white-space:nowrap">
                 <a class="btn btn-outline" href="<?= e(url('admin/editar.php?id=' . (int) $item['id'])) ?>"><i class="fas fa-edit"></i> Editar</a>
+<?php if (auth_role() === 'admin'): ?>
                 <form method="post" action="<?= e(url('admin/eliminar.php')) ?>" style="display:inline"
                       onsubmit="return confirm('¿Confirma eliminar este registro?')">
                   <?= csrf_field() ?>
                   <input type="hidden" name="id" value="<?= (int) $item['id'] ?>">
                   <button class="btn btn-outline" type="submit" style="color:var(--danger);border-color:var(--danger)"><i class="fas fa-trash"></i> Eliminar</button>
                 </form>
+<?php endif; ?>
               </td>
             </tr>
 <?php endforeach; ?>

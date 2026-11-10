@@ -220,13 +220,8 @@ include __DIR__ . '/partials/header.php';
       </form>
 <?php endif; ?>
 
-      <p class="forgot"><a href="<?= e(url('faq.php')) ?>">¿Olvidaste tu contraseña?</a></p>
+      <p class="forgot">¿Sin cuenta? Pedile el alta al administrador.</p>
 
-<?php if ((bool) env('ALLOW_SELF_REGISTER', true)): ?>
-      <div class="signup-link">
-        <span>¿No tienes cuenta?</span> <a href="<?= e(url('add-user.php')) ?>">Crear usuario</a>
-      </div>
-<?php endif; ?>
     </div>
   </div>
 

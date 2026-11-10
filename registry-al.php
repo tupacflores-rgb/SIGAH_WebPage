@@ -2,7 +2,12 @@
 declare(strict_types=1);
 
 require __DIR__ . '/app/bootstrap.php';
-require_login();
+require_role('admin', 'docente');
+
+// Con la base de datos activa, el CRUD real de alumnos vive en admin/.
+if (db_ready()) {
+    redirect('admin/index.php');
+}
 
 $institucion = read_json('institution.json');
 $cursos      = array_map(static fn (array $c): string => (string) ($c['nombre'] ?? ''), $institucion['cursos'] ?? []);
@@ -83,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $estudiantes[] = array_merge($campos, [
                     'id'         => ($ids ? max($ids) : 0) + 1,
-                    'foto'       => 'https://i.pravatar.cc/150?img=' . random_int(1, 70),
+                    'foto'       => '',
                     'estado'     => 'activo',
                     'asistencia' => 100,
                     'ausencias'  => 0,
@@ -226,8 +231,12 @@ include __DIR__ . '/partials/header.php';
 
 <?php foreach ($filtrados as $alumno): ?>
       <div class="alumno-item">
-        <img class="alumno-avatar" src="<?= e($alumno['foto'] ?? '') ?>"
-             alt="Avatar de <?= e($alumno['apellido'] . ', ' . $alumno['nombre']) ?>">
+<?php if (!empty($alumno['foto'])): ?>
+        <img class="alumno-avatar" src="<?= e($alumno['foto']) ?>"
+             alt="Foto de <?= e($alumno['apellido'] . ', ' . $alumno['nombre']) ?>">
+<?php else: ?>
+        <span class="alumno-avatar" aria-hidden="true" style="display:flex;align-items:center;justify-content:center;background:var(--bg);font-weight:700;color:var(--primary)"><?= e(mb_strtoupper(mb_substr((string) ($alumno['apellido'] ?? '?'), 0, 1) . mb_substr((string) ($alumno['nombre'] ?? ''), 0, 1))) ?></span>
+<?php endif; ?>
 
         <div class="alumno-info">
           <div class="nombre"><?= e($alumno['apellido'] . ', ' . $alumno['nombre']) ?></div>

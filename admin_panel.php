@@ -8,6 +8,7 @@ $rolesPermitidos = ['admin'];
 require __DIR__ . '/auth_guard.php';
 require_once __DIR__ . '/config/conexion.php';
 
+$ok = flash_get('success');
 $stmt = $pdo->prepare('SELECT id, nombre, email, usuario, rol, estado, fecha_creacion FROM usuarios ORDER BY id');
 $stmt->execute();
 $usuarios = $stmt->fetchAll();
@@ -26,12 +27,16 @@ include __DIR__ . '/partials/header.php';
 ?>
 
   <main>
+<?php if ($ok): ?>
+    <div class="alert alert-success" role="status"><?= e($ok) ?></div>
+<?php endif; ?>
     <div class="card">
       <h2><i class="fas fa-users-gear"></i> Usuarios del sistema (<?= count($usuarios) ?>)</h2>
       <p class="mb-16">
         Sesión de <strong><?= e($_SESSION['usuario_nombre'] ?? '') ?></strong>
         · rol <span class="badge badge-primary"><?= e($_SESSION['rol'] ?? '') ?></span>
         · <a href="<?= e(url('admin/index.php')) ?>">Administrar alumnos</a>
+        · <a class="btn btn-primary" href="<?= e(url('add-user.php')) ?>"><i class="fas fa-user-plus"></i> Crear usuario</a>
       </p>
       <div class="table-wrap">
         <table>

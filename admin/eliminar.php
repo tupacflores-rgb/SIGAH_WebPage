@@ -4,7 +4,7 @@ declare(strict_types=1);
 // DELETE — baja de alumno con DELETE preparado (solo por POST + CSRF)
 require __DIR__ . '/../app/bootstrap.php';
 
-$rolesPermitidos = ['admin', 'docente'];
+$rolesPermitidos = ['admin'];
 require __DIR__ . '/../auth_guard.php';
 require_once __DIR__ . '/../config/conexion.php';
 

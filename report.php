@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 require __DIR__ . '/app/bootstrap.php';
-require_login();
+require_role('admin', 'docente');
 
 /**
  * NOTA: el archivo report.html original era una copia de add-user.html
