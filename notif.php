@@ -5,7 +5,7 @@ require __DIR__ . '/app/bootstrap.php';
 require_login();
 
 $umbralRiesgo = (int) env('ATTENDANCE_RISK_THRESHOLD', 85);
-$estudiantes  = read_json('students.json')['estudiantes'] ?? [];
+$estudiantes  = students_all();
 
 /* ------------------------------------------------------------------
  |  Alertas generadas a partir de los datos reales (módulo SANE)
@@ -35,7 +35,7 @@ foreach ($estudiantes as $alumno) {
 }
 
 /* Última asistencia registrada desde asist.php */
-$asistencias = read_json('attendance.json');
+$asistencias = attendance_all();
 
 if ($asistencias) {
     uasort($asistencias, static fn (array $a, array $b): int => strcmp((string) ($b['actualizado'] ?? ''), (string) ($a['actualizado'] ?? '')));

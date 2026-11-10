@@ -11,8 +11,7 @@ require_role('admin', 'docente');
  */
 
 $institucion = read_json('institution.json');
-$cursos      = array_map(static fn (array $c): string => (string) ($c['nombre'] ?? ''), $institucion['cursos'] ?? []);
-$cursos      = array_values(array_filter($cursos));
+$cursos      = courses_names();
 
 $umbralRiesgo = (int) env('ATTENDANCE_RISK_THRESHOLD', 85);
 
@@ -21,7 +20,7 @@ if ($cursoFiltro !== '' && !in_array($cursoFiltro, $cursos, true)) {
     $cursoFiltro = '';
 }
 
-$estudiantes = read_json('students.json')['estudiantes'] ?? [];
+$estudiantes = students_all();
 
 $filtrados = $cursoFiltro === ''
     ? $estudiantes

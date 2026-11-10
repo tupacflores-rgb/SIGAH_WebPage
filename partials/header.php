@@ -38,6 +38,16 @@ $bodyClasses = trim(($bodyClass !== '' ? $bodyClass . ' ' : '') . (current_theme
   <div class="login-hero"></div>
 <?php endif; ?>
 
+<?php if ((bool) env('DB_ENABLED', false) && !db_ready()): ?>
+  <div class="alert alert-error" role="alert" style="margin:12px">
+    <strong>Sin conexión a MySQL.</strong> Los datos NO se están guardando en la base.
+    Iniciá MySQL en XAMPP e importá <code>sql/sigah.sql</code> en phpMyAdmin.
+<?php if ((bool) env('APP_DEBUG', false) && db_last_error()): ?>
+    <br><small>Detalle: <?= e(db_last_error()) ?></small>
+<?php endif; ?>
+  </div>
+<?php endif; ?>
+
 <?php include __DIR__ . '/site-header.php'; ?>
 
 <?php if (!empty($pageHeadingHtml) || !empty($pageHeading)): ?>

@@ -7,7 +7,7 @@ require_login();
 /* ------------------------------------------------------------------
  |  Estadísticas calculadas en el servidor a partir de data/
  | ------------------------------------------------------------------ */
-$estudiantes = read_json('students.json')['estudiantes'] ?? [];
+$estudiantes = students_all();
 $institucion = read_json('institution.json');
 $cursos      = $institucion['cursos'] ?? [];
 

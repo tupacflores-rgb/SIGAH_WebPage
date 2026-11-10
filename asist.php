@@ -8,8 +8,7 @@ require_role('admin', 'docente');
  |  Datos base
  | ------------------------------------------------------------------ */
 $institucion = read_json('institution.json');
-$cursos      = array_map(static fn (array $c): string => (string) ($c['nombre'] ?? ''), $institucion['cursos'] ?? []);
-$cursos      = array_values(array_filter($cursos)) ?: ['1° A'];
+$cursos      = courses_names();
 
 $turnos   = ['Mañana', 'Tarde', 'Noche'];
 $materias = ['Matemáticas', 'Lengua', 'Historia', 'Geografía', 'Inglés', 'Física', 'Biología', 'Química', 'Ed. Física'];
@@ -39,7 +38,7 @@ $claveRegistro = $fecha . '|' . $curso . '|' . $materia;
 /* ------------------------------------------------------------------
  |  Alumnos del curso seleccionado
  | ------------------------------------------------------------------ */
-$todos   = read_json('students.json')['estudiantes'] ?? [];
+$todos   = students_all();
 $alumnos = array_values(array_filter(
     $todos,
     static fn (array $a): bool => ($a['curso'] ?? '') === $curso
@@ -69,21 +68,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
         $registro[$id] = in_array($estado, $estadosValidos, true) ? $estado : 'presente';
     }
 
-    $asistencias = read_json('attendance.json');
-    $asistencias[$claveRegistro] = [
-        'fecha'       => $fecha,
-        'curso'       => $curso,
-        'materia'     => $materia,
-        'turno'       => $turno,
-        'registradoPor' => auth_name(),
-        'actualizado' => date('c'),
-        'estados'     => $registro,
-    ];
-
-    if (write_json('attendance.json', $asistencias)) {
+    if (attendance_save($claveRegistro, $fecha, $curso, $materia, $turno, auth_name(), $registro)) {
         flash_set('success', 'Asistencia guardada para ' . $curso . ' — ' . $materia . ' (' . $fecha . ').');
     } else {
-        flash_set('error', 'No se pudo guardar. Verificá que la carpeta data/ tenga permisos de escritura.');
+        flash_set('error', 'No se pudo guardar. Revisá la conexión a MySQL o los permisos de data/.');
     }
 
     redirect('asist.php?' . http_build_query(compact('curso', 'fecha', 'materia', 'turno')));
@@ -92,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
 /* ------------------------------------------------------------------
  |  Estado actual (lo guardado o "presente" por defecto)
  | ------------------------------------------------------------------ */
-$guardados = read_json('attendance.json')[$claveRegistro]['estados'] ?? [];
+$guardados = attendance_get($claveRegistro);
 
 $estadoDe = static function (array $alumno) use ($guardados): string {
     return (string) ($guardados[(string) $alumno['id']] ?? 'presente');

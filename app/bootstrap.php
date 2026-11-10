@@ -30,6 +30,7 @@ Env::load(
 require APP_PATH . '/helpers.php';
 require APP_PATH . '/auth.php';
 require APP_PATH . '/database.php';
+require APP_PATH . '/repository.php';
 
 /* ------------------------------------------------------------------
  |  Configuración general derivada del .env

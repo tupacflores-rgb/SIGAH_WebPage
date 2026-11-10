@@ -54,10 +54,8 @@ function db(): ?PDO
         );
     } catch (PDOException $e) {
         $pdo = null;
-
-        if ((bool) env('APP_DEBUG', false)) {
-            error_log('SIGAH · Error de conexión a la base de datos: ' . $e->getMessage());
-        }
+        $GLOBALS['sigah_db_error'] = $e->getMessage();
+        error_log('SIGAH · Error de conexión a la base de datos: ' . $e->getMessage());
     }
 
     return $pdo;
@@ -69,4 +67,12 @@ function db(): ?PDO
 function db_ready(): bool
 {
     return db() instanceof PDO;
+}
+
+/**
+ * Mensaje del último error de conexión (null si no hubo o la BD está apagada).
+ */
+function db_last_error(): ?string
+{
+    return $GLOBALS['sigah_db_error'] ?? null;
 }

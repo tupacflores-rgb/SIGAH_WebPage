@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `contrasena`     VARCHAR(255)  NOT NULL COMMENT 'Hash de password_hash()',
   `rol`            ENUM('admin','docente','alumno') NOT NULL DEFAULT 'docente',
   `estado`         ENUM('activo','inactivo')        NOT NULL DEFAULT 'activo',
-  `fecha_creacion` DATE NOT NULL DEFAULT (CURRENT_DATE),
+  `fecha_creacion` DATE NOT NULL DEFAULT '2026-01-01',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_usuarios_email`   (`email`),
   UNIQUE KEY `uq_usuarios_usuario` (`usuario`)

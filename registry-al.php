@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  | ------------------------------------------------------------------ */
 $busqueda     = trim((string) ($_GET['q'] ?? ''));
 $cursoFiltro  = (string) ($_GET['curso'] ?? '');
-$estudiantes  = read_json('students.json')['estudiantes'] ?? [];
+$estudiantes  = students_all();
 $totalAlumnos = count($estudiantes);
 
 $filtrados = array_values(array_filter($estudiantes, static function (array $a) use ($busqueda, $cursoFiltro): bool {
